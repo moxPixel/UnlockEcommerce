@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+<!-- Page Title Section -->
+<section class="page-title" style="background-image: url(assets/images/background/pattern-16.png)">
+    <div class="pattern-layer-one" style="background-image: url(assets/images/main-slider/pattern-1.png)"></div>
+    <div class="pattern-layer-two" style="background-image: url(assets/images/background/pattern-17.png)"></div>
+    <div class="pattern-layer-three" style="background-image: url(assets/images/background/pattern-18.png)"></div>
+    <div class="pattern-layer-four" style="background-image: url(assets/images/icons/cross-icon.png)"></div>
+    <div class="auto-container">
+        <h2>Connexion</h2>
+        <ul class="page-breadcrumb">
+            <li><a href="index.html">Acceuil</a></li>
+            <li>Connexion</li>
+        </ul>
+    </div>
+</section>
+<!-- End Page Title Section -->
+
+<!--Register Section-->
+<section class="register-section">
+    <div class="auto-container">
+        <section class="row">
+            <div class="col-md-12 p-3">
+                <div class="avatar">
+                    <h1 class="text-center"><img class="rounded-circle" width="150"
+                            src="assets/images/resource/business.png" alt=""></h1>
+                </div>
+            </div>
+        </section>
+        <hr>
+        <div class="row clearfix">
+
+
+            <!--Form Column-->
+            <div class=" d-flex justify-content-center">
+
+
+
+                <!--Login Form-->
+                <div class="styled-form register-form col-md-8">
+
+                    <form method="post">
+                        <div class="form-group">
+                            <label for="inputEmail">Email</label>
+                            <span class="adon-icon"><span class="fa fa-envelope  mt-3"></span></span>
+                            <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                                class="form-control" autocomplete="email" required autofocus
+                                placeholder="Entrez votre adresse email">
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword">Mot de passe</label>
+                            <span class="adon-icon"><span class="fa fa-unlock-alt mt-3"></span></span>
+                            <input type="password" name="password" id="inputPassword" class="form-control"
+                                autocomplete="current-password" required placeholder="Entrez votre mot de passe">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                        </div>
+                        <div class="clearfix">
+                            <div class="form-group pull-left">
+                                <button type="submit" class="theme-btn btn-style-two"><span
+                                        class="txt">Connexion</span></button>
+                            </div>
+
+                        </div>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+<!--End Register Section-->
+
+{% endblock %}

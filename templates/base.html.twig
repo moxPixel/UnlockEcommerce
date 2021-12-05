@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"  href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+    {% block stylesheets %}
+    <link href="{{asset('assets/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/css/responsive.css')}}" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="{{asset('assets/css/color-switcher-design.css')}}" rel="stylesheet" >
+    <link  rel="shortcut icon" href="{{asset('assets/images/favicon.png')}}" type="image/x-icon" >
+    <link href="{{asset('assets/images/favicon.png')}}" type="image/x-icon">
+    <link href="{{asset('assets/fullcalendar/lib/main.css')}}" rel="stylesheet" type="text/css" />
+    <!-- Responsive -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->
+    <!--[if lt IE 9]><script src="js/respond.js"></script><![endif]-->
+    {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+    {% block final_stylesheets '' %}
+
+ 
+</head>
+
+<body class="hidden-bar-wrapper">
+    	<!-- Preloader -->
+	<div class="preloader">
+		<div class="box"></div>
+	</div>
+
+    {% include 'components/header.html.twig'%}
+    {% block body %}
+    {% endblock %}
+    {% include 'components/footer.html.twig'%}
+</body>
+{% block final_javascripts '' %}
+{% block javascripts %}
+<script src="{{asset('assets/js/jquery.js')}}"></script>
+<script src="{{asset('assets/js/popper.min.js')}}"></script>
+<script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.mCustomScrollbar.concat.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.fancybox.js')}}"></script>
+<script src="{{asset('assets/js/appear.js')}}"></script>
+<script src="{{asset('assets/js/parallax.min.js')}}"></script>
+<script src="{{asset('assets/js/tilt.jquery.min.js')}}"></script>
+<script src="{{asset('assets/js/jquery.paroller.min.js')}}"></script>
+<script src="{{asset('assets/js/owl.js')}}"></script>
+<script src="{{asset('assets/js/wow.js')}}"></script>
+<script src="{{asset('assets/js/nav-tool.js')}}"></script>
+<script src="{{asset('assets/js/jquery-ui.js')}}"></script>
+<script src="{{asset('assets/js/script.js')}}"></script>
+<script src="{{asset('assets/js/color-settings.js')}}"></script>
+<script src="{{asset('assets/fullcalendar/lib/main.js')}}"></script>
+<script src="{{asset('assets/fullcalendar/lib/locales-all.js')}}"></script>
+
+ 
+{{ encore_entry_script_tags('app') }}
+{% endblock %}
+</html>
