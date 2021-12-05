@@ -10,7 +10,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 
@@ -22,7 +21,7 @@ class RegisterType extends AbstractType
         ->add('email', EmailType::class, ['attr' => ['placeholder' => 'Email']])
         ->add('phone', TelType::class, ['label' => 'Telephone', 'attr' => ['placeholder' => 'Numero de telephone']])
         ->add('lastname', TextType::class, ['label' => 'Nom', 'attr' => ['placeholder' => 'Nom']])
-        ->add('buisness', TextType::class, ['label' => 'Entreprise', 'attr' => ['placeholder' => 'Entreprise']])
+        ->add('buisness', TextType::class, ['label' => 'Entreprise', 'attr' => ['placeholder' => 'Entreprise'],'required' => false])
         ->add('firstname', TextType::class, ['label' => 'Prenom', 'attr' => ['placeholder' => 'Prenom']])
         ->add('password', RepeatedType::class, [
             'constraints' => new Length([

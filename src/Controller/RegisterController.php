@@ -3,15 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Service\Mailjet;
 use App\Form\RegisterType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Notification\NotificationService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 
@@ -19,8 +18,10 @@ class RegisterController extends AbstractController
 {
     private $passwordEncoder;
     private $doctrine;
-    public function __construct(UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $doctrine)
+    private $mailjet;
+    public function __construct(UserPasswordHasherInterface $passwordEncoder, EntityManagerInterface $doctrine, Mailjet $mailjet)
     {
+        $this->mailjet = $mailjet;
         $this->doctrine = $doctrine;
         $this->passwordEncoder = $passwordEncoder;
 
@@ -53,7 +54,7 @@ class RegisterController extends AbstractController
             $em->flush();
 
             // $this->notificationService->sendNotification("Félicitation {$user->getFirstname()} ! Vous faite desormait partit de l'aventure.", $user);
-            // $this->mailjet->sendEmail($user, "Bienvenue chez Unlock formation, nous venons de vous créer un espace dedier. Vous y' trouvera votre tableau de bord personalisé ! voici votre mot de passe temporaire , gardez le precieusement : "   . $temporaryPassword);
+             $this->mailjet->sendEmail($user, "Bienvenue chez Unlock technologies, nous venons de vous créer un espace dedier. Vous y'trouvera votre tableau de bord personalisé !");
 
             $this->addFlash('success', 'Inscription reussi ! vous allez recevoir un email de confirmation.');
         }
