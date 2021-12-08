@@ -45,7 +45,7 @@ class RegisterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-          
+            $user->setCreatedAt(new \DateTime());
             $user->setPassword(
                 $this->passwordEncoder->hashPassword($user, $user->getPassword())
             );

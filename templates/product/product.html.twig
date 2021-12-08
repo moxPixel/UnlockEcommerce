@@ -1,0 +1,107 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EditUserController!{% endblock %}
+
+{% block body %}
+<!-- Page Title Section -->
+<section class="page-title" style="background-image: url(/assets/images/background/pattern-16.png)">
+    <div class="pattern-layer-one" style="background-image: url(/assets/images/main-slider/pattern-1.png)"></div>
+    <div class="pattern-layer-two" style="background-image: url(/assets/images/background/pattern-17.png)"></div>
+    <div class="pattern-layer-three" style="background-image: url(/assets/images/background/pattern-18.png)"></div>
+    <div class="pattern-layer-four" style="background-image: url(/assets/images/icons/cross-icon.png)"></div>
+    <div class="auto-container">
+        <h2>Produits</h2>
+        <ul class="page-breadcrumb">
+            <li><a href="{{path('account')}}">Dashboard</a></li>
+            <li>Produits</li>
+        </ul>
+    </div>
+</section>
+<!-- End Page Title Section -->
+<section class="register-section">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <!--Form Column-->
+            <div class=" d-flex justify-content-center">
+                <!--Login Form-->
+                <div class="styled-form register-form col-md-8">
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+                        {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                            {% if label == 'success' %}
+                            <span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
+                            {% else %}
+                            <span class="alert-inner--icon"><i class="fe fe-thumbs-down"></i></span>
+                            {% endif %}
+                            <span class="alert-inner--text"><strong>{{ label | title }} : </strong> {{ message | raw
+                                }}</span>
+                            <button type="button" class="btn btn-primary close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                    {{form_start(form) }}
+                    <div class="form-group">
+                        <span class="adon-icon"><span class="fa fa-tenge mt-3"></span></span>
+                        {{form_row(form.name) }}
+                    </div>
+                    <div class="form-group">
+                        <span class="adon-icon"><span class="fa fa-tenge mt-3"></span></span>
+                        {{form_row(form.category) }}
+                    </div>
+                    <div class="form-group">
+                        <span class="adon-icon"><span class="fa fa-tenge mt-3"></span></span>
+                        {{form_row(form.description) }}
+                    </div>
+                    <div class="form-group">
+                        <span class="adon-icon"><span class="fa fa-tenge mt-3"></span></span>
+                        {{form_row(form.price) }}
+                    </div>
+                    <div class="clearfix">
+                        <div class="form-group pull-left">
+                            <button type="submit" class="theme-btn btn-style-two"><span
+                                    class="txt">Ajouter</span></button>
+                        </div>
+                    </div>
+                    {{form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <section>
+
+
+            <table class="table myTable">
+                <thead>
+                    <tr>
+                        <th scope="col">No#</th>
+                        <th scope="col">Categorie</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">prix</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for product in products %}
+                    <tr>
+                        <th scope="row">{{product.id}}</th>
+                        <td>{{product.category.name}}</td>
+                        <td>{{product.name }}</td>
+                        <td>{{product.description }}</td>
+                        <td>{{product.price }} €</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </section>
+    </div>
+
+</section>
+
+<!--End Register Section-->
+
+{% endblock %}

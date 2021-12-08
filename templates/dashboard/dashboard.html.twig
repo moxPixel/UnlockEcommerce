@@ -1,0 +1,826 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AccountController!{% endblock %}
+{% block final_stylesheets %}
+<style>
+	.owl-nav{
+		display: none;
+	}
+</style>
+{% endblock %}
+
+{% block final_javascripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+	 
+		var ctx = document.getElementById("bar");
+		
+var stars2 = [{% for data in stats.userByMonth %}{{ data.total  }},{% endfor %}]
+var frameworks2 = [{% for data in stats.userByMonth %}"{{ data.0.createdat |date('M') }}", {% endfor %}];
+var myChart = new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: frameworks2,
+    datasets: [
+      {
+        label: "Inscriptions",
+        data: stars2,
+        backgroundColor: "#465ddd80",
+        borderColor:"#465ddd80",
+		borderRadius:50,
+        borderWidth: 1
+      },
+    ]
+  },
+  options: {
+        plugins: {
+            legend: {
+                display: false,
+                labels: false
+            },
+		
+        },
+		scales: {
+      y: {
+		grid: {  
+			display: false
+		},
+		  beginAtZero:true,
+      },
+	  x: {
+		  grid: {  
+			  display: false
+			},
+		  beginAtZero:true
+        
+      }
+    
+    }
+
+}
+});
+
+
+	 
+var ctx = document.getElementById("line");
+		
+		var stars = [{% for data in stats.userByMonth %}{{ data.total  }},{% endfor %}]
+		var frameworks = [{% for data in stats.userByMonth %}"{{ data.0.createdat |date('M') }}", {% endfor %}];
+		var myChart = new Chart(ctx, {
+		  type: "line",
+		  data: {
+			labels: frameworks,
+			datasets: [
+			  {
+				label: "commandes",
+				data: stars,
+				backgroundColor: "#d60cb4",
+				borderColor:"#d60cb4",
+			
+				borderWidth: 3
+			  },
+			]
+		  },
+		  options: {
+				plugins: {
+					legend: {
+						display: false,
+						labels: false
+					},
+				
+				},
+				scales: {
+			  y: {
+				grid: {  
+					display: false
+				},
+				  beginAtZero:true,
+			  },
+			  x: {
+				  grid: {  
+					  display: false
+					},
+				  beginAtZero:true
+				
+			  }
+			
+			}
+		
+		}
+		});
+		
+	  </script>
+{% endblock %}
+{% block body %}
+
+
+<div class="page-wrapper">
+
+
+	<!-- Banner Section Four -->
+	<section class="page-title" style="background-image: url(assets/images/background/pattern-15.png)">
+		<div class="pattern-layer-one" style="background-image: url(assets/images/main-slider/pattern-1.png)"></div>
+		<div class="pattern-layer-two" style="background-image: url(assets/images/background/pattern-17.png)"></div>
+		<div class="pattern-layer-three" style="background-image: url(assets/images/background/pattern-18.png)"></div>
+		<div class="pattern-layer-four" style="background-image: url(assets/images/icons/cross-icon.png)"></div>
+		<div class="auto-container">
+			<ul class="page-breadcrumb">
+				<img  src="assets/img/unlockW.png"  alt="" title="" data-depth="0.50">
+				<h2>Bienvenue <span class="text-bold">{{app.user.firstname}}</span></h2>
+			</ul>
+		</div>
+		<div>
+			<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+				viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+				<defs>
+					<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
+					</path>
+				</defs>
+				<g class="parallax">
+					<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 162, 255, 0.568)"></use>
+					<use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)"></use>
+					<use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)"></use>
+					<use xlink:href="#gentle-wave" x="48" y="7" fill="#fff"></use>
+				</g>
+			</svg>
+		</div>
+	</section>
+	<!-- End Banner Section -->
+
+	<!-- About Section / Style Two -->
+		<!-- Counter Section -->
+		<section class="counter-section style-two">
+			<div class="auto-container">
+				<div class="inner-container">
+					<!-- Fact Counter -->
+					<div class="fact-counter">
+						<div class="row clearfix">
+	
+							<!-- Column -->
+							<div class="column counter-column col-lg-3 col-md-6 col-sm-12">
+								<div class="inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+									<div class="content">
+										<div class="count-outer count-box">
+											<span class="count-text" data-speed="2500" data-stop="{{stats.users | length}}">0</span>+
+										</div>
+										<h4 class="counter-title">MEMBRES</h4>
+									</div>
+								</div>
+							</div>
+	
+							<!-- Column -->
+							<div class="column counter-column col-lg-3 col-md-6 col-sm-12">
+								<div class="inner wow fadeInLeft" data-wow-delay="300ms" data-wow-duration="1500ms">
+									<div class="content">
+										<div class="count-outer count-box alternate">
+											<span class="count-text" data-speed="2000" data-stop="{{stats.products | length}}">0</span>+
+										</div>
+										<h4 class="counter-title">FORMULES</h4>
+									</div>
+								</div>
+							</div>
+	
+							<!-- Column -->
+							<div class="column counter-column col-lg-3 col-md-6 col-sm-12">
+								<div class="inner wow fadeInLeft" data-wow-delay="600ms" data-wow-duration="1500ms">
+									<div class="content">
+										<div class="count-outer count-box">
+											<span class="count-text" data-speed="4000" data-stop="93">0</span>+
+										</div>
+										<h4 class="counter-title">COMMANDES</h4>
+									</div>
+								</div>
+							</div>
+	
+							<!-- Column -->
+							<div class="column counter-column col-lg-3 col-md-6 col-sm-12">
+								<div class="inner wow fadeInLeft" data-wow-delay="900ms" data-wow-duration="1500ms">
+									<div class="content">
+										<div class="count-outer count-box">
+											<span class="count-text" data-speed="2000" data-stop="{{stats.categories | length}}">0</span>+
+										</div>
+										<h4 class="counter-title">CATEGORY</h4>
+									</div>
+								</div>
+							</div>
+	
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Counter Section -->
+	
+	<section class="about-section style-two">
+		<div class="circle-layer" style="background-image: url(assets/images/icons/about-circle.png)"></div>
+		<div class="auto-container">
+			<div class="row clearfix">
+				<div class="sec-title centered">
+					<div class="title">Membres</div>
+					<h2>Total des membres inscrit <span class="text-warning">{{stats.users | length}}</span> </h2>
+				</div>
+				<!-- Image Column -->
+				<div class="image-column col-lg-3 col-md-3 col-sm-12">
+					<div class="inner-column">
+						<div class="image titlt" data-tilt data-tilt-max="1">
+							<img src="assets/images/resource/content-image-1.png" alt="" />
+						</div>
+					</div>
+				</div>
+
+				<!-- Content Column -->
+				<div class="content-column col-lg-9 col-md-9 col-sm-12">
+					<div class="inner-column">
+						<!-- Sec Title -->
+						
+						<canvas id="bar"></canvas>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- End About Section / Style Two -->
+
+	<!-- Services Section Two -->
+	<section class="services-section-two style-two">
+		
+		<div class="auto-container">
+			<!-- Sec Title -->
+			<div class="sec-title centered">
+				<div class="title">Membres</div>
+				<h2>Dernier membres inscrit</h2>
+			</div>
+			<div class="inner-container">
+				<div class="clearfix">
+					<section class="testimonial-section">
+						<div class="icon-layer-one" style="background-image: url(assets/images/icons/icon-3.png)"></div>
+						<div class="icon-layer-two" style="background-image: url(assets/images/icons/icon-7.png)"></div>
+						<div class="icon-layer-three" style="background-image: url(assets/images/icons/icon-8.png)"></div>
+						<div class="icon-layer-four" style="background-image: url(assets/images/icons/icon-9.png)"></div>
+						<div class="icon-layer-five" style="background-image: url(assets/images/icons/icon-10.png)"></div>
+						<div class="auto-container">
+							<!-- Sec Title -->
+								<div class="testimonial-carousel owl-carousel owl-theme">
+
+									<!-- Testimonial Block -->
+									<div class="testimonial-block">
+										<div class="inner-box">
+											<div class="pattern-layer"></div>
+											<div class="author-image-outer">
+												<div class="author-image">
+													<img src="assets/images/resource/author-1.png" alt="" />
+												</div>
+												<div class="rating">
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+												</div>
+												<div class="text">I had so much fun working with your specialists on my business project
+													that we will come back soom!</div>
+												<div class="lower-box">
+													<div class="quote-icon fa fa-quote-left"></div>
+													<h6>Margaret Sunsan</h6>
+													<div class="designation">Develper</div>
+												</div>
+											</div>
+										</div>
+									</div>
+					
+									<!-- Testimonial Block -->
+									<div class="testimonial-block">
+										<div class="inner-box">
+											<div class="pattern-layer"></div>
+											<div class="author-image-outer">
+												<div class="author-image">
+													<img src="assets/images/resource/author-2.png" alt="" />
+												</div>
+												<div class="rating">
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star dark"></span>
+												</div>
+												<div class="text">i liked working with these creative guys, who know everything about
+													quality design, innovations and usability,</div>
+												<div class="lower-box">
+													<div class="quote-icon fa fa-quote-left"></div>
+													<h6>Eizabeth Blackwell</h6>
+													<div class="designation">Web Designer</div>
+												</div>
+											</div>
+										</div>
+									</div>
+					
+									<!-- Testimonial Block -->
+									<div class="testimonial-block">
+										<div class="inner-box">
+											<div class="pattern-layer"></div>
+											<div class="author-image-outer">
+												<div class="author-image">
+													<img src="assets/images/resource/author-1.png" alt="" />
+												</div>
+												<div class="rating">
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+												</div>
+												<div class="text">I had so much fun working with your specialists on my business project
+													that we will come back soom!</div>
+												<div class="lower-box">
+													<div class="quote-icon fa fa-quote-left"></div>
+													<h6>Margaret Sunsan</h6>
+													<div class="designation">Develper</div>
+												</div>
+											</div>
+										</div>
+									</div>
+					
+									<!-- Testimonial Block -->
+									<div class="testimonial-block">
+										<div class="inner-box">
+											<div class="pattern-layer"></div>
+											<div class="author-image-outer">
+												<div class="author-image">
+													<img src="assets/images/resource/author-2.png" alt="" />
+												</div>
+												<div class="rating">
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star"></span>
+													<span class="fa fa-star dark"></span>
+												</div>
+												<div class="text">i liked working with these creative guys, who know everything about
+													quality design, innovations and usability,</div>
+												<div class="lower-box">
+													<div class="quote-icon fa fa-quote-left"></div>
+													<h6>Eizabeth Blackwell</h6>
+													<div class="designation">Web Designer</div>
+												</div>
+											</div>
+										</div>
+									</div>
+					
+								</div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<!-- Lower Box -->
+			<div class="lower-box">
+				<div class="text">Pour voir tout les membres<a href="#">Cliquez ici</a> Maintenant.</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Services Section Two -->
+
+
+	<!-- Call To Action Section -->
+	<section class="call-to-action-section style-two"
+		style="background-image: url(assets/images/background/map-pattern.png)">
+		<div class="circle-layer" style="background-image: url(assets/images/resource/cta-bg.png)"></div>
+		<div class="auto-container">
+			<div class="row clearfix">
+
+				<!-- Title Column -->
+				<div class="title-column col-lg-4 col-md-4 col-sm-12">
+					<div class="inner-column">
+						<h2>Voici les commandes passez selon chaques mois !</h2>
+						<div class="text">Vous pouvez accedez au details des ventes</div>
+						<a href="about.html" class="theme-btn btn-style-eight"><span class="txt">Voir tout</span></a>
+					</div>
+				</div>
+
+				<!-- Image Column -->
+				<div class="image-column col-lg-8 col-md-8 col-sm-12">
+					<div class="inner-column">
+						<div class="image titlt" data-tilt data-tilt-max="3">
+							<canvas id="line"></canvas>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- End Call To Action Section -->
+
+	<!-- Team Section Two -->
+	<section class="team-section-two">
+		<div class="auto-container">
+			<!-- Sec Title -->
+			<div class="sec-title centered">
+				<div class="title">NOTRE ÉQUIPE</div>
+				<h2>Notre leadership expert</h2>
+			</div>
+			<div class="row clearfix">
+
+				<!-- Team Block Two -->
+				<div class="team-block-two col-lg-4 col-md-6 col-sm-12">
+					<div class="inner-box">
+						<ul class="team-social-box">
+							<li class="youtube"><a href="#" class="fab fa-youtube"></a><span
+									class="social-name">youtube</span></li>
+							<li class="linkedin"><a href="#" class="fab fa-linkedin-in"></a><span
+									class="social-name">linkedin</span></li>
+							<li class="facebook"><a href="#" class="fab fa-facebook-f"></a><span
+									class="social-name">facebook</span></li>
+							<li class="twitter"><a href="#" class="fab fa-twitter"></a><span
+									class="social-name">twitter</span></li>
+						</ul>
+						<div class="image">
+							<a href="team-detail.html"><img src="assets/images/resource/team-12.jpg" alt="" /></a>
+						</div>
+						<div class="lower-content">
+							<h3><a href="team-detail.html">Christina Tores</a></h3>
+							<div class="designation">CEO of Company</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Team Block Two -->
+				<div class="team-block-two col-lg-4 col-md-6 col-sm-12">
+					<div class="inner-box">
+						<ul class="team-social-box">
+							<li class="youtube"><a href="#" class="fab fa-youtube"></a><span
+									class="social-name">youtube</span></li>
+							<li class="linkedin"><a href="#" class="fab fa-linkedin-in"></a><span
+									class="social-name">linkedin</span></li>
+							<li class="facebook"><a href="#" class="fab fa-facebook-f"></a><span
+									class="social-name">facebook</span></li>
+							<li class="twitter"><a href="#" class="fab fa-twitter"></a><span
+									class="social-name">twitter</span></li>
+						</ul>
+						<div class="image">
+							<a href="team-detail.html"><img src="assets/images/resource/team-13.jpg" alt="" /></a>
+						</div>
+						<div class="lower-content">
+							<h3><a href="team-detail.html">Jacken Mike</a></h3>
+							<div class="designation">General Manager</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Team Block Two -->
+				<div class="team-block-two col-lg-4 col-md-6 col-sm-12">
+					<div class="inner-box">
+						<ul class="team-social-box">
+							<li class="youtube"><a href="#" class="fab fa-youtube"></a><span
+									class="social-name">youtube</span></li>
+							<li class="linkedin"><a href="#" class="fab fa-linkedin-in"></a><span
+									class="social-name">linkedin</span></li>
+							<li class="facebook"><a href="#" class="fab fa-facebook-f"></a><span
+									class="social-name">facebook</span></li>
+							<li class="twitter"><a href="#" class="fab fa-twitter"></a><span
+									class="social-name">twitter</span></li>
+						</ul>
+						<div class="image">
+							<a href="team-detail.html"><img src="assets/images/resource/team-14.jpg" alt="" /></a>
+						</div>
+						<div class="lower-content">
+							<h3><a href="team-detail.html">Regina Blackly</a></h3>
+							<div class="designation">CTO of Company</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- End Team Section Two -->
+
+	<!-- Testimonial Section -->
+	<section class="testimonial-section">
+		<div class="icon-layer-one" style="background-image: url(assets/images/icons/icon-3.png)"></div>
+		<div class="icon-layer-two" style="background-image: url(assets/images/icons/icon-7.png)"></div>
+		<div class="icon-layer-three" style="background-image: url(assets/images/icons/icon-8.png)"></div>
+		<div class="icon-layer-four" style="background-image: url(assets/images/icons/icon-9.png)"></div>
+		<div class="icon-layer-five" style="background-image: url(assets/images/icons/icon-10.png)"></div>
+		<div class="auto-container">
+			<!-- Sec Title -->
+			<div class="sec-title centered">
+				<div class="title">DE VRAIS TÉMOIGNAGES</div>
+				<h2>Que disent-ils de notre
+					<br>entreprise?</h2>
+				<div class="text">Nous savons à quel point l'expérience client est importante pour une entreprise et, par conséquent,
+					nous nous efforçons de faire exceller votre entreprise dans ce domaine.</div>
+			</div>
+
+		
+		</div>
+	</section>
+	<!-- End Testimonial Section -->
+
+	<!-- Pricing Section -->
+	<section class="pricing-section style-three">
+		<div class="pattern-layer" style="background-image: url(assets/images/background/pattern-1.png)"></div>
+		<div class="pattern-layer-two" style="background-image: url(assets/images/background/pattern-20.png)"></div>
+		<div class="auto-container">
+			<!-- Sec Title -->
+			<div class="sec-title centered">
+				<div class="title">Nos pack serenité</div>
+				<h2>Développez votre activité avec le référencement</h2>
+				<div class="text">Nous adoptons une approche consultative pour chaque engagement client et trouvons des
+					solutions concrètes qui aideront votre organisation à obtenir les meilleurs résultats.</div>
+			</div>
+
+			<div class="pricing-tabs tabs-box">
+
+				<!--Tabs Container-->
+				<div class="tabs-content">
+
+					<!--Tab-->
+					<div class="tab active-tab" id="prod-monthly">
+						<div class="content">
+							<div class="row clearfix">
+
+						produit
+							
+							</div>
+						</div>
+					</div>
+
+					<!--Tab-->
+					<div class="tab" id="prod-yearly">
+						<div class="content">
+							<div class="row clearfix">
+
+								<!-- Price Block -->
+								<div class="price-block col-lg-4 col-md-6 col-sm-12">
+									<div class="inner-box">
+										<div class="title">Standard</div>
+										<div class="price">$69.99</div>
+										<ul class="price-list">
+											<li>Social Media Marketing</li>
+											<li>5.600 Keywords</li>
+											<li>One Way Link Building</li>
+											<li>10 Free Optimization</li>
+											<li>10 Press Releases</li>
+										</ul>
+										<a href="#" class="theme-btn btn-style-five"><span class="txt">Buy
+												Now</span></a>
+										<div class="price-pattern-layer"
+											style="background-image: url(assets/images/background/price-pattern-1.png)">
+										</div>
+									</div>
+								</div>
+
+								<!-- Price Block -->
+								<div class="price-block active col-lg-4 col-md-6 col-sm-12">
+									<div class="inner-box">
+										<div class="title">Economy</div>
+										<div class="price">$79.99</div>
+										<ul class="price-list">
+											<li>Social Media Marketing</li>
+											<li>5.600 Keywords</li>
+											<li>One Way Link Building</li>
+											<li>10 Free Optimization</li>
+											<li>10 Press Releases</li>
+										</ul>
+										<a href="#" class="theme-btn btn-style-six"><span class="txt">Buy Now</span></a>
+										<div class="price-pattern-layer style-two"
+											style="background-image: url(assets/images/background/price-pattern-3.png)">
+										</div>
+									</div>
+								</div>
+
+								<!-- Price Block -->
+								<div class="price-block col-lg-4 col-md-6 col-sm-12">
+									<div class="inner-box">
+										<div class="title">Standard</div>
+										<div class="price">$89.99</div>
+										<ul class="price-list">
+											<li>Social Media Marketing</li>
+											<li>5.600 Keywords</li>
+											<li>One Way Link Building</li>
+											<li>10 Free Optimization</li>
+											<li>10 Press Releases</li>
+										</ul>
+										<a href="#" class="theme-btn btn-style-three"><span class="txt">Buy
+												Now</span></a>
+										<div class="price-pattern-layer"
+											style="background-image: url(assets/images/background/price-pattern-2.png)">
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<!--Tab Btns-->
+				<div class="buttons-outer">
+					<ul class="tab-buttons clearfix">
+						<li data-tab="#prod-monthly" class="tab-btn active-btn">Monthly</li>
+						<li data-tab="#prod-yearly" class="tab-btn">Yearly</li>
+					</ul>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- End Pricing Section -->
+
+	<!-- Clients Section -->
+	<section class="clients-section">
+		<div class="auto-container">
+
+			<div class="sponsors-outer">
+				<!--Sponsors Carousel-->
+				<ul class="sponsors-carousel owl-carousel owl-theme">
+					<li class="slide-item">
+						<figure class="image-box"><a href="#"><img src="assets/images/clients/1.png" alt=""></a>
+						</figure>
+					</li>
+					<li class="slide-item">
+						<figure class="image-box"><a href="#"><img src="assets/images/clients/2.png" alt=""></a>
+						</figure>
+					</li>
+					<li class="slide-item">
+						<figure class="image-box"><a href="#"><img src="assets/images/clients/3.png" alt=""></a>
+						</figure>
+					</li>
+					<li class="slide-item">
+						<figure class="image-box"><a href="#"><img src="assets/images/clients/4.png" alt=""></a>
+						</figure>
+					</li>
+					<li class="slide-item">
+						<figure class="image-box"><a href="#"><img src="assets/images/clients/5.png" alt=""></a>
+						</figure>
+					</li>
+					<li class="slide-item">
+						<figure class="image-box"><a href="#"><img src="assets/images/clients/1.png" alt=""></a>
+						</figure>
+					</li>
+					<li class="slide-item">
+						<figure class="image-box"><a href="#"><img src="assets/images/clients/2.png" alt=""></a>
+						</figure>
+					</li>
+					<li class="slide-item">
+						<figure class="image-box"><a href="#"><img src="assets/images/clients/3.png" alt=""></a>
+						</figure>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+	</section>
+	<!-- End Clients Section -->
+
+	<!-- News Section -->
+	<section class="news-section">
+		<div class="pattern-layer" style="background-image: url(assets/images/resource/cta-bg.png)"></div>
+		<div class="auto-container">
+			<!-- Sec Title -->
+			<div class="sec-title">
+				<div class="clearfix">
+					<div class="pull-left">
+						<div class="title">Realisations</div>
+						<h2>Nos derniéres réalisations</h2>
+						<div class="text">Our campaigns get your business in front of the right people at the <br> right
+							time to increase organic traffic and boost engagement.</div>
+					</div>
+					<div class="pull-right">
+						<a href="blog.html" class="theme-btn btn-style-eight"><span class="txt">All News</span></a>
+					</div>
+				</div>
+			</div>
+
+			<div class="row clearfix">
+
+				<!-- News Block / Style Two -->
+				<div class="news-block style-two col-lg-4 col-md-6 col-sm-12">
+					<div class="inner-box wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms">
+						<div class="image">
+							<img src="assets/images/resource/news-1.jpg" alt="" />
+							<!-- Overlay Box -->
+							<div class="overlay-box">
+								<div class="overlay-inner">
+									<div class="content">
+										<a href="news-detail.html" class="icon flaticon-unlink"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="lower-content">
+							<ul class="post-meta">
+								<li><a href="news-detail.html"><span class="icon fa fa-user"></span> Pablo
+										Villalpando</a></li>
+								<li><a href="news-detail.html"><span class="icon fa fa-calendar"></span> November 21,
+										2021</a></li>
+							</ul>
+							<h5><a href="news-detail.html">Google now disregards or overlooks all reciprocal links</a>
+							</h5>
+						</div>
+					</div>
+				</div>
+
+				<!-- News Block / Style Two -->
+				<div class="news-block style-two col-lg-4 col-md-6 col-sm-12">
+					<div class="inner-box wow fadeInUp" data-wow-delay="0ms" data-wow-duration="1500ms">
+						<div class="image">
+							<img src="assets/images/resource/news-2.jpg" alt="" />
+							<!-- Overlay Box -->
+							<div class="overlay-box">
+								<div class="overlay-inner">
+									<div class="content">
+										<a href="news-detail.html" class="icon flaticon-unlink"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="lower-content">
+							<ul class="post-meta">
+								<li><a href="news-detail.html"><span class="icon fa fa-user"></span> Pablo
+										Villalpando</a></li>
+								<li><a href="news-detail.html"><span class="icon fa fa-calendar"></span> November 21,
+										2021</a></li>
+							</ul>
+							<h5><a href="news-detail.html">Absolute Links vs. Relative Links – SEO Intrinsic Value</a>
+							</h5>
+						</div>
+					</div>
+				</div>
+
+				<!-- News Block / Style Two -->
+				<div class="news-block style-two col-lg-4 col-md-6 col-sm-12">
+					<div class="inner-box wow fadeInRight" data-wow-delay="0ms" data-wow-duration="1500ms">
+						<div class="image">
+							<img src="assets/images/resource/news-3.jpg" alt="" />
+							<!-- Overlay Box -->
+							<div class="overlay-box">
+								<div class="overlay-inner">
+									<div class="content">
+										<a href="news-detail.html" class="icon flaticon-unlink"></a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="lower-content">
+							<ul class="post-meta">
+								<li><a href="news-detail.html"><span class="icon fa fa-user"></span> Pablo
+										Villalpando</a></li>
+								<li><a href="news-detail.html"><span class="icon fa fa-calendar"></span> November 21,
+										2021</a></li>
+							</ul>
+							<h5><a href="news-detail.html">How to increase your ROI through scientific SEM?</a></h5>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- End News Section -->
+
+	
+</div>
+<!--End pagewrapper-->
+
+<!-- Color Palate / Color Switcher -->
+
+<div class="color-palate">
+	<div class="color-trigger">
+		<i class="fas fa-cog"></i>
+	</div>
+	<div class="color-palate-head">
+		<h6>Vos préferences</h6>
+	</div>
+	<h5>Position</h5>
+	<ul class="rtl-version option-box">
+		<li class="rtl">Droitier</li>
+		<li>Gaucher</li>
+	</ul>
+	<h5>Navigation fix</h5>
+	<ul class="header-version option-box">
+		<li class="box">Non</li>
+		<li>Oui</li>
+	</ul>
+	<h5>Verion obscure</h5>
+	<ul class="dark-version option-box">
+		<li class="box">Oui</li>
+		<li>Non</li>
+	</ul>
+
+
+	<div class="palate-foo">
+		<span>Pour une meilleur experience utilisateur</span>
+	</div>
+
+</div>
+
+
+<!-- Scroll To Top -->
+<div class="back-to-top scroll-to-target show-back-to-top" data-target="html">TOP</div>
+
+
+{% endblock %}

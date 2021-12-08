@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello EditUserController!{% endblock %}
+
+{% block body %}
+<!-- Page Title Section -->
+<section class="page-title" style="background-image: url(/assets/images/background/pattern-16.png)">
+    <div class="pattern-layer-one" style="background-image: url(/assets/images/main-slider/pattern-1.png)"></div>
+    <div class="pattern-layer-two" style="background-image: url(/assets/images/background/pattern-17.png)"></div>
+    <div class="pattern-layer-three" style="background-image: url(/assets/images/background/pattern-18.png)"></div>
+    <div class="pattern-layer-four" style="background-image: url(/assets/images/icons/cross-icon.png)"></div>
+    <div class="auto-container">
+        <h2>Utilisateurs</h2>
+        <ul class="page-breadcrumb">
+            <li><a href="{{path('account')}}">Dashboard</a></li>
+            <li>Utilisateurs</li>
+        </ul>
+    </div>
+</section>
+<!-- End Page Title Section -->
+<section class="register-section">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <!--Form Column-->
+            <div class=" d-flex justify-content-center">
+                <!--Login Form-->
+                <div class="styled-form register-form col-md-8">
+                    <div class="col-sm-12 col-lg-12 col-xl-12">
+                        {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                        <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                            {% if label == 'success' %}
+                            <span class="alert-inner--icon"><i class="fe fe-thumbs-up"></i></span>
+                            {% else %}
+                            <span class="alert-inner--icon"><i class="fe fe-thumbs-down"></i></span>
+                            {% endif %}
+                            <span class="alert-inner--text"><strong>{{ label | title }} : </strong> {{ message | raw
+                                }}</span>
+                            <button type="button" class="btn btn-primary close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                        {% endfor %}
+                        {% endfor %}
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+        <section>
+
+           
+            <table class="table myTable">
+                <thead>
+                    <tr>
+                        <th scope="col">No#</th>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prenom</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Telephone</th>
+                    
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <th scope="row">{{user.id}}</th>
+                        <td >{{user.firstname}}</td>
+                        <td >{{user.lastname}}</td>
+                        <td >{{user.email}}</td>
+                        <td >{{user.phone}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+           
+        </section>
+    </div>
+    
+</section>
+
+<!--End Register Section-->
+
+{% endblock %}

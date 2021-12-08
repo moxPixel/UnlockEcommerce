@@ -36,6 +36,26 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+
+        /**
+     * Calcule du nombres de membres par mois pour l annéé en cour
+     * @return int|mixed
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findUsersForMonth(): array
+    {
+        $date = new \DateTime();
+        return $this->createQueryBuilder('u')
+            ->addSelect('MONTH(u.createdAt) as month , COUNT(u.createdAt) as total')
+            ->andWhere('YEAR(u.createdAt) = YEAR(:dateNow)')
+            ->setParameter('dateNow', $date->format('Y-m-d 00:00:00'))
+            ->groupBy('month')
+            ->orderBy('month', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
