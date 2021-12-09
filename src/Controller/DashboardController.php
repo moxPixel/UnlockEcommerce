@@ -20,10 +20,11 @@ class DashboardController extends AbstractController
         $this->doctrine = $doctrine;
     }
     /**
-     * @Route("/dashboard", name="dashboard")
+     * @Route("/admin/dashboard", name="dashboard")
      */
     public function dashboard(UserRepository $userRepository): Response
     {
+     
         $stats = [
             "users" => $this->doctrine->getRepository(User::class)->findAll(),
             "products" => $this->doctrine->getRepository(Product::class)->findAll(),

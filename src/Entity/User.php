@@ -31,6 +31,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $roles = [];
 
+       /**
+     *@var string
+     */
+    private $role;
+
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
@@ -121,6 +126,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->roles = $roles;
 
         return $this;
+    }
+
+
+    public function getRole(): ?string
+    {
+        $UserRoles = $this->getRoles();
+        $acces =  implode(",", $UserRoles);
+    
+        $admin = "Admin";
+        $user = "User";
+        switch ($acces) {
+            case  'ROLE_ADMIN,ROLE_USER':
+                return $admin;
+                break;
+            case 'ROLE_USER':
+                return $user;
+                break;
+        }
+        return "";
     }
 
     /**
@@ -229,9 +253,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
- 
- 
-
-
 }
