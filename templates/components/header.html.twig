@@ -181,6 +181,7 @@
 								</div>
 							</li>
 							{% endif%}
+						
 						</ul>
 					</div>
 				</nav>
@@ -195,8 +196,13 @@
 					</div>
 
 					<!-- Search Btn -->
+					{% if (app.user) and (app.user.role != "Admin") %}
 					<div class="search-box-btn search-box-outer"><span class="icon fa fa-search"></span></div>
-
+					{% else %}
+					<a href="{{path('cart')}}" class="search-box-btn "><img width="58" src="{{asset('assets/img/cart.png')}}" alt="Mon panier"></a>
+				
+					{% endif %}
+				
 				</div>
 			</div>
 
@@ -226,8 +232,13 @@
 					</div>
 
 					<!-- Search Btn -->
+					{% if (app.user) and (app.user.role != "Admin") %}
 					<div class="search-box-btn search-box-outer"><span class="icon fa fa-search"></span></div>
-
+					{% else %}
+					<a href="{{path('cart')}}" class="search-box-btn "><img width="58" src="{{asset('assets/img/cart.png')}}" alt="Mon panier"></a>
+				
+					{% endif %}
+				
 				</div>
 
 			</div>

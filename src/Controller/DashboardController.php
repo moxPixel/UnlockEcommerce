@@ -31,8 +31,7 @@ class DashboardController extends AbstractController
             "categories" => $this->doctrine->getRepository(Category::class)->findAll(),
             "userByMonth" => $userRepository->findUsersForMonth()
         ];
-
-
+      
         return $this->render('dashboard/dashboard.html.twig', [
             'stats' => $stats,
 
