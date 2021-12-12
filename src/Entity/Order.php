@@ -31,15 +31,21 @@ class Order
      */
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $categoryName;
 
     /**
      * @ORM\OneToMany(targetEntity=OrderDetails::class, mappedBy="myOrder")
      */
     private $orderDetails;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPaid;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $categoryName;
 
     public function __construct()
     {
@@ -75,17 +81,6 @@ class Order
         return $this;
     }
 
-    public function getCategoryName(): ?string
-    {
-        return $this->categoryName;
-    }
-
-    public function setCategoryName(string $categoryName): self
-    {
-        $this->categoryName = $categoryName;
-
-        return $this;
-    }
 
     /**
      * @return Collection|OrderDetails[]
@@ -113,6 +108,30 @@ class Order
                 $orderDetail->setMyOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): self
+    {
+        $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getCategoryName(): ?string
+    {
+        return $this->categoryName;
+    }
+
+    public function setCategoryName(string $categoryName): self
+    {
+        $this->categoryName = $categoryName;
 
         return $this;
     }

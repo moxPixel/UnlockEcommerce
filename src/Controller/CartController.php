@@ -20,7 +20,7 @@ class CartController extends AbstractController
      */
     public function myCart(Cart $cart): Response
     {
-
+// dd($cart->getFullCart());
         return $this->render('cart/myCart.html.twig', [
             'cart' => $cart->getFullCart()
         ]);

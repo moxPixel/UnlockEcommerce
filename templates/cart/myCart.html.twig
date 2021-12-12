@@ -14,15 +14,12 @@
     <div class="auto-container">
         <ul class="page-breadcrumb">
             <h1 class="text-center">
-                {% if app.user.picture is not null %}
+              
                 <img class=" img-fluid rounded-circle" style="border:solid white 5px;width: 250px;height:250px"
-                    src="{{ asset('uploads/avatar/' ~  app.user.picture )}}" alt="">
-                {% else %}
-                <img class=" img-fluid rounded-circle" style="border:solid white 5px;width: 250px;height:250px"
-                    src="assets/images/resource/user.png" alt="">
-                {% endif %}
+                    src="{{asset('assets/img/cart.png')}}" alt="">
+            
             </h1>
-            <h2>Bienvenue <span class="text-bold">{{app.user.firstname}}</span></h2>
+            <h2>Mon panier</span></h2>
         </ul>
     </div>
     <div>
@@ -50,20 +47,8 @@
 
             <!--Form Column-->
             <div class=" container-fluid">
-                <h1 class="text-muted">Mon panier</h1>
-                <section class="row">
-                    <div class="col-md-12 p-3" style="background-color:#185fa5;border-radius: 30px 50px 60px;">
-                        <div class="avatar">
-                            <h1 class="text-center"><img class="rounded-circle" width="150"
-                                    src="{{asset('assets/img/cart.png')}}" alt=""></h1>
-                            <div class="block-menu text-center text-white mt-1">
-                                <a href="{{path('edit_user')}}">Edité mes informations</a> | <a
-                                    href="{{path('edit_user')}}">Edité mon mot de passe</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </section>
+     
+          
                 <hr>
                 <section>
                     {% if cart is not empty %}
@@ -80,33 +65,33 @@
                             </thead>
                             <tbody>
                                 {% set total = null %}
+                                {% for product in cart %}
                                 <tr>
-                                    {% for product in cart %}
-                                    <td>{{product.product.0.category.name}}</td>
+                                    <td>{{product.product.category.name}}</td>
                                     <td>
-                                        <a href="{{path('add_to_cart',{'id': product.product.0.id})}}"><img width="15" src="{{asset('assets/img/add.png')}}" alt="Ajouter"></a>
+                                        <a href="{{path('add_to_cart',{'id': product.product.id})}}"><img width="15" src="{{asset('assets/img/add.png')}}" alt="Ajouter"></a>
 
                                       <span class="text-primary">( X{{product.quantity}} )</span>
 
-                                        <a href="{{path('decrease_to_cart',{'id': product.product.0.id})}}"><img width="15" src="{{asset('assets/img/minus.png')}}" alt="Diminuer"></a>
+                                        <a href="{{path('decrease_to_cart',{'id': product.product.id})}}"><img width="15" src="{{asset('assets/img/minus.png')}}" alt="Diminuer"></a>
                                     </td>
-                                    <td>{{product.product.0.price | number_format(2,',','.')}}€ </td>
-                                    <td>{{(product.product.0.price * product.quantity) | number_format(2,',','.')}}€</td>
-                                    <td><a href="{{path('delete_to_cart',{'id': product.product.0.id})}}"><img width="18" src="{{asset('assets/img/trash.png')}}" alt="Supprimer ma formule"></a></td>
-                                    {% set total = total + (product.product.0.price * product.quantity)%}
-                                    {% endfor %}
+                                    <td>{{product.product.price | number_format(2,',','.')}}€ </td>
+                                    <td>{{(product.product.price * product.quantity) | number_format(2,',','.')}}€</td>
+                                    <td><a href="{{path('delete_to_cart',{'id': product.product.id})}}"><img width="18" src="{{asset('assets/img/trash.png')}}" alt="Supprimer ma formule"></a></td>
+                                    {% set total = total + (product.product.price * product.quantity)%}
                                 </tr>
+                                {% endfor %}
                             </tbody>
                         </table>
                         <div class="text-right">
                             <b>Formule total: {{cart | length}}</b><br>
                             <b>Total de mon panier: {{(total) | number_format(2,',','.')}}€</b><br>
-                           <a class="btn btn-success btn-block" href="">Validez mon panier</a>
+                           <a class="btn btn-success btn-block" href="{{path('order')}}">Validez mon panier</a>
                         </div>
                     </div>
                     {% endif %}
                     {% if cart is empty %}
-                    <h1 class="text-muted text-center">Aucune commandes pour le moment.</h1>
+                    <h1 class="text-muted text-center">Aucune formule pour le moment.</h1>
                     {% endif %}
                 </section>
 

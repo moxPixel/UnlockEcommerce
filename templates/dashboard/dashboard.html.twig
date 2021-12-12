@@ -64,8 +64,8 @@
 
 	var ctx = document.getElementById("line");
 
-	var stars = [{% for data in stats.userByMonth %}{{ data.total }}, {% endfor %}]
-	var frameworks = [{% for data in stats.userByMonth %}"{{ data.0.createdat |date('M') }}", {% endfor %}];
+	var stars = [{% for data in stats.orderByMonth %}{{ data.total }}, {% endfor %}]
+	var frameworks = [{% for data in stats.orderByMonth %}"{{ data.0.createdat |date('M') }}", {% endfor %}];
 	var myChart = new Chart(ctx, {
 		type: "line",
 		data: {
@@ -170,7 +170,7 @@
 											data-wow-duration="1500ms">
 											<div class="content">
 												<div class="count-outer count-box">
-													<span class="count-text" data-speed="4000" data-stop="93">0</span>+
+													<span class="count-text" data-speed="4000" data-stop="{{stats.orders | length}}">0</span>+
 												</div>
 												<h4 class="counter-title">COMMANDES</h4>
 											</div>

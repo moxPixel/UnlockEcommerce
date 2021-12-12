@@ -64,7 +64,7 @@ class Cart
         if ($this->get() > 0) {
 
             foreach ($this->get() as $id => $quantity) {
-                $productObject = $this->entityManager->getRepository(Product::class)->findBy(['id' => $id]);
+                $productObject = $this->entityManager->getRepository(Product::class)->find($id);
                 if (!$productObject) {
                     $this->decrease($id);
                     continue;

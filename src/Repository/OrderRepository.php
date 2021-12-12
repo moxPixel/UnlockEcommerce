@@ -19,22 +19,41 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
-    // /**
-    //  * @return Order[] Returns an array of Order objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Order[] Returns an array of Order objects
+    */
+    public function findByOrderIsNotPaid($isPaid,$user)
     {
         return $this->createQueryBuilder('o')
-            ->andWhere('o.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('o.user = :user')
+            ->andWhere('o.isPaid = :isPaid')
+            ->setParameter('isPaid', $isPaid)
+            ->setParameter('user', $user)
             ->orderBy('o.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+
+       /**
+     * Calcule le nombre de dates par mois pour l'annéé en cour
+     * @return int|mixed
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findOrderByMonth(): array
+    {
+        $date = new \DateTime();
+        return $this->createQueryBuilder('o')
+            ->addSelect('MONTH(o.createdAt) as month ,  COUNT(o.createdAt)  as total')
+            ->andWhere('YEAR(o.createdAt) = YEAR(:dateNow)')
+            ->setParameter('dateNow', $date->format('Y-m-d 00:00:00'))
+            ->groupBy('month')
+            ->orderBy('month', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+    
 
     /*
     public function findOneBySomeField($value): ?Order

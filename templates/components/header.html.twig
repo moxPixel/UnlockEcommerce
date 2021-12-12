@@ -153,8 +153,8 @@
 										<div class="column col-lg-3 col-md-4 col-sm-12">
 											<h3>Services</h3>
 											<ul>
-												<li><a href="content-marketing.html">Developpement</a></li>
-												<li><a href="social-marketing.html">Formation</a></li>
+												<li><a href="{{path('category')}}">Categorie</a></li>
+												<li><a href="{{path('product')}}">Formule</a></li>
 												<li><a href="app-development.html">Degign</a></li>
 												<li><a href="seo.html">Marketing</a></li>
 											</ul>
@@ -196,7 +196,7 @@
 					</div>
 
 					<!-- Search Btn -->
-					{% if (app.user) and (app.user.role != "Admin") %}
+					{% if (app.user) and (app.user.role == "Admin") %}
 					<div class="search-box-btn search-box-outer"><span class="icon fa fa-search"></span></div>
 					{% else %}
 					<a href="{{path('cart')}}" class="search-box-btn "><img width="58" src="{{asset('assets/img/cart.png')}}" alt="Mon panier"></a>
@@ -232,7 +232,7 @@
 					</div>
 
 					<!-- Search Btn -->
-					{% if (app.user) and (app.user.role != "Admin") %}
+					{% if (app.user) and (app.user.role == "Admin") %}
 					<div class="search-box-btn search-box-outer"><span class="icon fa fa-search"></span></div>
 					{% else %}
 					<a href="{{path('cart')}}" class="search-box-btn "><img width="58" src="{{asset('assets/img/cart.png')}}" alt="Mon panier"></a>
