@@ -23,9 +23,11 @@ class HomeController extends AbstractController
      */
     public function home(): Response
     {
-        $products = $this->doctrine->getRepository(Product::class)->findAll();
+        $productForDev = $this->doctrine->getRepository(Product::class)->findBy(['category' => '1']);
+        $productForForm = $this->doctrine->getRepository(Product::class)->findBy(['category' => '2']);
         return $this->render('home/home.html.twig', [
-            'products' =>  $products,
+            'dev' => $productForDev,
+            'form' => $productForForm,
         ]);
     }
 }

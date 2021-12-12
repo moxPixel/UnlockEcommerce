@@ -613,7 +613,7 @@
 
 						
 
-						{% for product in products %}
+						{% for product in dev %}
 								<!-- Price Block -->
 										<!-- Price Block -->
 										<div class="price-block col-lg-4 col-md-6 col-sm-12">
@@ -643,64 +643,23 @@
 						<div class="content">
 							<div class="row clearfix">
 
+								{% for product in form %}
 								<!-- Price Block -->
-								<div class="price-block col-lg-4 col-md-6 col-sm-12">
-									<div class="inner-box">
-										<div class="title">Standard</div>
-										<div class="price">$69.99</div>
-										<ul class="price-list">
-											<li>Social Media Marketing</li>
-											<li>5.600 Keywords</li>
-											<li>One Way Link Building</li>
-											<li>10 Free Optimization</li>
-											<li>10 Press Releases</li>
-										</ul>
-										<a href="#" class="theme-btn btn-style-five"><span class="txt">Buy
-												Now</span></a>
-										<div class="price-pattern-layer"
-											style="background-image: url(assets/images/background/price-pattern-1.png)">
+										<!-- Price Block -->
+										<div class="price-block active col-lg-4 col-md-6 col-sm-12">
+											<div class="inner-box" style="height:600px;">
+												<div class="title">{{product.name}}</div>
+												<div class="price">{{product.price}}€</div>
+												<ul class="price-list">
+													<li>{{product.description}}</li>
+												</ul>
+												<a href="{{ path('add_to_cart',{'id':product.id})}}" class="theme-btn btn-style-eleven"><span class="txt">Ajoutez au panier</span></a>
+												<div class="price-pattern-layer style-two"
+													style="background-image: url(assets/images/background/price-pattern-3.png)">
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-
-								<!-- Price Block -->
-								<div class="price-block active col-lg-4 col-md-6 col-sm-12">
-									<div class="inner-box">
-										<div class="title">Economy</div>
-										<div class="price">$79.99</div>
-										<ul class="price-list">
-											<li>Social Media Marketing</li>
-											<li>5.600 Keywords</li>
-											<li>One Way Link Building</li>
-											<li>10 Free Optimization</li>
-											<li>10 Press Releases</li>
-										</ul>
-										<a href="#" class="theme-btn btn-style-six"><span class="txt">Buy Now</span></a>
-										<div class="price-pattern-layer style-two"
-											style="background-image: url(assets/images/background/price-pattern-3.png)">
-										</div>
-									</div>
-								</div>
-
-								<!-- Price Block -->
-								<div class="price-block col-lg-4 col-md-6 col-sm-12">
-									<div class="inner-box">
-										<div class="title">Standard</div>
-										<div class="price">$89.99</div>
-										<ul class="price-list">
-											<li>Social Media Marketing</li>
-											<li>5.600 Keywords</li>
-											<li>One Way Link Building</li>
-											<li>10 Free Optimization</li>
-											<li>10 Press Releases</li>
-										</ul>
-										<a href="#" class="theme-btn btn-style-three"><span class="txt">Buy
-												Now</span></a>
-										<div class="price-pattern-layer"
-											style="background-image: url(assets/images/background/price-pattern-2.png)">
-										</div>
-									</div>
-								</div>
+					     	{% endfor %}
 
 							</div>
 						</div>
