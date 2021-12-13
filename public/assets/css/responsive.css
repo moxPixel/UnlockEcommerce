@@ -1,7 +1,9 @@
 /* Merix Creative Digital Agency HTML-5 Template HTML Template*/
 
 @media only screen and (max-width: 1340px){
-
+	.logoHome{
+		width:70%;
+	}
 	.page-wrapper{
 		overflow:hidden;	
 	}
@@ -9,7 +11,9 @@
 }
 
 @media only screen and (max-width: 1140px){
-	
+	.logoHome{
+		width:70%;
+	}
 	.main-header{
 		margin:0px !important;
 	}
@@ -198,6 +202,10 @@
 
 @media only screen and (max-width: 1023px){
 	
+
+	.logoHome{
+		width:70%;
+	}
 	.main-header .main-box .logo-box {
 		position:relative;
 		left:0px;
@@ -675,6 +683,9 @@
 
 @media only screen and (max-width: 767px){
 	
+	.logoHome{
+		width:70%;
+	}
 	.header-upper .logo-outer {
 		position:relative;
 		left:0px;
@@ -1304,6 +1315,9 @@
 		display:none;
 	}
 	
+	.logoHome{
+		width:70%;
+	}
 }
 
 @media only screen and (max-width: 479px) {
