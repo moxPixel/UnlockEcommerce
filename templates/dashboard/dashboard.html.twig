@@ -1,472 +1,891 @@
-{% extends 'base.html.twig' %}
+{% extends 'base.admin.html.twig' %}
 
 {% block title %}Hello AccountController!{% endblock %}
 {% block final_stylesheets %}
-<style>
-	.owl-nav {
-		display: none;
-	}
-</style>
+
 {% endblock %}
 
-{% block final_javascripts %}
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% block final_javascripts_chart  %}
 <script>
+$(function(e){
+ 
+	
+	
+ /*-- Jvector Map -- */
+ $('#world-map-markers').vectorMap({
+	 map : 'world_mill_en',
+	 scaleColors : ['#6259ca', '#f0f0ff'],
+	 normalizeFunction : 'polynomial',
+	 hoverOpacity : 0.7,
+	 hoverColor : false,
+	 regionStyle : {
+		 initial : {
+			 fill : 'rgba(183, 179, 220,0.3)'
+		 }
+	 },
+	 markerStyle: {
+		 initial: {
+			 r: 6,
+			 'fill': '#6259ca',
+			 'fill-opacity': 0.9,
+			 'stroke': '#fff',
+			 'stroke-width' : 2.5,
+		 },
 
-	var ctx = document.getElementById("bar");
+		 hover: {
+			 'stroke': '#fff',
+			 'fill-opacity': 1,
+			 'stroke-width': 1.5
+		 }
+	 },
+	 backgroundColor : 'transparent',
+	 markers : [{
+		 latLng : [-23.533773, -46.625290],
+		 name : 'Brazil'
+	 }, {
+		 latLng : [55.751244, 37.618423],
+		 name : 'Russia'
+	 }, {
+		 latLng : [52.237049, 21.017532],
+		 name : 'Poland'
+	 },  {
+		 latLng : [51.213890, -110.005470],
+		 name : 'Canada'
+	 },{
+		 latLng : [20.5937, 78.9629],
+		 name : 'India'
+	 }]
+ });
+ /*-- End Jvector Map -- */
+ 
+ 
+ /* Peity charts */
 
-	var stars2 = [{% for data in stats.userByMonth %}{{ data.total }}, {% endfor %}]
-	var frameworks2 = [{% for data in stats.userByMonth %}"{{ data.0.createdat |date('M') }}", {% endfor %}];
-	var myChart = new Chart(ctx, {
-		type: "bar",
-		data: {
-			labels: frameworks2,
-			datasets: [
-				{
-					label: "Inscriptions",
-					data: stars2,
-					backgroundColor: "#465ddd80",
-					borderColor: "#465ddd80",
-					borderRadius: 50,
-					borderWidth: 1
-				},
-			]
-		},
-		options: {
-			plugins: {
-				legend: {
-					display: false,
-					labels: false
-				},
+ $('.peity-donut').peity('donut');
+ 
+ 
+ /*LIne-Chart */
+ var ctx = document.getElementById("revenuechart").getContext('2d');
+ var myChart = new Chart(ctx, {
+	 type: 'line',
 
-			},
-			scales: {
-				y: {
-					grid: {
-						display: false
-					},
-					beginAtZero: true,
-				},
-				x: {
-					grid: {
-						display: false
-					},
-					beginAtZero: true
+	 data: {
+		 labels: [{% for data in stats.orderByMonthIsPaid %}"{{ data.0.createdat |date('M') }}", {% endfor %}],
+		 datasets: [
+		 {
+		
+			 label: 'Commande payé',
+			 data: [{% for data in stats.orderByMonthIsPaid %}{{ data.total }}, {% endfor %}],
+			 borderWidth: 3,
+			 backgroundColor: 'transparent',
+			 borderColor: '#6259ca',
+			 pointBackgroundColor: '#ffffff',
+			 pointRadius: 0,
+		 }]
+	 },
+	 options: {
+		 responsive: true,
+		 maintainAspectRatio: false,
+		 tooltips: {
+			 enabled: true,
+		 },
+		 tooltips: {
+			 mode: 'index',
+			 intersect: false,
+		 },
+		 hover: {
+			 mode: 'nearest',
+			 intersect: true
+		 },
+		 scales: {
+			 xAxes: [{
+				 ticks: {
+					 fontColor: "#c8ccdb",
+				 },
+				 barPercentage: 0.7,
+				 display: true,
+				 gridLines: {
+					 color:'rgba(119, 119, 142, 0.2)',
+					 zeroLineColor: 'rgba(119, 119, 142, 0.2)',
+				 }
+			 }],
+			 yAxes: [{
+				 ticks: {
+					 fontColor: "#77778e",
+				 },
+				 display: true,
+				 gridLines: {
+					 color:'rgba(119, 119, 142, 0.2)',
+					 zeroLineColor: 'rgba(119, 119, 142, 0.2)',
+				 },
+				
+				 scaleLabel: {
+					 display: true,
+					 labelString: 'Thousands',
+					 fontColor: 'transparent'
+				 }
+			 }]
+		 },
+		 legend: {
+			 display: true,
+			 width:30,
+			 height:30,
+			 borderRadius:50,
+			 labels: {
+				 fontColor: "#77778e"
+			 },
+		 },
+	 }
+ });
+ 
+ /*--- Apex (#chart) ---*/
+ var options = {
+	 chart: {
+	 height: 265,
+	 type: 'radialBar',
+	 offsetX: 0,
+	 offsetY: 0,
+ },
+ plotOptions: {
+	 radialBar: {
+	 startAngle: -135,
+	 endAngle: 135,
+	 size: 120,
+	 imageWidth: 50,
+	 imageHeight: 50,
+	 track: {	
+		 strokeWidth: "80%",	
+		 background: 'transparent',	
+	 },
+	 dropShadow: {
+		 enabled: false,
+		 top: 0,
+		 left: 0,
+		 bottom: 0,
+		 blur: 3,
+		 opacity: 0.5
+	 },
+	 dataLabels: {
+	   name: {
+		 fontSize: '16px',
+		 color: undefined,
+		 offsetY: 30,
+	   },
+	   hollow: {	
+		  size: "60%"	
+		 },
+	   value: {
+		 offsetY: -10,
+		 fontSize: '22px',
+		 color: undefined,
+		 formatter: function (val) {
+		   return val + "%";
+		 }
+	   }
+	 }
+   }
+ },
+ colors: ['#6259ca'],
+ fill: {
+	 type: "gradient",
+	 gradient: {
+		 shade: "dark",
+		 type: "horizontal",
+		 shadeIntensity: .5,
+		 gradientToColors: ['#6259ca'],
+		 inverseColors: !0,
+		 opacityFrom: 1,
+		 opacityTo: 1,
+		 stops: [0, 100]
+	 }
+ },
+ stroke: {
+	 dashArray: 4
+ },
+ series: [{{stats.ordersValid | length * stats.ordersValid | length / 100}}],	
+	 labels: [""]
+ };
 
-				}
+ var chart = new ApexCharts(document.querySelector("#recentorders"), options);
+ chart.render();
+ /*--- Apex (#chart)closed ---*/
 
-			}
-
-		}
-	});
-
-
-
-	var ctx = document.getElementById("line");
-
-	var stars = [{% for data in stats.orderByMonth %}{{ data.total }}, {% endfor %}]
-	var frameworks = [{% for data in stats.orderByMonth %}"{{ data.0.createdat |date('M') }}", {% endfor %}];
-	var myChart = new Chart(ctx, {
-		type: "line",
-		data: {
-			labels: frameworks,
-			datasets: [
-				{
-					label: "commandes",
-					data: stars,
-					backgroundColor: "#d60cb4",
-					borderColor: "#d60cb4",
-
-					borderWidth: 3
-				},
-			]
-		},
-		options: {
-			plugins: {
-				legend: {
-					display: false,
-					labels: false
-				},
-
-			},
-			scales: {
-				y: {
-					grid: {
-						display: false
-					},
-					beginAtZero: true,
-				},
-				x: {
-					grid: {
-						display: false
-					},
-					beginAtZero: true
-
-				}
-
-			}
-
-		}
-	});
-
+ 
+ 
+ 
+ 
+ 
+ 
+});
 </script>
 {% endblock %}
 {% block body %}
 
-<div class="page-wrapper">
+		<!-- Page -->
+		<div class="page">
 
+			<!-- Sidemenu -->
+			{% include 'components_admin/sidebar.html.twig' %}
+			<!-- End Sidemenu -->
 
-	<!-- Banner Section Four -->
-	<section class="page-title" style="background-image: url({{asset('assets/images/background/b3.png')}})">
-		<div class="pattern-layer-one"
-			style="background-image: url({{asset('assets/images/main-slider/pattern-1.png')}})"></div>
-		<div class="pattern-layer-two"
-			style="background-image: url({{asset('assets/images/background/pattern-17.png')}})"></div>
-		<div class="pattern-layer-three"
-			style="background-image: url({{asset('assets/images/background/pattern-18.png')}})"></div>
-		<div class="pattern-layer-four" style="background-image: url({{asset('assets/images/icons/cross-icon.png')}})">
-		</div>
-		<div class="auto-container">
-			<ul class="page-breadcrumb">
-				<!-- Counter Section -->
-				<section class="counter-section style-two ">
-					<div class="auto-container">
-						<div class="inner-containeradmin p-1" style="background-color:#5f6f9036; border-radius:22px;">
-							<!-- Fact Counter -->
-							<div class="fact-counter">
-								<div class="row clearfix mt-5">
-
-									<!-- Column -->
-									<div class="column counter-column col-lg-3 col-md-6 col-sm-12">
-										<div class="inner wow fadeInLeft" data-wow-delay="0ms"
-											data-wow-duration="1500ms">
-											<div class="content">
-												<div class="count-outer count-box">
-													<span class="count-text" data-speed="2500"
-														data-stop="{{stats.users | length}}">0</span>+
-												</div>
-												<h4 class="counter-title">MEMBRES</h4>
-											</div>
+			<!-- Main Header-->
+			<div class="main-header side-header sticky">
+				<div class="container-fluid">
+					<div class="main-header-left">
+						<a class="main-header-menu-icon" href="#" id="mainSidebarToggle"><span></span></a>
+					</div>
+					<div class="main-header-center">
+						<div class="responsive-logo">
+							<a href="index.html"><img style="width:90px;" src="{{asset('assets/img/unlock.png')}}" class="mobile-logo" alt="logo"></a>
+							<a href="index.html"><img style="width:90px;" src="{{asset('assets/img/unlock.png')}}" class="mobile-logo-dark" alt="logo"></a>
+						</div>
+						<div class="input-group">
+						
+							<input type="search" class="form-control" placeholder="Recherche...">
+							<button class="btn search-btn"><i class="fe fe-search"></i></button>
+						</div>
+					</div>
+					<div class="main-header-right">
+					
+						
+						<div class="dropdown d-md-flex">
+							<a class="nav-link icon full-screen-link" href="">
+								<i class="fe fe-maximize fullscreen-button fullscreen header-icons"></i>
+								<i class="fe fe-minimize fullscreen-button exit-fullscreen header-icons"></i>
+							</a>
+						</div>
+						<div class="dropdown main-header-notification">
+							<a class="nav-link icon" href="">
+								<i class="fe fe-bell header-icons"></i>
+								<span class="badge badge-danger nav-link-badge">4</span>
+							</a>
+							<div class="dropdown-menu">
+								<div class="header-navheading">
+									<p class="main-notification-text">You have 1 unread notification<span class="badge badge-pill badge-primary ml-3">View all</span></p>
+								</div>
+								<div class="main-notification-list">
+									<div class="media new">
+										<div class="main-img-user online"><img alt="avatar" src="../assets/img/users/5.jpg"></div>
+										<div class="media-body">
+											<p>Congratulate <strong>Olivia James</strong> for New template start</p><span>Oct 15 12:32pm</span>
 										</div>
 									</div>
-
-									<!-- Column -->
-									<div class="column counter-column col-lg-3 col-md-6 col-sm-12">
-										<div class="inner wow fadeInLeft" data-wow-delay="300ms"
-											data-wow-duration="1500ms">
-											<div class="content">
-												<div class="count-outer count-box alternate">
-													<span class="count-text" data-speed="2000"
-														data-stop="{{stats.products | length}}">0</span>+
-												</div>
-												<h4 class="counter-title">FORMULES</h4>
-											</div>
+									<div class="media">
+										<div class="main-img-user"><img alt="avatar" src="../assets/img/users/2.jpg"></div>
+										<div class="media-body">
+											<p><strong>Joshua Gray</strong> New Message Received</p><span>Oct 13 02:56am</span>
 										</div>
 									</div>
-
-									<!-- Column -->
-									<div class="column counter-column col-lg-3 col-md-6 col-sm-12">
-										<div class="inner wow fadeInLeft" data-wow-delay="600ms"
-											data-wow-duration="1500ms">
-											<div class="content">
-												<div class="count-outer count-box">
-													<span class="count-text" data-speed="4000" data-stop="{{stats.orders | length}}">0</span>+
-												</div>
-												<h4 class="counter-title">COMMANDES</h4>
-											</div>
+									<div class="media">
+										<div class="main-img-user online"><img alt="avatar" src="../assets/img/users/3.jpg"></div>
+										<div class="media-body">
+											<p><strong>Elizabeth Lewis</strong> added new schedule realease</p><span>Oct 12 10:40pm</span>
 										</div>
 									</div>
-
-									<!-- Column -->
-									<div class="column counter-column col-lg-3 col-md-6 col-sm-12">
-										<div class="inner wow fadeInLeft" data-wow-delay="900ms"
-											data-wow-duration="1500ms">
-											<div class="content">
-												<div class="count-outer count-box">
-													<span class="count-text" data-speed="2000"
-														data-stop="{{stats.categories | length}}">0</span>+
-												</div>
-												<h4 class="counter-title">CATEGORY</h4>
-											</div>
-										</div>
-									</div>
-
+								</div>
+								<div class="dropdown-footer">
+									<a href="#">View All Notifications</a>
 								</div>
 							</div>
 						</div>
-					</div>
-				</section>
-				<!-- End Counter Section -->
-
-			</ul>
-		</div>
-		<div>
-			<svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-				viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-				<defs>
-					<path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-					</path>
-				</defs>
-				<g class="parallax">
-					<use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 162, 255, 0.568)"></use>
-					<use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)"></use>
-					<use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)"></use>
-					<use xlink:href="#gentle-wave" x="48" y="7" fill="#fff"></use>
-				</g>
-			</svg>
-		</div>
-	</section>
-	<!-- End Banner Section -->
-
-	<!-- About Section / Style Two -->
-
-	<section class="about-section style-two">
-		<div class="circle-layer" style="background-image: url({{asset('assets/images/icons/about-circle.png')}})">
-		</div>
-		<div class="auto-container">
-			<div class="row clearfix">
-				<div class="sec-title centered">
-					<div class="title">Membres</div>
-					<h2>Total des membres inscrit <span class="text-warning">{{stats.users | length}}</span> </h2>
-				</div>
-				<!-- Image Column -->
-				<div class="image-column col-lg-3 col-md-3 col-sm-12">
-					<div class="inner-column">
-						<div class="image titlt" data-tilt data-tilt-max="1">
-							<img src="{{asset('assets/images/resource/content-image-1.png')}}" alt="" />
+						<div class="main-header-notification">
+							<a class="nav-link icon" href="chat.html">
+								<i class="fe fe-message-square header-icons"></i>
+								<span class="badge badge-success nav-link-badge">6</span>
+							</a>
 						</div>
-						<a href="" class="theme-btn btn-style-eight">Voir tout</a>
-					</div>
-				</div>
-				<!-- Content Column -->
-				<div class="content-column col-lg-9 col-md-9 col-sm-12">
-					<div class="inner-column">
-						<!-- Sec Title -->
-						<canvas id="bar"></canvas>
+						<div class="dropdown main-profile-menu">
+							<a class="d-flex" href="">
+								<span class="main-img-user" >{% if app.user.picture is not null %}
+									<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('uploads/avatar/' ~  app.user.picture )}}" alt="avatar">
+									{% else %}
+									<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('assets/images/resource/user.png' )}}" alt="avatar">
+									{% endif %}</span>
+							</a>
+							<div class="dropdown-menu">
+								<div class="header-navheading">
+									<h6 class="main-notification-title">{{app.user.lastname}} {{app.user.firstname}}</h6>
+									<p class="main-notification-text">{{app.user.role}}</p>
+								</div>
+								<a class="dropdown-item border-top" href="profile.html">
+									<i class="fe fe-user"></i> Mon compte
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-edit"></i> Edité mes informations
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-edit"></i> Edité mon avatar
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-settings"></i> Edité mot de passe
+								</a>
+							
+								<a class="dropdown-item" href="signin.html">
+									<i class="fe fe-power"></i> Deconnexion
+								</a>
+							</div>
+						</div>
+						
+						<button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
+							aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+							<i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
+						</button><!-- Navresponsive closed -->
 					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-	<!-- End About Section / Style Two -->
+			<!-- End Main Header-->
 
-	<!-- Services Section Two -->
-	<section class="services-section-two style-two testimonial-section" style="background-color: #edefff;">
-		<div class="icon-layer-one" style="background-image: url({{asset('assets/images/icons/icon-3.png')}})"></div>
-		<div class="icon-layer-two" style="background-image: url({{asset('assets/images/icons/icon-7.png')}})"></div>
-		<div class="icon-layer-three" style="background-image: url({{asset('assets/images/icons/icon-8.png')}})"></div>
-		<div class="icon-layer-four" style="background-image: url({{asset('assets/images/icons/icon-9.png')}})"></div>
-		<div class="icon-layer-five" style="background-image: url({{asset('assets/images/icons/icon-10.png')}})"></div>
-		<div class="auto-container testimonial-section">
-
-			<!-- Sec Title -->
-			<div class="sec-title centered">
-				<div class="title">Membres</div>
-				<h2>Dernier membres inscrit</h2>
+			<!-- Mobile-header -->
+			<div class="mobile-main-header">
+				<div class="mb-1 navbar navbar-expand-lg  nav nav-item  navbar-nav-right responsive-navbar navbar-dark  ">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+						<div class="d-flex order-lg-2 ml-auto">
+							<div class="dropdown header-search">
+								<a class="nav-link icon header-search">
+									<i class="fe fe-search header-icons"></i>
+								</a>
+								<div class="dropdown-menu">
+									<div class="main-form-search p-2">
+										<div class="input-group">
+										
+											<input type="search" class="form-control" placeholder="Recherche">
+											<button class="btn search-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="dropdown main-header-notification flag-dropdown">
+							<a class="nav-link icon country-Flag">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="256" fill="#f0f0f0"/><g fill="#0052b4"><path d="M52.92 100.142c-20.109 26.163-35.272 56.318-44.101 89.077h133.178L52.92 100.142zM503.181 189.219c-8.829-32.758-23.993-62.913-44.101-89.076l-89.075 89.076h133.176zM8.819 322.784c8.83 32.758 23.993 62.913 44.101 89.075l89.074-89.075H8.819zM411.858 52.921c-26.163-20.109-56.317-35.272-89.076-44.102v133.177l89.076-89.075zM100.142 459.079c26.163 20.109 56.318 35.272 89.076 44.102V370.005l-89.076 89.074zM189.217 8.819c-32.758 8.83-62.913 23.993-89.075 44.101l89.075 89.075V8.819zM322.783 503.181c32.758-8.83 62.913-23.993 89.075-44.101l-89.075-89.075v133.176zM370.005 322.784l89.075 89.076c20.108-26.162 35.272-56.318 44.101-89.076H370.005z"/></g><g fill="#d80027"><path d="M509.833 222.609H289.392V2.167A258.556 258.556 0 00256 0c-11.319 0-22.461.744-33.391 2.167v220.441H2.167A258.556 258.556 0 000 256c0 11.319.744 22.461 2.167 33.391h220.441v220.442a258.35 258.35 0 0066.783 0V289.392h220.442A258.533 258.533 0 00512 256c0-11.317-.744-22.461-2.167-33.391z"/><path d="M322.783 322.784L437.019 437.02a256.636 256.636 0 0015.048-16.435l-97.802-97.802h-31.482v.001zM189.217 322.784h-.002L74.98 437.019a256.636 256.636 0 0016.435 15.048l97.802-97.804v-31.479zM189.217 189.219v-.002L74.981 74.98a256.636 256.636 0 00-15.048 16.435l97.803 97.803h31.481zM322.783 189.219L437.02 74.981a256.328 256.328 0 00-16.435-15.047l-97.802 97.803v31.482z"/></g></svg>
+							</a>
+							
+						</div>
+						<div class="dropdown ">
+							<a class="nav-link icon full-screen-link">
+								<i class="fe fe-maximize fullscreen-button fullscreen header-icons"></i>
+								<i class="fe fe-minimize fullscreen-button exit-fullscreen header-icons"></i>
+							</a>
+						</div>
+						<div class="dropdown main-header-notification">
+							<a class="nav-link icon" href="">
+								<i class="fe fe-bell header-icons"></i>
+								<span class="badge badge-danger nav-link-badge">4</span>
+							</a>
+							<div class="dropdown-menu">
+								<div class="header-navheading">
+									<p class="main-notification-text">You have 1 unread notification<span class="badge badge-pill badge-primary ml-3">View all</span></p>
+								</div>
+								<div class="main-notification-list">
+									<div class="media new">
+										<div class="main-img-user online"><img alt="avatar" src="../assets/img/users/5.jpg"></div>
+										<div class="media-body">
+											<p>Congratulate <strong>Olivia James</strong> for New template start</p><span>Oct 15 12:32pm</span>
+										</div>
+									</div>
+									<div class="media">
+										<div class="main-img-user"><img alt="avatar" src="../assets/img/users/2.jpg"></div>
+										<div class="media-body">
+											<p><strong>Joshua Gray</strong> New Message Received</p><span>Oct 13 02:56am</span>
+										</div>
+									</div>
+									<div class="media">
+										<div class="main-img-user online"><img alt="avatar" src="../assets/img/users/3.jpg"></div>
+										<div class="media-body">
+											<p><strong>Elizabeth Lewis</strong> added new schedule realease</p><span>Oct 12 10:40pm</span>
+										</div>
+									</div>
+								</div>
+								<div class="dropdown-footer">
+									<a href="#">View All Notifications</a>
+								</div>
+							</div>
+						</div>
+						<div class="main-header-notification mt-2">
+							<a class="nav-link icon" href="chat.html">
+								<i class="fe fe-message-square header-icons"></i>
+								<span class="badge badge-success nav-link-badge">6</span>
+							</a>
+						</div>
+						<div class="dropdown main-profile-menu">
+							<a class="d-flex" href="#">
+								<span class="main-img-user" >{% if app.user.picture is not null %}
+									<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('uploads/avatar/' ~  app.user.picture )}}" alt="avatar">
+									{% else %}
+									<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('assets/images/resource/user.png' )}}" alt="avatar">
+									{% endif %}</span>
+							</a>
+							<div class="dropdown-menu">
+								<div class="header-navheading">
+									<h6 class="main-notification-title">{{app.user.lastname}} {{app.user.firstname}}</h6>
+									<p class="main-notification-text">{{app.user.role}}</p>
+								</div>
+								<a class="dropdown-item border-top" href="profile.html">
+									<i class="fe fe-user"></i> Mon compte
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-edit"></i> Edité mes informations
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-edit"></i> Edité mon avatar
+								</a>
+								<a class="dropdown-item" href="profile.html">
+									<i class="fe fe-settings"></i> Edité mot de passe
+								</a>
+							
+								<a class="dropdown-item" href="signin.html">
+									<i class="fe fe-power"></i> Deconnexion
+								</a>
+							</div>
+						</div>
+					
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="inner-container">
-				<div class="clearfix">
-					<section class="testimonial-section">
-						<div class="icon-layer-one"
-							style="background-image: url({{asset('assets/images/icons/icon-3.png')}})"></div>
-						<div class="icon-layer-two"
-							style="background-image: url({{asset('assets/images/icons/icon-7.png')}})"></div>
-						<div class="icon-layer-three"
-							style="background-image: url({{asset('assets/images/icons/icon-8.png')}})"></div>
-						<div class="icon-layer-four"
-							style="background-image: url({{asset('assets/images/icons/icon-9.png')}})"></div>
-						<div class="icon-layer-five"
-							style="background-image: url({{asset('assets/images/icons/icon-10.png')}})"></div>
-						<div class="auto-container">
-							<!-- Sec Title -->
-							<div class="testimonial-carousel owl-carousel owl-theme">
-								{% for user in stats.users %}
+			<!-- Mobile-header closed -->
 
-								<!-- Testimonial Block -->
-								<div class="testimonial-block">
-									<div class="inner-box">
-										<div class="pattern-layer"></div>
-										<div class="author-image-outer">
-											<div class="author-image">
+			<!-- Main Content-->
+			<div class="main-content side-content pt-0">
+
+				<div class="container-fluid">
+					<div class="inner-body">
+
+						<!-- Page Header -->
+						<div class="page-header">
+							<div>
+								<h2 class="main-content-title tx-24 mg-b-5">Bienvenue {{app.user.firstname}}</h2>
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#">Accueil</a></li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+								</ol>
+							</div>
+						
+						</div>
+						<!-- End Page Header -->
+
+						<!-- Row -->
+						<div class="row row-sm">
+							<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+								<div class="card custom-card">
+									<div class="card-body">
+										<div class="card-order ">
+											<label class="main-content-label mb-3 pt-1">Utilisateurs</label>
+											<h2 class="text-right card-item-icon card-icon">
+											<i class="mdi mdi-account-multiple icon-size float-left text-primary"></i><span class="font-weight-bold">{{stats.users | length}}</span></h2>
+											<p class="mb-0 mt-4 text-muted">Total utilisateurs<span class="float-right"></span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- COL END -->
+							<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+								<div class="card custom-card">
+									<div class="card-body">
+										<div class="card-order">
+											<label class="main-content-label mb-3 pt-1">Total des ventes</label>
+											<h2 class="text-right"><i class="mdi mdi-cube icon-size float-left text-primary"></i><span class="font-weight-bold">{{stats.orders | length }}</span></h2>
+											<p class="mb-0 mt-4 text-muted">Monthly Income<span class="float-right"></span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- COL END -->
+							<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+								<div class="card custom-card">
+									<div class="card-body">
+										<div class="card-order">
+											<label class="main-content-label mb-3 pt-1">Commandes en attente</label>
+											<h2 class="text-right"><i class="icon-size mdi mdi-poll-box   float-left text-primary"></i><span class="font-weight-bold">{{stats.ordersCancel | length }}</span></h2>
+											<p class="mb-0 mt-4 text-muted">Monthly Profit<span class="float-right"></span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- COL END -->
+							<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
+								<div class="card custom-card">
+									<div class="card-body">
+										<div class="card-order">
+											<label class="main-content-label mb-3 pt-1">Chiffre d'affaire</label>
+											<h2 class="text-right"><i class="mdi mdi-cart icon-size float-left text-primary"></i><span class="font-weight-bold">46,486</span></h2>
+											<p class="mb-0 mt-4 text-muted">Monthly Sales<span class="float-right">3,756</span></p>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- COL END -->
+						</div>
+						<!-- End Row -->
+
+						<!-- row opened -->
+						<div class="row row-sm">
+							<div class="col-xxl-6 col-xl-12 col-lg-12 col-md-12">
+								<div class="card custom-card">
+									<div class="card-header border-bottom-0">
+										<label class="main-content-label my-auto pt-2">Commandes validez</label>
+										<span class="d-block tx-12 mb-0 mt-1 text-muted">Represente les commandes payé par mois</span>
+									</div>
+									<div class="card-body">
+										<div class="chart-wrapper">
+										   <canvas id="revenuechart" class=""></canvas>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xxl-3 col-xl-6 col-md-12 col-lg-12">
+								<div class="card custom-card">
+									<div class="card-header border-bottom-0 pb-0">
+										<label class="main-content-label mb-2 pt-1">Status des commandes</label>
+										<p class="tx-12 mb-0 text-muted">Represente les commandes validez et ou abandonné</p>
+									</div>
+									<div class="card-body sales-product-info ot-0 pt-0 pb-0">
+										<div id="recentorders" class="ht-150"></div>
+										<div class="row sales-product-infomation pb-0 mb-0 mx-auto wd-100p">
+											<div class="col-md-6 col justify-content-center text-center">
+												<p class="mb-0 d-flex justify-content-center "><span class="legend bg-primary brround"></span>Validez</p>
+												<h3 class="mb-1 font-weight-bold">{{stats.ordersValid | length}}</h3>
+												<div class="d-flex justify-content-center ">
+													<p class="text-muted ">Total</p>
+												</div>
+											</div>
+											<div class="col-md-6 col text-center float-right">
+												<p class="mb-0 d-flex justify-content-center "><span class="legend bg-light brround"></span>En attente</p>
+													<h3 class="mb-1 font-weight-bold">{{stats.ordersCancel | length}}</h3>
+												<div class="d-flex justify-content-center ">
+													<p class="text-muted">Total</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xxl-3 col-xl-6 col-md-12 col-sm-12">
+								<div class="card custom-card">
+									<div class="card-header pb-0 border-bottom-0">
+										<label class="main-content-label mb-2 pt-1">Utilisateurs</label>
+										<p class="tx-12 mb-0 text-muted">Derniers utilisateurs inscrit</p>
+									</div>
+									<div class="card-body">
+										<ul class="visitor mb-0 d-block users-images list-unstyled list-unstyled-border">
+											{% for user in stats.users %}
+											<li class="media d-flex mb-3 mt-0 pt-0">
 												{% if app.user.picture is not null %}
-												<img src="{{asset('uploads/avatar/'  ~ user.picture )}}" alt="" />
+												<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('uploads/avatar/' ~  app.user.picture )}}" alt="avatar">
 												{% else %}
-												<img src="/assets/images/resource/user.png" alt="" />
+												<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('assets/images/resource/user.png' )}}" alt="avatar">
 												{% endif %}
+												<div class="media-body mb-1">
+													<div class="float-right"><small>10-9-2018</small></div>
+													<h5 class="media-title tx-15 mb-0">{{app.user.firstname}}</h5>
+													<span class="text-muted">{{app.user.email}}</span>
+												</div>
+											</li>
+									        {% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- row closed -->
+
+						<!-- row opened -->
+						<div class="row row-sm">
+							<div class="col-xxl-3 col-xl-6 col-md-12 col-lg-6">
+								<div class="card custom-card">
+									<div class="card-header border-bottom-0 pb-1">
+										<label class="main-content-label mb-2 pt-1">Sales Activity</label>
+										<p class="tx-12 mb-0 text-muted">Sales activities are the tactics that salespeople use to achieve their goals and objective</p>
+									</div>
+									<div class="product-timeline card-body pt-3 mt-1">
+										<ul class="timeline-1 mb-0">
+											<li class="mt-0"> <i class="ti-pie-chart product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Total Products</span> <a href="#" class="float-right tx-11 text-muted">3 days ago</a>
+												<p class="mb-0 text-muted tx-12">1.3k New Products</p>
+											</li>
+											<li class="mt-0"> <i class="mdi mdi-cart-outline product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Total Sales</span> <a href="#" class="float-right tx-11 text-muted">35 mins ago</a>
+												<p class="mb-0 text-muted tx-12">1k New Sales</p>
+											</li>
+											<li class="mt-0"> <i class="ti-bar-chart-alt product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Toatal Revenue</span> <a href="#" class="float-right tx-11 text-muted">50 mins ago</a>
+												<p class="mb-0 text-muted tx-12">23.5K New Revenue</p>
+											</li>
+											<li class="mt-0"> <i class="ti-wallet product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Toatal Profit</span> <a href="#" class="float-right tx-11 text-muted">1 hour ago</a>
+												<p class="mb-0 text-muted tx-12">3k New profit</p>
+											</li>
+											<li class="mt-0 mb-0"><i class="si si-eye product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">Customer Visits</span> <a href="#" class="float-right tx-11 text-muted">1 day ago</a>
+												<p class="mb-0 text-muted tx-12">15% increased</p>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-xxl-3 col-xl-6 col-md-12 col-lg-6">
+								<div class="card custom-card">
+									<div class="card-header border-bottom-0 pb-1">
+										<label class="main-content-label mb-2 pt-1">Top products</label>
+										<p class="tx-12 mb-0 text-muted">Top Trending Products to Sell Online At Your Ecommerce & Dropshipping Store.</p>
+									</div>
+									<div class="card-body pt-0">
+										<ul class="top-selling-products pb-0 mb-0 pl-0">
+											<li class="product-item">
+												<div class="product-img"><img src="../assets/img/pngs/14.png" alt=""></div>
+												<div class="product-info">
+													<div class="product-name">College Bag</div>
+													<div class="price">Fashion</div>
+												</div>
+												<div class="product-amount">
+													<div class="product-price">$990.00</div>
+													<div class="items-sold">10 Sold</div>
+												</div>
+											</li>
+											<li class="product-item">
+												<div class="product-img"><img src="../assets/img/pngs/18.png" alt=""></div>
+												<div class="product-info">
+													<div class="product-name">Smartwatch</div>
+													<div class="price">Electronics</div>
+												</div>
+												<div class="product-amount">
+													<div class="product-price">$990.00</div>
+													<div class="items-sold">10 Sold</div>
+												</div>
+											</li>
+											<li class="product-item">
+												<div class="product-img"><img src="../assets/img/pngs/17.png" alt=""></div>
+												<div class="product-info">
+													<div class="product-name">Chair</div>
+													<div class="price">Furniture</div>
+												</div>
+												<div class="product-amount">
+													<div class="product-price">$990.00</div>
+													<div class="items-sold">10 Sold</div>
+												</div>
+											</li>
+											<li class="product-item">
+												<div class="product-img"><img src="../assets/img/pngs/16.png" alt=""></div>
+												<div class="product-info">
+													<div class="product-name">Flowers Pot</div>
+													<div class="price">Gardening</div>
+												</div>
+												<div class="product-amount">
+													<div class="product-price">$990.00</div>
+													<div class="items-sold">10 Sold</div>
+												</div>
+											</li>
+											<li class="product-item pb-0">
+												<div class="product-img"><img src="../assets/img/pngs/19.png" alt=""></div>
+												<div class="product-info">
+													<div class="product-name">iPhone Mobile</div>
+													<div class="price">Electronics</div>
+												</div>
+												<div class="product-amount">
+													<div class="product-price">$990.00</div>
+													<div class="items-sold">10 Sold</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="col-xxl-6 col-xl-12 col-md-12 col-lg-12">
+								<div class="card custom-card">
+									<div class="card-header border-bottom-0">
+										<label class="main-content-label mb-2 pt-1">Country Wise Sales</label>
+										<p class="tx-12 mb-0 text-muted">​The global ecommerce sales in 2020 is expected to reach $4.453 trillion this marks an increase of <b>22.5 %</b> percent from the previous year as the global ecommerce market.</p>
+
+									</div>
+									<div class="card-body pt-0 pb-3 row">
+										<div class="col-xl-8">
+											<div id="world-map-markers" class="ht-300"></div>
+										</div>
+										<div class="col-xl-4 col-md-12 mt-xl-4">
+											<div class="mb-4 pt-2">
+												<h5 class="mb-2 d-block">
+													<span class="fs-14">Brazil</span>
+													<span class="float-right fs-14">80%</span>
+												</h5>
+												<div class="progress ht-4 progress-md h-2">
+													<div class="progress-bar progress-bar-animated progress-bar-striped bg-primary ht-4 wd-80p"></div>
+												</div>
 											</div>
-											<div class="rating">
-												<span class="fa fa-star"></span>
-												<span class="fa fa-star"></span>
-												<span class="fa fa-star"></span>
-												<span class="fa fa-star"></span>
-												<span class="fa fa-star"></span>
+											<div class="mb-4">
+												<h5 class="mb-2 d-block">
+													<span class="fs-14">Russia</span>
+													<span class="float-right fs-14">72%</span>
+												</h5>
+												<div class="progress ht-4 progress-md">
+													<div class="progress-bar progress-bar-animated progress-bar-striped bg-primary ht-4 wd-70p"></div>
+												</div>
 											</div>
-											<div class="text"> {% if app.user.phone is not null %}
-												{{app.user.phone}}
-												{% else %}
-												Pas de numero de telephone
-												{% endif %}</div>
-											<div class="lower-box">
-												<div class="quote-icon fa fa-quote-left"></div>
-												<h6>{{user.firstname}}</h6>
-												<div class="designation">{{app.user.email}}</div>
+											<div class="mb-4">
+												<h5 class="mb-2 d-block">
+													<span class="fs-14">Poland</span>
+													<span class="float-right fs-14">67%</span>
+												</h5>
+												<div class="progress progress-md  ht-4">
+													<div class="progress-bar progress-bar-animated progress-bar-striped bg-primary ht-4 wd-60p"></div>
+												</div>
+											</div>
+											<div class="mb-4">
+												<h5 class="mb-2 d-block">
+													<span class="fs-14">Canada</span>
+													<span class="float-right fs-14">53%</span>
+												</h5>
+												<div class="progress progress-md  ht-4">
+													<div class="progress-bar progress-bar-animated progress-bar-striped bg-primary ht-4 wd-50p"></div>
+												</div>
+											</div>
+											<div class="mb-4">
+												<h5 class="mb-2 d-block">
+													<span class="fs-14">India</span>
+													<span class="float-right fs-14">75%</span>
+												</h5>
+												<div class="progress progress-md  ht-4">
+													<div class="progress-bar progress-bar-animated  progress-bar-striped bg-primary ht-4 wd-40p"></div>
+												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-
-								{% endfor %}
+							</div>
+							<div class="col-md-12 col-xl-8">
+								<div class="card custom-card overflow-hidden">
+									<div class="card-header border-bottom-0 d-flex">
+										<div>
+											<label class="main-content-label mb-2 pt-1">Products Details</label>
+											<p class="tx-12 mb-3 text-muted">The details displayed often include size, color, price, shipping information, reviews, and other relevant information customers may want to know before making a purchase</p>
+										</div>
+										<div class="card-options float-right">
+											<a href="" class="mr-0 text-default" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="fe fe-more-vertical tx-17 float-right"></span> </a>
+											<ul class="dropdown-menu dropdown-menu-right" role="menu">
+												<li><a href="#"><i class="fe fe-eye mr-2"></i>View</a></li>
+												<li><a href="#"><i class="fe fe-plus-circle mr-2"></i>Add</a></li>
+												<li><a href="#"><i class="fe fe-trash-2 mr-2"></i>Remove</a></li>
+												<li><a href="#"><i class="fe fe-download-cloud mr-2"></i>Download</a></li>
+												<li><a href="#"><i class="fe fe-settings mr-2"></i>More</a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="card-body pt-0">
+										<div class="table-responsive">
+											<table class="table table-vcenter border mb-0 text-nowrap">
+												<thead>
+													<tr>
+														<th>Product ID</th>
+														<th>Product</th>
+														<th>Product Cost</th>
+														<th>Total</th>
+														<th>Status</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>#C234</td>
+														<td class="d-flex my-auto"><div class="product-img"><img src="../assets/img/pngs/14.png" alt="" class="ht-40 wd-40 mr-3"></div><span class="my-auto">Regular waterproof (24 L) Backpack</span></td>
+														<td><b>$14,500</b></td>
+														<td>2,977</td>
+														<td><span class="badge badge-primary">Available</span></td>
+													</tr>
+													<tr>
+														<td>#C389</td>
+														<td class="d-flex my-auto"><div class="product-img"><img src="../assets/img/pngs/15.png" alt="" class="ht-40 wd-40 mr-3"></div><span class="my-auto">Women Pink Heels Sandal</span></td>
+														<td><b>$30,000</b></td>
+														<td>678</td>
+														<td><span class="badge badge-primary">Limited</span></td>
+													</tr>
+													<tr>
+														<td>#C936</td>
+														<td class="d-flex my-auto"><div class="product-img"><img src="../assets/img/pngs/16.png" alt="" class="ht-40 wd-40 mr-3"></div><span class="my-auto">Designer Hand Decorative flower Pot</span></td>
+														<td><b>$13,200</b></td>
+														<td>4,922</td>
+														<td><span class="badge badge-primary">Avilable</span></td>
+													</tr>
+													<tr>
+														<td>#C493</td>
+														<td class="d-flex my-auto"><div class="product-img"><img src="../assets/img/pngs/17.png" alt="" class="ht-40 wd-40 mr-3"></div><span class="my-auto">Plastic Outdoor Chair</span></td>
+														<td><b>$15,100</b></td>
+														<td>1,234</td>
+														<td><span class="badge badge-primary">Limited</span></td>
+													</tr>
+													<tr>
+														<td>#C729</td>
+														<td class="d-flex my-auto"><div class="product-img"><img src="../assets/img/pngs/18.png" alt="" class="ht-40 wd-40 mr-3"></div><span class="my-auto">Blck Digital smart watch</span></td>
+														<td><b>$5,987</b></td>
+														<td>4,789</td>
+														<td><span class="badge badge-primary op-5">No Stock</span></td>
+													</tr>
+													<tr>
+														<td>#C529</td>
+														<td class="d-flex my-auto"><div class="product-img"><img src="../assets/img/pngs/19.png" alt="" class="ht-40 wd-40 mr-3"></div><span class="my-auto">Apple iPhone(Black, 128 GB)</span></td>
+														<td><b>$11,987</b></td>
+														<td>938</td>
+														<td><span class="badge badge-primary">Limited</span></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-xl-4 col-md-12 col-sm-12">
+								<div class="card custom-card">
+									<div class="card-header border-bottom-0">
+										<div>
+											<label class="main-content-label mb-2 pt-1">Order Activity</label>
+											<p class="tx-12 mb-3 text-muted">Ordering Activity. means an activity that is authorized to place orders, or establish blanket purchase agreements.</p>
+										</div>
+									</div>
+									<div class="card-body pt-1">
+										<div class="border">
+											<div class="list-group projects-list pt-0 pb-0 pl-0 pr-0">
+												<a href="#" class="list-group-item list-group-item-action flex-column align-items-start border-0">
+													<div class="d-flex w-100 justify-content-between">
+														<h6 class="mb-1 font-weight-semibold">Order Picking</h6>
+														<h6 class="mb-0 font-weight-bold tx-15">3,876</h6> </div>
+													<div class="d-flex w-100 justify-content-between"> <span class="text-muted"><i class="fe fe-arrow-down text-success "></i> 03% last month</span> <span class="text-muted tx-11">5 days ago</span> </div>
+												</a>
+												<a href="#" class="list-group-item list-group-item-action flex-column align-items-start border-bottom-0  border-left-0 border-right-0 border-top">
+													<div class="d-flex w-100 justify-content-between">
+														<h6 class="mb-1 font-weight-semibold">Storage</h6>
+														<h6 class="mb-0 font-weight-bold tx-15">2,178</h6> </div>
+													<div class="d-flex w-100 justify-content-between"> <span class="text-muted"><i class="fe fe-arrow-down text-danger "></i> 16% last month</span> <span class="text-muted tx-11">2 days ago</span> </div>
+												</a>
+												<a href="#" class="list-group-item list-group-item-action flex-column align-items-start border-bottom-0  border-left-0 border-right-0 border-top">
+													<div class="d-flex w-100 justify-content-between">
+														<h6 class="mb-1 font-weight-semibold ">Shipping</h6>
+														<h6 class="mb-0 font-weight-bold tx-15">1,367</h6> </div>
+													<div class="d-flex w-100 justify-content-between"> <span class="text-muted"><i class="fe fe-arrow-up text-success"></i> 06% last month</span> <span class="text-muted tx-11">1 days ago</span> </div>
+												</a>
+												<a href="#" class="list-group-item list-group-item-action flex-column align-items-start border-bottom-0  border-left-0 border-right-0 border-top">
+													<div class="d-flex w-100 justify-content-between">
+														<h6 class="mb-1 font-weight-semibold ">Receiving</h6>
+														<h6 class="mb-0 font-weight-bold tx-15">678</h6> </div>
+													<div class="d-flex w-100 justify-content-between"> <span class="text-muted"><i class="fe fe-arrow-down text-danger "></i> 25% last month</span> <span class="text-muted tx-11">10 days ago</span> </div>
+												</a>
+												<a href="#" class="list-group-item list-group-item-action flex-column align-items-start border-left-0 border-right-0 border-top">
+													<div class="d-flex w-100 justify-content-between">
+														<h6 class="mb-1 font-weight-semibold">Other</h6>
+														<h6 class="mb-0 font-weight-bold tx-15">5,678</h6> </div>
+													<div class="d-flex w-100 justify-content-between"> <span class="text-muted"><i class="fe fe-arrow-up text-success "></i> 16% last month</span> <span class="text-muted tx-11">5 days ago</span> </div>
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
-					</section>
-				</div>
-			</div>
-			<!-- Lower Box -->
-			<div class="lower-box">
-				<div class="text">Pour voir tout les membres<a href="#">Cliquez ici</a> Maintenant.</div>
-			</div>
-		</div>
-	</section>
-	<!-- End Services Section Two -->
-
-
-	<!-- Call To Action Section -->
-	<section class="call-to-action-section style-two"
-		style="background-image: url({{asset('assets/images/background/map-pattern.png')}})">
-		<div class="circle-layer" style="background-image: url({{asset('assets/images/resource/cta-bg.png')}})"></div>
-		<div class="auto-container">
-			<div class="row clearfix">
-
-				<!-- Title Column -->
-				<div class="title-column col-lg-4 col-md-4 col-sm-12">
-					<div class="inner-column">
-						<h2>Voici les commandes passez selon chaques mois !</h2>
-						<div class="text">Vous pouvez accedez au details des ventes</div>
-						<a href="about.html" class="theme-btn btn-style-eight"><span class="txt">Voir tout</span></a>
 					</div>
 				</div>
-
-				<!-- Image Column -->
-				<div class="image-column col-lg-8 col-md-8 col-sm-12">
-					<div class="inner-column">
-						<div class="image titlt" data-tilt data-tilt-max="3">
-							<canvas id="line"></canvas>
-						</div>
-					</div>
-				</div>
-
 			</div>
+			<!-- End Main Content-->
+
+			<!-- Main Footer-->
+	   {% include 'components_admin/footer.html.twig' %}
+			<!--End Footer-->
 		</div>
-	</section>
-	<!-- End Call To Action Section -->
+		<!-- End Page -->
 
-	<!-- Team Section Two -->
-	<section class="team-section-two">
-		<div class="auto-container">
-			<!-- Sec Title -->
-			<div class="sec-title centered">
-				<div class="title">Commandes</div>
-				<h2>Dernieres commandes</h2>
-			</div>
-			<div class="row clearfix">
+		<!-- Back-to-top -->
+		<a href="#top" id="back-to-top"><i class="fe fe-arrow-up"></i></a>
 
-
-				<!-- Clients Section -->
-				<section class="clients-section">
-					<div class="auto-container">
-
-						<div class="sponsors-outer">
-							<!--Sponsors Carousel-->
-							<ul class="sponsors-carousel owl-carousel owl-theme">
-								<li class="slide-item">
-									<figure class="image-box"><a href="#"><img
-												src="{{asset('assets/images/clients/1.png')}}" alt=""></a>
-									</figure>
-								</li>
-								<li class="slide-item">
-									<figure class="image-box"><a href="#"><img
-												src="{{asset('assets/images/clients/2.png')}}" alt=""></a>
-									</figure>
-								</li>
-								<li class="slide-item">
-									<figure class="image-box"><a href="#"><img
-												src="{{asset('assets/images/clients/3.png')}}" alt=""></a>
-									</figure>
-								</li>
-								<li class="slide-item">
-									<figure class="image-box"><a href="#"><img
-												src="{{asset('assets/images/clients/4.png')}}" alt=""></a>
-									</figure>
-								</li>
-								<li class="slide-item">
-									<figure class="image-box"><a href="#"><img
-												src="{{asset('assets/images/clients/5.png')}}" alt=""></a>
-									</figure>
-								</li>
-								<li class="slide-item">
-									<figure class="image-box"><a href="#"><img
-												src="{{asset('assets/images/clients/1.png')}}" alt=""></a>
-									</figure>
-								</li>
-								<li class="slide-item">
-									<figure class="image-box"><a href="#"><img
-												src="{{asset('assets/images/clients/2.png')}}" alt=""></a>
-									</figure>
-								</li>
-								<li class="slide-item">
-									<figure class="image-box"><a href="#"><img
-												src="{{asset('assets/images/clients/3.png')}}" alt=""></a>
-									</figure>
-								</li>
-							</ul>
-						</div>
-
-					</div>
-				</section>
-				<!-- End Clients Section -->
-
-			</div>
-		</div>
-	</section>
-	<!-- End Team Section Two -->
-</div>
-<!--End pagewrapper-->
-
-<!-- Color Palate / Color Switcher -->
-
-<div class="color-palate">
-	<div class="color-trigger">
-		<i class="fas fa-cog"></i>
-	</div>
-	<div class="color-palate-head">
-		<h6>Vos préferences</h6>
-	</div>
-	<h5>Position</h5>
-	<ul class="rtl-version option-box">
-		<li class="rtl">Droitier</li>
-		<li>Gaucher</li>
-	</ul>
-	<h5>Navigation fix</h5>
-	<ul class="header-version option-box">
-		<li class="box">Non</li>
-		<li>Oui</li>
-	</ul>
-	<h5>Verion obscure</h5>
-	<ul class="dark-version option-box">
-		<li class="box">Oui</li>
-		<li>Non</li>
-	</ul>
-
-
-	<div class="palate-foo">
-		<span>Pour une meilleur experience utilisateur</span>
-	</div>
-
-</div>
-
-
-<!-- Scroll To Top -->
-<div class="back-to-top scroll-to-target show-back-to-top" data-target="html">TOP</div>
+	
 
 
 {% endblock %}

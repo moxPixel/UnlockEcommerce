@@ -31,12 +31,16 @@ class DashboardController extends AbstractController
             "users" => $this->doctrine->getRepository(User::class)->findAll(),
             "products" => $this->doctrine->getRepository(Product::class)->findAll(),
             "categories" => $this->doctrine->getRepository(Category::class)->findAll(),
-            "orders" => $this->doctrine->getRepository(Order::class)->findBy(['isPaid' => '1']),
+            "orders" => $this->doctrine->getRepository(Order::class)->findAll(),
+            "ordersValid" => $this->doctrine->getRepository(Order::class)->findBy(['isPaid' => '1']),
+            "ordersCancel" => $this->doctrine->getRepository(Order::class)->findBy(['isPaid' => '0']),
             "userByMonth" => $userRepository->findUsersForMonth(),
-            "orderByMonth" => $orderRepository-> findOrderByMonth()
+            "orderByMonthIsPaid" => $orderRepository->findByOrderIsPaid(1),
+            "orderByMonthIsNotPaid" => $orderRepository->findByOrderIsPaid(0),
+            "orderByMonth" => $orderRepository->findOrderByMonth(),
             
         ];
-      
+    
         return $this->render('dashboard/dashboard.html.twig', [
             'stats' => $stats,
 

@@ -22,14 +22,14 @@ class OrderRepository extends ServiceEntityRepository
     /**
     * @return Order[] Returns an array of Order objects
     */
-    public function findByOrderIsNotPaid($isPaid,$user)
+    public function findByOrderIsPaid($isPaid)
     {
         return $this->createQueryBuilder('o')
-            ->where('o.user = :user')
-            ->andWhere('o.isPaid = :isPaid')
+            ->addSelect('MONTH(o.createdAt) as month ,  COUNT(o.createdAt)  as total')
+            ->where('o.isPaid = :isPaid')
             ->setParameter('isPaid', $isPaid)
-            ->setParameter('user', $user)
-            ->orderBy('o.id', 'ASC')
+            ->groupBy('month')
+            ->orderBy('month', 'ASC')
             ->getQuery()
             ->getResult()
         ;
