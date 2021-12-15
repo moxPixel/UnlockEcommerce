@@ -3,7 +3,11 @@
 namespace App\Controller;
 
 use App\Dto\Cart;
+use App\Entity\Order;
+use App\Form\CartValidType;
+use App\Entity\OrderDetails;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,11 +22,45 @@ class CartController extends AbstractController
     /**
      * @Route("/my-cart", name="cart")
      */
-    public function myCart(Cart $cart): Response
+    public function myCart(Cart $cart, Request $request): Response
     {
-// dd($cart->getFullCart());
+        $form = $this->createForm(CartValidType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+
+            if ($cart->getFullCart()) {
+
+                $order = new Order();
+                $order->setUser($this->getUser());
+                $order->setCreatedAt(new \DateTime());
+                $order->setIsPaid(0);
+
+                foreach ($cart->getFullCart() as $item) {
+                    // dd($item);
+                    $order->setCategoryName($item['product']->getCategory()->getName());
+                    $orderDetails = new OrderDetails();
+                    $orderDetails->setMyOrder($order);
+                    $orderDetails->setProduct($item['product']->getName());
+                    $orderDetails->setQuantity($item['quantity']);
+                    $orderDetails->setPrice($item['product']->getPrice());
+                    $orderDetails->setTotal($item['product']->getPrice() * $item['quantity']);
+                    $this->entityManager->persist($order);
+                    $this->entityManager->persist($orderDetails);
+                    $this->entityManager->flush();
+                }
+
+                return $this->render('order/order.html.twig', [
+                    'cart' => $cart->getFullCart(),
+                ]);
+            } else {
+                return $this->redirectToRoute('cart');
+            }
+        }
         return $this->render('cart/myCart.html.twig', [
-            'cart' => $cart->getFullCart()
+            'cart' => $cart->getFullCart(),
+            'form' => $form->createView(),
         ]);
     }
 

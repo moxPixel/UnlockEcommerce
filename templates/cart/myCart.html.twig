@@ -9,51 +9,21 @@
 {% endblock %}
 {% block body %}
 <!-- Page Title Section -->
-<section class="page-title" style="background-image: url(assets/images/background/pattern-15.png)">
-    <div class="pattern-layer-one" style="background-image: url(assets/images/main-slider/pattern-1.png)"></div>
-    <div class="pattern-layer-two" style="background-image: url(assets/images/background/pattern-17.png)"></div>
-    <div class="pattern-layer-three" style="background-image: url(assets/images/background/pattern-18.png)"></div>
-    <div class="pattern-layer-four" style="background-image: url(assets/images/icons/cross-icon.png)"></div>
-    <div class="auto-container">
-        <ul class="page-breadcrumb">
-            <h1 class="text-center">
-              
-                <img class=" img-fluid rounded-circle" style="border:solid white 5px;width: 250px;height:250px"
-                    src="{{asset('assets/img/cart.png')}}" alt="">
-            
-            </h1>
-            <h2>Mon panier</span></h2>
-        </ul>
-    </div>
-    <div>
-        <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-            viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
-            <defs>
-                <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z">
-                </path>
-            </defs>
-            <g class="parallax">
-                <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0, 162, 255, 0.568)"></use>
-                <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(255,255,255,0.5)"></use>
-                <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(255,255,255,0.3)"></use>
-                <use xlink:href="#gentle-wave" x="48" y="7" fill="#fff"></use>
-            </g>
-        </svg>
-    </div>
-</section>
-<!-- End Page Title Section -->
+<section class="page-title"
+	style="background-image: url(assets/images/background/b3.png);background-size:cover;min-height: 1200px;">
+	<div class="pattern-layer-one" style="background-image: url(assets/images/main-slider/pattern-1.png)"></div>
+	<div class="pattern-layer-two" style="background-image: url(assets/images/background/pattern-17.png)"></div>
+	<div class="pattern-layer-three" style="background-image: url(assets/images/background/pattern-18.png)"></div>
+	<div class="pattern-layer-four" style="background-image: url(assets/images/icons/cross-icon.png)"></div>
 
-<!--Register Section-->
-<section class="account-section">
-    <div class="container">
-        <div class="row clearfix">
-
+	<div class="container" style="position:relative;z-index: 55;">
+        <h2 class="text-center">Panier</h2>
             <!--Form Column-->
-            <div class=" container-fluid">
+     
      
           
                 <hr>
-                <section>
+              
                     {% if cart is not empty %}
                     <div>
                         <table class="table myTable">
@@ -74,7 +44,7 @@
                                     <td>
                                         <a href="{{path('add_to_cart',{'id': product.product.id})}}"><img width="15" src="{{asset('assets/img/add.png')}}" alt="Ajouter"></a>
 
-                                      <span class="text-primary">( X{{product.quantity}} )</span>
+                                      <span class="text-white">( X{{product.quantity}} )</span>
 
                                         <a href="{{path('decrease_to_cart',{'id': product.product.id})}}"><img width="15" src="{{asset('assets/img/minus.png')}}" alt="Diminuer"></a>
                                     </td>
@@ -87,20 +57,20 @@
                             </tbody>
                         </table>
                         <div class="text-right">
-                            <b>Formule total: {{cart | length}}</b><br>
-                            <b>Total de mon panier: {{(total) | number_format(2,',','.')}}€</b><br>
-                           <a class="btn btn-success btn-block" id="checkout-button" href="{{path('order')}}">Validez mon panier</a>
+                            <b class="text-white">Formule total: {{cart | length}}</b><br>
+                            <b class="text-white">Total de mon panier: {{(total) | number_format(2,',','.')}}€</b><br>
+                         {{form(form)}}
                         </div>
                     </div>
                     {% endif %}
                     {% if cart is empty %}
                     <h1 class="text-muted text-center">Aucune formule pour le moment.</h1>
                     {% endif %}
+                   </div>
                 </section>
 
-            </div>
-        </div>
-</section>
+       
+      
 <!--End Register Section-->
 
 {% endblock %}

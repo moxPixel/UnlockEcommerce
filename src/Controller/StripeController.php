@@ -13,8 +13,6 @@ class StripeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('stripe/index.html.twig', [
-            'controller_name' => 'StripeController',
-        ]);
+        return $this->render('stripe/index.html.twig');
     }
 }
