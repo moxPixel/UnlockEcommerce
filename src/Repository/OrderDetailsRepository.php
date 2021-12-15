@@ -65,7 +65,7 @@ class OrderDetailsRepository extends ServiceEntityRepository
         $date = new \DateTime();
         return $this->createQueryBuilder('o')
             ->innerJoin('o.myOrder', 'od')
-            ->addSelect('SUM(o.total) * COUNT(o.total) as total')
+            ->addSelect(' SUM(o.total)   as total')
             ->where('od.isPaid = :isPaid')
             ->andWhere('YEAR(od.createdAt) = YEAR(:dateNow)')
             ->setParameter('dateNow', $date->format('Y-m-d 00:00:00'))
