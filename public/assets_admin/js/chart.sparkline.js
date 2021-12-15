@@ -4,7 +4,7 @@ $(function() {
 	$('#sparkline1').sparkline('html', {
 		width: 100,
 		height: 50,
-		lineColor: '#6259ca ',
+		lineColor: '#1a2e6b ',
 		fillColor: false,
 		tooltipContainer: $('.main-content')
 	});
@@ -31,7 +31,7 @@ $(function() {
 	$('#sparkline3').sparkline('html', {
 		width: 120,
 		height: 50,
-		lineColor: '#6259ca',
+		lineColor: '#1a2e6b',
 		fillColor: 'rgba(113, 76, 190,0.2)',
 	});
 	$('#sparkline4').sparkline('html', {
@@ -46,7 +46,7 @@ $(function() {
 		type: 'bar',
 		barWidth: 10,
 		height: 50,
-		barColor: '#6259ca',
+		barColor: '#1a2e6b',
 		chartRangeMax: 12
 	});
 	$('#sparkline6').sparkline('html', {
@@ -61,7 +61,7 @@ $(function() {
 		type: 'bar',
 		barWidth: 10,
 		height: 50,
-		barColor: '#6259ca',
+		barColor: '#1a2e6b',
 		chartRangeMax: 12
 	});
 	$('#sparkline7').sparkline([4, 5, 6, 7, 4, 5, 8, 7, 6, 6, 4, 7, 6, 4, 7], {
@@ -92,12 +92,12 @@ $(function() {
 		type: 'pie',
 		width: 70,
 		height: 50,
-		sliceColors: ['#6259ca', '#53caed', '#01b8ff']
+		sliceColors: ['#1a2e6b', '#53caed', '#01b8ff']
 	});
 	$('#sparkline10').sparkline('html', {
 		type: 'pie',
 		width: 70,
 		height: 50,
-		sliceColors: ['#6259ca', '#53caed', '#01b8ff', '#f16d75', '#29ccbb', '#f3ca56']
+		sliceColors: ['#1a2e6b', '#53caed', '#01b8ff', '#f16d75', '#29ccbb', '#f3ca56']
 	});
 });

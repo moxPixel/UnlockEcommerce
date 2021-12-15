@@ -35,7 +35,46 @@ class OrderDetailsRepository extends ServiceEntityRepository
         ;
     }
     */
+ /**
+    * @return Order[] Returns an array of Order objects
+    */
+    public function findByOrderIsPaidForUser($isPaid,$user)
+    {
+        return $this->createQueryBuilder('o')
+            ->innerJoin('o.myOrder', 'od')
+            ->addSelect('od')
+            ->where('od.isPaid = :isPaid')
+            ->andWhere('od.user = :user')
+            ->andWhere('od.id = o.myOrder')
+            ->setParameter('isPaid', $isPaid)
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
+    
+        /**
+     * Calcule chiffre d'affaire pour l anné en cours
+     * @return int|mixed
+     * @throws Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function findByTotalSals($isPaid): array
+    {
+        $date = new \DateTime();
+        return $this->createQueryBuilder('o')
+            ->innerJoin('o.myOrder', 'od')
+            ->addSelect('SUM(o.total) * COUNT(o.total) as total')
+            ->where('od.isPaid = :isPaid')
+            ->andWhere('YEAR(od.createdAt) = YEAR(:dateNow)')
+            ->setParameter('dateNow', $date->format('Y-m-d 00:00:00'))
+            ->setParameter('isPaid', $isPaid)
+            ->getQuery()
+            ->getResult();
+    }
+
+ 
     /*
     public function findOneBySomeField($value): ?OrderDetails
     {

@@ -277,7 +277,7 @@ $(function(e){
 		plotOptions: {
 		  candlestick: {
 			colors: {
-			  upward: '#6259ca',
+			  upward: '#1a2e6b',
 			  downward: '#bbb6ef'
 			}
 		  }
@@ -313,7 +313,7 @@ $(function(e){
 				data: [83,56,85,62,75,45, 86, 56],
 				label: 'Bitcon',
 				backgroundColor: 'transparent',
-				borderColor: '#6259ca',
+				borderColor: '#1a2e6b',
 				borderWidth: '4',
 				pointBorderColor: 'transparent',
 				pointBackgroundColor: 'transparent',
@@ -380,27 +380,27 @@ $(function(e){
 	$('#sparkline1').sparkline('html', {
 		width: 120,
 		height: 30,
-		lineColor: '#6259ca',
+		lineColor: '#1a2e6b',
 		fillColor: 'rgba(135, 96, 251, 0.1)'
 	});
 	
 	$('#sparkline2').sparkline('html', {
 		width: 120,
 		height: 30,
-		lineColor: '#6259ca',
+		lineColor: '#1a2e6b',
 		fillColor: 'rgba(135, 96, 251, 0.1)'
 	});
 	
 	$('#sparkline3').sparkline('html', {
 		width: 120,
 		height: 30,
-		lineColor: '#6259ca',
+		lineColor: '#1a2e6b',
 		fillColor: 'rgba(135, 96, 251, 0.1)'
 	});
 	$('#sparkline4').sparkline('html', {
 		width: 120,
 		height: 30,
-		lineColor: '#6259ca',
+		lineColor: '#1a2e6b',
 		fillColor: 'rgba(135, 96, 251, 0.1)'
 	});
 	
@@ -415,7 +415,7 @@ $(function(e){
 				datasets: [{
 					data: [50, 30, 30],
 					backgroundColor: [
-					   '#6259ca','#bbb6ef','#dfddfa'
+					   '#1a2e6b','#bbb6ef','#dfddfa'
 					],
 					borderWidth: 0,
 				}]

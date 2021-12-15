@@ -12,7 +12,7 @@
 				data: [100, 210, 180, 454, 454, 230, 230,656,656,350,350, 210, 410],
 				borderWidth: 3,
 				backgroundColor: 'transparent',
-				borderColor: '#6259ca',
+				borderColor: '#1a2e6b',
 				pointBackgroundColor: '#ffffff',
 				pointRadius: 0,
 				type: 'line',
@@ -259,8 +259,8 @@ var myChart = new Chart(ctx, {
 	   labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
 	   datasets: [{
 			label: 'Total Project',
-			backgroundColor: "#6259ca",
-			borderColor: "#6259ca ",
+			backgroundColor: "#1a2e6b",
+			borderColor: "#1a2e6b ",
 			data: [89, 59, 76, 56, 58,73, 59, 87, 45, 54,59, 76, 56,],
 		}, {
 			label: 'On Going',

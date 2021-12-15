@@ -5,7 +5,7 @@
 // 	/*-- Jvector Map -- */
 // 	$('#world-map-markers').vectorMap({
 // 		map : 'world_mill_en',
-// 		scaleColors : ['#6259ca', '#f0f0ff'],
+// 		scaleColors : ['#1a2e6b', '#f0f0ff'],
 // 		normalizeFunction : 'polynomial',
 // 		hoverOpacity : 0.7,
 // 		hoverColor : false,
@@ -17,7 +17,7 @@
 // 		markerStyle: {
 // 			initial: {
 // 				r: 6,
-// 				'fill': '#6259ca',
+// 				'fill': '#1a2e6b',
 // 				'fill-opacity': 0.9,
 // 				'stroke': '#fff',
 // 				'stroke-width' : 2.5,
@@ -77,7 +77,7 @@
 // 				data: [50, 90, 210, 90, 150, 75, 200, 70],
 // 				borderWidth: 3,
 // 				backgroundColor: 'transparent',
-// 				borderColor: '#6259ca',
+// 				borderColor: '#1a2e6b',
 // 				pointBackgroundColor: '#ffffff',
 // 				pointRadius: 0,
 // 			}]
@@ -188,14 +188,14 @@
 // 		}
 // 	  }
 // 	},
-// 	colors: ['#6259ca'],
+// 	colors: ['#1a2e6b'],
 // 	fill: {
 // 		type: "gradient",
 // 		gradient: {
 // 			shade: "dark",
 // 			type: "horizontal",
 // 			shadeIntensity: .5,
-// 			gradientToColors: ['#6259ca'],
+// 			gradientToColors: ['#1a2e6b'],
 // 			inverseColors: !0,
 // 			opacityFrom: 1,
 // 			opacityTo: 1,

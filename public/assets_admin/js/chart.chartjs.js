@@ -11,7 +11,7 @@ $(function() {
 				data: [20, 420, 210, 354, 580, 320, 480],
 				borderWidth: 2,
 				backgroundColor: 'transparent',
-				borderColor: '#6259ca',
+				borderColor: '#1a2e6b',
 				borderWidth: 3,
 				pointBackgroundColor: '#ffffff',
 				pointRadius: 2
@@ -116,9 +116,9 @@ $(function() {
 			datasets: [{
 				label: "Data1",
 				data: [65, 59, 80, 81, 56, 55, 40],
-				borderColor: "#6259ca",
+				borderColor: "#1a2e6b",
 				borderWidth: "0",
-				backgroundColor: "#6259ca"
+				backgroundColor: "#1a2e6b"
 			}, {
 				label: "Data2",
 				data: [28, 48, 40, 19, 86, 27, 90],
@@ -221,7 +221,7 @@ $(function() {
 		labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
 		datasets: [{
 			data: [20, 20, 30, 5, 25],
-			backgroundColor: ['#6259ca', '#53caed', '#01b8ff', '#f16d75', '#29ccbb']
+			backgroundColor: ['#1a2e6b', '#53caed', '#01b8ff', '#f16d75', '#29ccbb']
 		}]
 	};
 	var optionpie = {
@@ -307,8 +307,8 @@ $(function() {
 		data: {
 			datasets: [{
 				data: [18, 15, 9, 6, 19],
-				backgroundColor: ['#6259ca', '#53caed', '#01b8ff', '#f16d75', '#29ccbb'],
-				hoverBackgroundColor: ['#6259ca', '#53caed', '#01b8ff', '#f16d75', '#29ccbb'],
+				backgroundColor: ['#1a2e6b', '#53caed', '#01b8ff', '#f16d75', '#29ccbb'],
+				hoverBackgroundColor: ['#1a2e6b', '#53caed', '#01b8ff', '#f16d75', '#29ccbb'],
 				borderColor:'transparent',
 			}],
 			labels: ["Data1", "Data2", "Data3", "Data4"]

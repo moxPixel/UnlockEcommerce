@@ -5281,7 +5281,7 @@ fieldset:disabled a.btn {
 }
 
 .card-dashboard-twentysix.card-dark-two {
-    background-image: linear-gradient(to bottom, #0a47ff 0%, #6259ca 100%);
+    background-image: linear-gradient(to bottom, #0a47ff 0%, #1a2e6b 100%);
     background-repeat: repeat-x;
 }
 
@@ -10816,7 +10816,7 @@ div.dataTables_wrapper div.dataTables_length select {
         width: 35px;
         height: 35px;
         line-height: 35px;
-        background: #6259ca;
+        background: #1a2e6b;
         text-align: center;
         border-radius: 50%;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
@@ -10836,7 +10836,7 @@ div.dataTables_wrapper div.dataTables_length select {
     }
 
     .main-sidebar-hide .main-sidebar-body li.active .sidemenu-icon {
-        background: #6259ca;
+        background: #1a2e6b;
         margin-left: 5px;
     }
 
@@ -16998,7 +16998,7 @@ textarea.parsley-success:focus {
 }
 
 .btn-default.active {
-    background: #6259ca;
+    background: #1a2e6b;
     color: #ffffff;
     border-bottom: 2px solid #433c9a;
 }
@@ -17196,7 +17196,7 @@ textarea.parsley-success:focus {
 }
 
 .crypto-btc-usd .nav-link.active {
-    background: #6259ca;
+    background: #1a2e6b;
     border-radius: 3px;
     color: #ffffff;
 }
@@ -17304,11 +17304,11 @@ textarea.parsley-success:focus {
 }
 
 input:checked+label.payment-cards {
-    border-color: #6259ca !important;
+    border-color: #1a2e6b !important;
     position: relative !important;
     display: block !important;
     border-width: 1px;
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .form input:checked+label:after,
@@ -17319,7 +17319,7 @@ form input:checked+label:after {
     line-height: 17px;
     border-style: solid;
     border-width: 0 35px 35px 0px;
-    border-color: #6259ca #6259ca transparent;
+    border-color: #1a2e6b #1a2e6b transparent;
     display: block;
     position: absolute;
     top: 0;
@@ -17333,7 +17333,7 @@ form input:checked+label:after {
     line-height: 17px;
     border-style: solid;
     border-width: 0 35px 35px 0px;
-    border-color: #6259ca #6259ca transparent;
+    border-color: #1a2e6b #1a2e6b transparent;
     display: block;
     position: absolute;
     top: 0;
@@ -17384,7 +17384,7 @@ form input:checked+label:before,
     height: 0;
     border: solid transparent;
     border-width: 10px;
-    border-top-color: #6259ca;
+    border-top-color: #1a2e6b;
     content: '';
     pointer-events: none;
 }
@@ -17399,7 +17399,7 @@ form input:checked+label:before,
 }
 
 .crypto-buysell-card .nav.panel-tabs li a.active {
-    background: #6259ca;
+    background: #1a2e6b;
     color: #ffffff;
 }
 
@@ -17425,14 +17425,14 @@ form input:checked+label:before,
 }
 
 .crypto-wallet .clipboard-icon {
-    background-color: #6259ca !important;
-    border-color: #6259ca !important;
+    background-color: #1a2e6b !important;
+    border-color: #1a2e6b !important;
     border-radius: 0 4px 4px 0 !important;
     top: 0;
     right: 0;
     font-size: 14px;
-    background: #6259ca;
-    border: 1px solid #6259ca;
+    background: #1a2e6b;
+    border: 1px solid #1a2e6b;
     cursor: pointer;
     padding: 0.375rem 0.75rem;
     font-size: 0.875rem;
@@ -17443,14 +17443,14 @@ form input:checked+label:before,
 
 .crypto-wallet .clipboard-icon:hover,
 .crypto-wallet .clipboard-icon:focus {
-    background-color: #6259ca !important;
-    border-color: #6259ca !important;
+    background-color: #1a2e6b !important;
+    border-color: #1a2e6b !important;
     border-radius: 0 4px 4px 0 !important;
     top: 0;
     right: 0;
     font-size: 14px;
-    background: #6259ca;
-    border: 1px solid #6259ca;
+    background: #1a2e6b;
+    border: 1px solid #1a2e6b;
     cursor: pointer;
     padding: 0.375rem 0.75rem;
     font-size: 0.875rem;
@@ -17593,7 +17593,7 @@ table.dataTable thead .sorting_asc_disabled:after,
     font-size: 20px;
     line-height: 37px;
     font-size: 17px;
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .product-timeline ul.timeline-1:before {
@@ -17856,7 +17856,7 @@ table.dataTable thead .sorting_asc_disabled:after,
     line-height: 1.573;
     color: #ffffff;
     border-radius: 4px;
-    background: #6259ca;
+    background: #1a2e6b;
 }
 
 #checkoutsteps>.actions .disabled a {
@@ -17920,7 +17920,7 @@ table.dataTable thead .sorting_asc_disabled:after,
 }
 
 #checkoutsteps>.steps .current a .number {
-    background: #6259ca;
+    background: #1a2e6b;
     color: #ffffff;
 }
 
@@ -18008,7 +18008,7 @@ table.dataTable thead .sorting_asc_disabled:after,
 }
 
 .card-pay .tabs-menu li a.active {
-    background: #6259ca;
+    background: #1a2e6b;
     color: #ffffff;
 }
 
@@ -18045,14 +18045,14 @@ table.dataTable thead .sorting_asc_disabled:after,
 }
 
 .item1-links .nav-item a.active {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
     color: #ffffff;
     border-radius: 0;
 }
 
 .item1-links .nav-link:hover,
 .item1-links .nav-link:focus {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
     color: #ffffff;
     border-radius: 0;
 }
@@ -18109,11 +18109,11 @@ table.dataTable thead .sorting_asc_disabled:after,
 }
 
 .track .step.active:before {
-    background: #6259ca;
+    background: #1a2e6b;
 }
 
 .track .step.active .icon {
-    background: #6259ca;
+    background: #1a2e6b;
     color: #ffffff;
 }
 
@@ -65301,7 +65301,7 @@ a.tag-addon:hover {
 }
 
 .tag-indigo {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
     color: #ffffff;
 }
 
@@ -65714,7 +65714,7 @@ a.tag-addon:hover {
     bottom: 0;
     width: 240px;
     overflow-y: auto;
-    background-color: #25233c;
+    background-color: #1a2e6b;
     z-index: 1000;
     visibility: hidden;
     transform: translateX(-240px);
@@ -68215,8 +68215,8 @@ a.tag-addon:hover {
 
 .list-group-item.active {
     color: #ffffff;
-    background-color: #6259ca;
-    border-color: #6259ca;
+    background-color: #1a2e6b;
+    border-color: #1a2e6b;
 }
 
 /* ###### List-group ###### */
@@ -73348,6 +73348,10 @@ div.dtr-modal div.dtr-modal-content {
     .signpages .main-content {
         width: 70%;
     }
+    
+.shape1, .shape2{
+	display: none;
+}
 }
 
 .icons-list {
@@ -73816,6 +73820,10 @@ html.fullscreen .main-content {
         bottom: -27px;
         left: -14px;
     }
+    
+.shape1, .shape2{
+	display: none;
+}
 }
 
 .upgrade.custom-card {
@@ -73902,6 +73910,12 @@ html.fullscreen .main-content {
 
 .user-lock .option-dots:hover {
     background: transparent;
+    
+.shape1, .shape2{
+	display: none;
 }
+}
+
+
 
 /*# sourceMappingURL=style.css.map */

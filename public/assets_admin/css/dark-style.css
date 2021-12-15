@@ -1046,7 +1046,7 @@ body.dark-theme {
 }
 
 .dark-theme .page-link:hover {
-    color: #6259ca;
+    color: #1a2e6b;
     background-color: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.1);
 }
@@ -1494,27 +1494,27 @@ body.dark-theme {
 }
 
 .dark-theme .popover-primary {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
 }
 
 .dark-theme .popover-primary.bs-popover-top .arrow::after,
 .dark-theme .popover-primary.bs-popover-auto[x-placement^="top"] .arrow::after {
-    border-top-color: #6259ca;
+    border-top-color: #1a2e6b;
 }
 
 .dark-theme .popover-primary.bs-popover-bottom .arrow::after,
 .dark-theme .popover-primary.bs-popover-auto[x-placement^="bottom"] .arrow::after {
-    border-bottom-color: #6259ca;
+    border-bottom-color: #1a2e6b;
 }
 
 .dark-theme .popover-primary.bs-popover-left .arrow::after,
 .dark-theme .popover-primary.bs-popover-auto[x-placement^="left"] .arrow::after {
-    border-left-color: #6259ca;
+    border-left-color: #1a2e6b;
 }
 
 .dark-theme .popover-primary.bs-popover-right .arrow::after,
 .dark-theme .popover-primary.bs-popover-auto[x-placement^="right"] .arrow::after {
-    border-right-color: #6259ca;
+    border-right-color: #1a2e6b;
 }
 
 .dark-theme .popover-secondary {
@@ -1970,7 +1970,7 @@ body.dark-theme {
 }
 
 .dark-theme .popover-head-primary .popover-header {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
 }
 
 .dark-theme .popover-head-secondary .popover-header {
@@ -2183,7 +2183,7 @@ body.dark-theme {
 .dark-theme .wizard>.steps .current a .number,
 .dark-theme .wizard>.steps .current a:hover .number,
 .dark-theme .wizard>.steps .current a:active .number {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
     color: #ffffff;
 }
 
@@ -2918,7 +2918,7 @@ body.dark-theme {
 }
 
 .dark-theme .main-nav-tabs .tab-link.active {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
     color: #fdfeff;
 }
 
@@ -4895,7 +4895,7 @@ body.dark-theme {
 }
 
 .dark-theme .main-nav-line .nav-link.active::before {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
 }
 
 .dark-theme .nav-bg .nav-tabs {
@@ -5286,7 +5286,7 @@ body.dark-theme {
 }
 
 .dark-theme.color-horizontal .main-navbar-search {
-    background: #6259ca;
+    background: #1a2e6b;
 }
 
 .dark-theme.light-horizontal .main-navbar-search {
@@ -5335,7 +5335,7 @@ body.dark-theme {
 }
 
 .dark-theme .main-content-left-components .component-item .nav-link:hover {
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .dark-theme .dropify-wrapper:hover {
@@ -5343,7 +5343,7 @@ body.dark-theme {
 }
 
 .dark-theme .bd-primary {
-    border-color: #6259ca;
+    border-color: #1a2e6b;
 }
 
 .dark-theme .bd-secondary {
@@ -5752,8 +5752,8 @@ body.dark-theme {
 }
 
 .dark-theme .file-browser .btn-default {
-    background: #6259ca;
-    border: 1px solid #6259ca;
+    background: #1a2e6b;
+    border: 1px solid #1a2e6b;
 }
 
 .dark-theme .ui-datepicker .ui-datepicker-calendar th {
@@ -5864,14 +5864,14 @@ body.dark-theme {
 }
 
 .dark-theme.flat a:hover {
-    background: #6259ca;
+    background: #1a2e6b;
     color: #ffffff;
 }
 
 .dark-theme .flat a.active,
 .dark-theme .flat a:hover:after,
 .dark-theme .flat a.active:after {
-    background: #6259ca;
+    background: #1a2e6b;
     color: #ffffff;
 }
 
@@ -5881,8 +5881,8 @@ body.dark-theme {
 
 .dark-theme .pagination-circle .page-link:hover {
     color: #ffffff;
-    background-color: #6259ca;
-    border: 1px solid #6259ca;
+    background-color: #1a2e6b;
+    border: 1px solid #1a2e6b;
 }
 
 .dark-theme .construction1 h1 {
@@ -6018,12 +6018,12 @@ body.dark-theme {
 
 .dark-theme #back-to-top {
     color: #ffffff;
-    background: #6259ca;
+    background: #1a2e6b;
 }
 
 .dark-theme #back-to-top:hover {
-    color: #6259ca !important;
-    border: 2px solid #6259ca;
+    color: #1a2e6b !important;
+    border: 2px solid #1a2e6b;
     background: #1c1c38 !important;
 }
 
@@ -6036,22 +6036,22 @@ body.dark-theme {
 }
 
 .dark-theme .accordion-color .card-header a {
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .dark-theme .accordion-color .card-header a:hover,
 .dark-theme .accordion-color .card-header a:focus {
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .dark-theme .accordion-color .card-header a.collapsed {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
     color: rgba(255, 255, 255, 0.8);
 }
 
 .dark-theme .accordion-color .card-header a.collapsed:hover,
 .dark-theme .accordion-color .card-header a.collapsed:focus {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
     color: #ffffff;
 }
 
@@ -6141,7 +6141,7 @@ body.dark-theme {
 
 .dark-theme .timeline-wrapper-dark .timeline-panel:before,
 .dark-theme .timeline-wrapper-dark .timeline-badge {
-    background: #6259ca;
+    background: #1a2e6b;
 }
 
 .dark-theme .example {
@@ -6161,7 +6161,7 @@ body.dark-theme {
 }
 
 .dark-theme .our-team .picture::after {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
 }
 
 .dark-theme .our-team:hover .picture img {
@@ -6197,21 +6197,21 @@ body.dark-theme {
 
 .dark-theme .br-theme-bars-horizontal .br-widget a.br-active,
 .dark-theme .br-theme-bars-horizontal .br-widget a.br-selected {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
 }
 
 .dark-theme .br-theme-bars-horizontal .br-widget .br-current-rating {
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .dark-theme .br-theme-bars-pill .br-widget a {
     background-color: rgba(255, 255, 255, 0.08);
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .dark-theme .br-theme-bars-pill .br-widget a.br-active,
 .dark-theme .br-theme-bars-pill .br-widget a.br-selected {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
     color: white;
 }
 
@@ -6224,7 +6224,7 @@ body.dark-theme {
 .dark-theme .br-theme-bars-square .br-widget a.br-active,
 .dark-theme .br-theme-bars-square .br-widget a.br-selected {
     border: 2px solid rgba(255, 255, 255, 0.05);
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .dark-theme .br-theme-bars-movie .br-widget a {
@@ -6233,11 +6233,11 @@ body.dark-theme {
 
 .dark-theme .br-theme-bars-movie .br-widget a.br-active,
 .dark-theme .br-theme-bars-movie .br-widget a.br-selected {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
 }
 
 .dark-theme .br-theme-bars-movie .br-widget .br-current-rating {
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .dark-theme .br-theme-bars-1to10 .br-widget a {
@@ -6246,16 +6246,16 @@ body.dark-theme {
 
 .dark-theme .br-theme-bars-1to10 .br-widget a.br-active,
 .dark-theme .br-theme-bars-1to10 .br-widget a.br-selected {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
 }
 
 .dark-theme .br-theme-bars-1to10 .br-widget .br-current-rating {
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .dark-theme .br-theme-fontawesome-stars .br-widget a.br-active:after,
 .dark-theme .br-theme-fontawesome-stars .br-widget a.br-selected:after {
-    color: #6259ca;
+    color: #1a2e6b;
 }
 
 .dark-theme .rating-stars input {
@@ -6323,11 +6323,11 @@ body.dark-theme {
 }
 
 .dark-theme .custom-switch-input:checked~.custom-switch-indicator {
-    background: #6259ca;
+    background: #1a2e6b;
 }
 
 .dark-theme .custom-switch-input:focus~.custom-switch-indicator {
-    border-color: #6259ca;
+    border-color: #1a2e6b;
 }
 
 .dark-theme .custom-switch-description {
@@ -6344,14 +6344,14 @@ body.dark-theme {
 }
 
 .dark-theme .selectgroup-input:checked+.selectgroup-button {
-    border-color: #6259ca;
-    color: #6259ca;
+    border-color: #1a2e6b;
+    color: #1a2e6b;
     background: #252542;
 }
 
 .dark-theme .selectgroup-input:focus+.selectgroup-button {
-    border-color: #6259ca;
-    color: #6259ca;
+    border-color: #1a2e6b;
+    color: #1a2e6b;
     box-shadow: none;
 }
 
@@ -6831,7 +6831,7 @@ body.dark-theme {
 }
 
 .dark-theme .card-pay .tabs-menu li a.active {
-    background: #6259ca;
+    background: #1a2e6b;
     color: #ffffff;
 }
 
@@ -6953,7 +6953,7 @@ body.dark-theme {
 }
 
 .dark-theme .fc-day-today {
-    background-color: #6259ca !important;
+    background-color: #1a2e6b !important;
     opacity: 0.9;
 }
 
@@ -7068,7 +7068,7 @@ body.dark-theme {
 }
 
 .dark-theme #tab .nav-link.active {
-    border-color: #6259ca;
+    border-color: #1a2e6b;
 }
 
 .dark-theme .owl-theme:before {

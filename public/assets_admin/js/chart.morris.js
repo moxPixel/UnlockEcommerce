@@ -84,7 +84,7 @@ $(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b'],
 		labels: ['Series A', 'Series B'],
-		barColors: ['#6259ca', '#53caed'],
+		barColors: ['#1a2e6b', '#53caed'],
 		gridTextSize: 11,
 		hideHover: 'auto',
 		resize: true
@@ -97,7 +97,7 @@ $(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b', 'c'],
 		labels: ['Series A', 'Series B', 'Series C'],
-		barColors: ['#6259ca', '#53caed', '#01b8ff'],
+		barColors: ['#1a2e6b', '#53caed', '#01b8ff'],
 		gridTextSize: 11,
 		hideHover: 'auto',
 		resize: true
@@ -110,7 +110,7 @@ $(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b'],
 		labels: ['Series A', 'Series B'],
-		barColors: ['#6259ca', '#53caed'],
+		barColors: ['#1a2e6b', '#53caed'],
 		stacked: true,
 		gridTextSize: 11,
 		hideHover: 'auto',
@@ -122,7 +122,7 @@ $(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b', 'c'],
 		labels: ['Series A', 'Series B', 'Series C'],
-		barColors: ['#6259ca', '#53caed', '#01b8ff'],
+		barColors: ['#1a2e6b', '#53caed', '#01b8ff'],
 		stacked: true,
 		gridTextSize: 11,
 		hideHover: 'auto',
@@ -162,7 +162,7 @@ $(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b'],
 		labels: ['Series A', 'Series B'],
-		lineColors: ['#6259ca', '#53caed'],
+		lineColors: ['#1a2e6b', '#53caed'],
 		lineWidth: 1,
 		ymax: 'auto 100',
 		gridTextSize: 11,
@@ -210,7 +210,7 @@ $(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b', 'c'],
 		labels: ['Series A', 'Series B', 'Series C'],
-		lineColors: ['#6259ca', '#53caed', '#01b8ff'],
+		lineColors: ['#1a2e6b', '#53caed', '#01b8ff'],
 		lineWidth: 1,
 		ymax: 'auto 100',
 		gridTextSize: 11,
@@ -251,7 +251,7 @@ $(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b'],
 		labels: ['Series A', 'Series B'],
-		lineColors: ['#6259ca', '#53caed'],
+		lineColors: ['#1a2e6b', '#53caed'],
 		lineWidth: 1,
 		fillOpacity: 0.9,
 		gridTextSize: 11,
@@ -299,7 +299,7 @@ $(function() {
 		xkey: 'y',
 		ykeys: ['a', 'b', 'c'],
 		labels: ['Series A', 'Series B', 'Series C'],
-		lineColors: ['#6259ca', '#53caed', '#01b8ff'],
+		lineColors: ['#1a2e6b', '#53caed', '#01b8ff'],
 		lineWidth: 1,
 		fillOpacity: 0.9,
 		gridTextSize: 11,
@@ -312,7 +312,7 @@ $(function() {
 			{label: "New clients", value: 35},
 			{label: "Sales", value: 65}
 		  ],
-		colors: ['#f16d75' ,'#6259ca'],
+		colors: ['#f16d75' ,'#1a2e6b'],
 		labelColor: '#77778e',
 		resize: true
 	});
@@ -332,7 +332,7 @@ $(function() {
 			value: 25
 		}],
 		labelColor: '#77778e',
-		colors: ['#6259ca', '#53caed', '#01b8ff', '#f16d75'],
+		colors: ['#1a2e6b', '#53caed', '#01b8ff', '#f16d75'],
 		resize: true,
 	});
 });

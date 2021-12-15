@@ -75,46 +75,9 @@
 								</ul>
 							</li>
 							{% if (app.user) and (app.user.role == "Admin") %}
-							<li class="dropdown has-mega-menu"><a href="#">Admin</a>
-								<div class="mega-menu">
-									<div class="mega-menu-bar row clearfix">
-										<div class="column col-lg-3 col-md-4 col-sm-12">
-											<h3>Utilisateurs</h3>
-											<ul>
-												<li><a href="about.html">Ajouter un utilisateur</a></li>
-												<li><a href="faq.html">Modifier un utilisateur</a></li>
-												<li><a href="price.html">Supprimer un utilisateur</a></li>
-											</ul>
-										</div>
-										<div class="column col-lg-3 col-md-4 col-sm-12">
-											<h3>Services</h3>
-											<ul>
-												<li><a href="{{path('category')}}">Categorie</a></li>
-												<li><a href="{{path('product')}}">Formule</a></li>
-												<li><a href="app-development.html">Degign</a></li>
-												<li><a href="seo.html">Marketing</a></li>
-											</ul>
-										</div>
-										<div class="column col-lg-3 col-md-4 col-sm-12">
-											<h3>Commandes</h3>
-											<ul>
-												<li><a href="blog.html">Commandes</a></li>
-												<li><a href="blog-classic.html">Commande en attente de paiement</a></li>
-												<li><a href="blog-left-sidebar.html">Commandes validez</a></li>
-												<li><a href="news-detail.html">Graphique annuelle</a></li>
-											</ul>
-										</div>
-										<div class="column col-lg-3 col-md-4 col-sm-12">
-											<h3>Formules</h3>
-											<ul>
-												<li><a href="shop.html">Formules developpement</a></li>
-												<li><a href="shop-single.html">Formule formation</a></li>
-												<li><a href="shoping-cart.html">Formule design</a></li>
-												<li><a href="checkout.html">Formule marketing</a></li>
-											</ul>
-										</div>
-									</div>
-								</div>
+							<li>
+								<a href="{{path('dashboard')}}">Admin</a>
+							
 							</li>
 							{% endif%}
 						

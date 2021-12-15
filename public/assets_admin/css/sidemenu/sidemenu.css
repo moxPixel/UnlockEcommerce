@@ -504,7 +504,7 @@
 }
 
 .main-sidebar-sticky {
-    background: #25233c;
+    background: #1a2e6b;
 }
 
 .main-sidebar-body li.nav-item.active .nav-link {
@@ -513,7 +513,7 @@
 
 .main-sidebar-body .nav-item.active .nav-link:before,
 .main-sidebar-body .nav-item.active .nav-link:after {
-    border-right: 20px solid #25233c;
+    border-right: 20px solid #1a2e6b;
 }
 
 .main-sidebar-body .nav-item.active .nav-link .shape1,

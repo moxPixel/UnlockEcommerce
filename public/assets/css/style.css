@@ -15983,14 +15983,19 @@ img{
 	color: blue;
 }
 
-.myTable td{
+.myTable{
 
 
-	background-color: #33ccfa2e;
+	color: white;
 }
 
 .myTable td{
 
 
 	background-color: #33ccfa2e;
+}
+
+
+.register-form label{
+color: #fff;
 }

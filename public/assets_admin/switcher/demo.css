@@ -131,10 +131,10 @@
     transition: all 0.3s ease-in 0s; 
 }
 .onoffswitch2-checkbox:checked + .onoffswitch2-label {
-    background-color: #6259ca;
+    background-color: #1a2e6b;
 }
 .onoffswitch2-checkbox:checked + .onoffswitch-label2, .onoffswitch2-checkbox:checked + .onoffswitch2-label:before {
-   border-color: #6259ca;
+   border-color: #1a2e6b;
 }
 .onoffswitch2-checkbox:checked + .onoffswitch2-label:before {
     right: 0px; 

@@ -53,7 +53,7 @@
 			},
 			"department-21": {
 				attrs: {
-					fill: "#6259ca"
+					fill: "#1a2e6b"
 				}
 				, attrsHover: {
 					fill: "#fd6074"
@@ -175,7 +175,7 @@
 						min: 300000,
 						max: 500000,
 						attrs: {
-							fill: "#6259ca"
+							fill: "#1a2e6b"
 						},
 						label: "Between 100 000 and 500 000 inhabitants"
 					},
@@ -708,7 +708,7 @@
 			name: "france_departments",
 			defaultArea: {
 				attrsHover: {
-					fill: "#6259ca",
+					fill: "#1a2e6b",
 					stroke: "#5d5d5d",
 					"stroke-width": 1,
 					"stroke-linejoin": "round"
@@ -9961,7 +9961,7 @@
 			, defaultLink: {
 				factor: 0.4
 				, attrsHover: {
-					stroke: "#6259ca"
+					stroke: "#1a2e6b"
 				}
 			}
 			, defaultPlot: {

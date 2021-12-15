@@ -8,13 +8,13 @@ $(function() {
 		selectedColor: '#77778e33',
 		enableZoom: true,
 		showTooltip: true,
-		scaleColors: ['#6259ca', '#6c4dc5'],
+		scaleColors: ['#1a2e6b', '#6c4dc5'],
 		values: sample_data,
 		normalizeFunction: 'polynomial'
 	});
 	$('#vmap2').vectorMap({
 		map: 'usa_en',
-		color: '#6259ca',
+		color: '#1a2e6b',
 		showTooltip: true,
 		backgroundColor: 'transparent',
 		hoverColor: '#6c4dc5'
@@ -22,7 +22,7 @@ $(function() {
 	 $('#vmap3').vectorMap({
 		map: 'canada_en',
 		backgroundColor: null,
-		color: '#6259ca',
+		color: '#1a2e6b',
 		hoverColor: '#6c4dc5',
 		enableZoom: false,
 		showTooltip: false

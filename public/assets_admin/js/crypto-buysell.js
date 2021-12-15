@@ -281,7 +281,7 @@ $(function(){
             [1358809200000,37.95]
           ]
         }],
-		colors: ['#6259ca'],
+		colors: ['#1a2e6b'],
         chart: {
 			id: 'area-datetime',
 			type: 'area',
@@ -470,7 +470,7 @@ $(function(){
         },
 
       ],
-	  colors: ['#6259ca'],
+	  colors: ['#1a2e6b'],
         chart: {
 			id: 'area-datetime',
 			type: 'area',
@@ -638,7 +638,7 @@ $(function(){
         },
 
         ],
-		colors: ['#6259ca'],
+		colors: ['#1a2e6b'],
         chart: {
 			id: 'area-datetime',
 			type: 'area',

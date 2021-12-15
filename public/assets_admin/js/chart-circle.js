@@ -9,7 +9,7 @@
     value: 0.5,
     lineCap: 'round',
 	emptyFill: 'rgba(204, 204, 204,0.2)',
-    fill: {color: '#6259ca'},
+    fill: {color: '#1a2e6b'},
 	lineCap: 'round'
   });
 

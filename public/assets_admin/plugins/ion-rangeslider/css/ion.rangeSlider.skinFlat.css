@@ -76,7 +76,7 @@
 	line-height: 1.333;
 	text-shadow: none;
 	padding: 1px 5px;
-	background: #6259ca;
+	background: #1a2e6b;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
 }
@@ -91,7 +91,7 @@
 	margin-left: -3px;
 	overflow: hidden;
 	border: 3px solid transparent;
-	border-top-color: #6259ca;
+	border-top-color: #1a2e6b;
 }
 .irs-grid-pol {
 	background: #e1e4e9;

@@ -294,9 +294,9 @@
 	padding: 6px;
 }
 .SumoSelect>.optWrapper.multiple.okCancelInMulti>.MultiControls>p:focus {
-	border-color: #6259ca;
+	border-color: #1a2e6b;
 	outline: none;
-	background-color: #6259ca;
+	background-color: #1a2e6b;
 }
 .SumoSelect>.optWrapper.multiple>.MultiControls>p {
 	display: inline-block;
@@ -330,7 +330,7 @@
 	padding-bottom: 43px;
 }
 .SumoSelect>.optWrapper.multiple>.options li.opt.selected span i, .SumoSelect .select-all.selected>span i, .SumoSelect .select-all.partial>span i {
-	background-color: #6259ca;
+	background-color: #1a2e6b;
 	box-shadow: none;
 	border-color: transparent;
 	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAGCAYAAAD+Bd/7AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAABx0RVh0U29mdHdhcmUAQWRvYmUgRmlyZXdvcmtzIENTNXG14zYAAABMSURBVAiZfc0xDkAAFIPhd2Kr1WRjcAExuIgzGUTIZ/AkImjSofnbNBAfHvzAHjOKNzhiQ42IDFXCDivaaxAJd0xYshT3QqBxqnxeHvhunpu23xnmAAAAAElFTkSuQmCC');

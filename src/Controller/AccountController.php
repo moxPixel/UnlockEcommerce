@@ -2,9 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Calendar;
-use App\Repository\CalendarRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\OrderDetailsRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,10 +19,12 @@ class AccountController extends AbstractController
     /**
      * @Route("/account", name="account")
      */
-    public function account(): Response
+    public function account(OrderDetailsRepository $orderRepository): Response
     {
+        $ordersValid = $orderRepository->findByOrderIsPaidForUser(1,$this->getUser());
 
-
-        return $this->render('account/account.html.twig', []);
+        return $this->render('account/account.html.twig', [
+            'ordersValid' => $ordersValid,
+        ]);
     }
 }
