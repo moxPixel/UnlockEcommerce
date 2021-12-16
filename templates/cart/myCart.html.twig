@@ -10,67 +10,91 @@
 {% block body %}
 <!-- Page Title Section -->
 <section class="page-title"
-	style="background-image: url(assets/images/background/b3.png);background-size:cover;min-height: 1200px;">
-	<div class="pattern-layer-one" style="background-image: url(assets/images/main-slider/pattern-1.png)"></div>
-	<div class="pattern-layer-two" style="background-image: url(assets/images/background/pattern-17.png)"></div>
-	<div class="pattern-layer-three" style="background-image: url(assets/images/background/pattern-18.png)"></div>
-	<div class="pattern-layer-four" style="background-image: url(assets/images/icons/cross-icon.png)"></div>
-
-	<div class="container" style="position:relative;z-index: 55;">
+    style="background-image: url(assets/images/background/b3.png);background-size:cover;min-height: 1200px;">
+    <div class="container" style="position:relative;z-index: 55;">
         <h2 class="text-center">Panier</h2>
-            <!--Form Column-->
-     
-     
-          
-                <hr>
-              
-                    {% if cart is not empty %}
+        <!--Form Column-->
+
+        <hr>
+        <section class="row">
+            <div class="col-md-8">
+                {% if cart is not empty %}
+                <div>
+                    <table class="table myTable">
+                        <thead>
+                            <tr>
+                                <th scope="col">Categorie</th>
+                                <th scope="col">Quantité</th>
+                                <th scope="col">Prix</th>
+                                <th scope="col">Total</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% set total = null %}
+                            {% for product in cart %}
+                            <tr>
+                                <td>{{product.product.category.name}}</td>
+                                <td>
+                                    <a href="{{path('add_to_cart',{'id': product.product.id})}}"><img width="15"
+                                            src="{{asset('assets/img/add.png')}}" alt="Ajouter"></a>
+
+                                    <span class="text-white">( X{{product.quantity}} )</span>
+
+                                    <a href="{{path('decrease_to_cart',{'id': product.product.id})}}"><img width="15"
+                                            src="{{asset('assets/img/minus.png')}}" alt="Diminuer"></a>
+                                </td>
+                                <td>{{product.product.price | number_format(2,',','.')}}€ </td>
+                                <td>{{(product.product.price * product.quantity) | number_format(2,',','.')}}€</td>
+                                <td><a href="{{path('delete_to_cart',{'id': product.product.id})}}"><img width="18"
+                                            src="{{asset('assets/img/trash.png')}}" alt="Supprimer ma formule"></a></td>
+                                {% set total = total + (product.product.price * product.quantity)%}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+                {% endif %}
+                {% if cart is empty %}
+                <h1 class="text-muted text-center">Aucune formule pour le moment.</h1>
+                {% endif %}
+            </div>
+
+            <div class="col-md-4" style="background-color: rgba(255, 255, 255, 0.144);border-radius:5px; ">
+                <h4 class="text-muted text-right">Vérifier & commander</h4>
+                {% if total is defined %}
+                <div class="text-right">
+                    <b class="text-white">Formule total: {{cart | length}}</b><br>
+                    <b class="text-white">Total de mon panier: <h1>{{(total) | number_format(2,',','.')}}€</h1></b><br>
                     <div>
-                        <table class="table myTable">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Categorie</th>
-                                    <th scope="col">Quantité</th>
-                                    <th scope="col">Prix</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% set total = null %}
-                                {% for product in cart %}
-                                <tr>
-                                    <td>{{product.product.category.name}}</td>
-                                    <td>
-                                        <a href="{{path('add_to_cart',{'id': product.product.id})}}"><img width="15" src="{{asset('assets/img/add.png')}}" alt="Ajouter"></a>
-
-                                      <span class="text-white">( X{{product.quantity}} )</span>
-
-                                        <a href="{{path('decrease_to_cart',{'id': product.product.id})}}"><img width="15" src="{{asset('assets/img/minus.png')}}" alt="Diminuer"></a>
-                                    </td>
-                                    <td>{{product.product.price | number_format(2,',','.')}}€ </td>
-                                    <td>{{(product.product.price * product.quantity) | number_format(2,',','.')}}€</td>
-                                    <td><a href="{{path('delete_to_cart',{'id': product.product.id})}}"><img width="18" src="{{asset('assets/img/trash.png')}}" alt="Supprimer ma formule"></a></td>
-                                    {% set total = total + (product.product.price * product.quantity)%}
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        <div class="text-right">
-                            <b class="text-white">Formule total: {{cart | length}}</b><br>
-                            <b class="text-white">Total de mon panier: {{(total) | number_format(2,',','.')}}€</b><br>
-                         {{form(form)}}
-                        </div>
+                        {{form_start(form) }}
+                        {{form_row(form.submit) }}
+                        {{form_end(form) }}
+                        <i class="fab fa-cc-stripe text-white" style="font-size:50px;"></i>
                     </div>
-                    {% endif %}
-                    {% if cart is empty %}
-                    <h1 class="text-muted text-center">Aucune formule pour le moment.</h1>
-                    {% endif %}
-                   </div>
-                </section>
+                </div>
+                {% else %}
+                <div class="text-right">
+                    <b class="text-white">Formule total: {{cart | length}}</b><br>
+                    <b class="text-white">Total de mon panier: <h1>0€</h1></b><br>
+                    <div>
+                        {{form_start(form) }}
+                        {{form_row(form.submit, { 'attr':{'disabled':'disabled'} }) }}
+                        {{form_end(form) }}
+                        <i class="fab fa-cc-stripe text-white" style="font-size:50px;"></i>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
 
-       
-      
+
+        </section>
+    </div>
+</section>
+
+
+
 <!--End Register Section-->
 
 {% endblock %}

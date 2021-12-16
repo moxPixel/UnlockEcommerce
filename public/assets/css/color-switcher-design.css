@@ -30,7 +30,7 @@
 }
 
 .color-palate-head {
-    background: #eb3867 none repeat scroll 0 0;
+    background: #121e58 none repeat scroll 0 0;
     padding: 12px 0;
 	margin-bottom:12px;
 }
@@ -146,11 +146,11 @@
 }
 
 .palate.pink-color{
-    background: #ff017e none repeat scroll 0 0;
+    background: #101d53 none repeat scroll 0 0;
 }
 
 .palate.hotpink-color{
-    background: #96053e none repeat scroll 0 0;
+    background: #101d53 none repeat scroll 0 0;
 }
 
 .color-trigger {
@@ -163,7 +163,7 @@
     padding-top: 6px;
 	padding-right:6px;
 	border-radius:0px 50px 50px 0px;
-	background: #eb3867 none repeat scroll 0 0;
+	background: #101d53 none repeat scroll 0 0;
 }
 .color-trigger .fa{
 	/*-webkit-animation: rotating 2s linear infinite;
