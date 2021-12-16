@@ -10,9 +10,9 @@
 	style="background-image: url(assets/images/background/b3.png);background-size:cover;min-height: 1200px;">
 
 	<div class="container">
-
+<h3 class="text-center text-white">Mon compte client</h3>
 		<div class="row justify-content-around d-flex">
-			<div class="col-md-4" style="background-color:rgba(255, 255, 255, 0.246);border-radius: 12px;">
+			<div class="col-md-4 mt-2">
 				<ul class="page-breadcrumb">
 					<h1 class="text-center">
 						{% if app.user.picture is not null %}
@@ -31,44 +31,92 @@
 					<hr class="text-white">
 				</ul>
 			</div>
+		<div class="col-md-8 mt-2">
+			<section class="faq-section" >
+				<div class="auto-container">
+					<div class="row clearfix">
+						
+						<!-- Accordian Column -->
+						<div class="accordian-column ">
+							<div class="inner-column">
+							
+								<ul class="accordion-box">
+									<!--Block-->
+									<li class="accordion block active-block" style="background-color:white;border-radius: 12px;">
+										<div class="acc-btn active">Mes informations<div class="icon flaticon-right-arrow-1"></div></div>
+										<div class="acc-content" style="display: block;">
+											<div class="content">
+												<div class="text">Google has said for years that the most important single factor to them is high quality content. Now more than ever, they have the ability. We help ambitious businesses like yours generate more profits by building awareness, driving web traffic, connecting with customers.</div>
+											</div>
+										</div>
+									</li>
 		
-		</div>
-		<hr>
-		<br><br>
-		<h3 class="text-white">Mes commandes</h3>
-		{% if ordersValid is not empty %}
-		<div>
-			<table class="table myTable">
-				<thead>
-					<tr>
-						<th scope="col">Categorie</th>
-						<th scope="col">Quantité</th>
-						<th scope="col">Prix</th>
-						<th scope="col">Total</th>
-						<th scope="col">Status</th>
+									<!--Block-->
+									<li class="accordion block" style="background-color:white;border-radius: 12px;">
+										<div class="acc-btn">Mes commandes en attente<div class="icon flaticon-right-arrow-1"></div></div>
+										<div class="acc-content" style="display: none;">
+											<div class="content">
+												<div class="text">Google has said for years that the most important single factor to them is high quality content. Now more than ever, they have the ability. We help ambitious businesses like yours generate more profits by building awareness, driving web traffic, connecting with customers.</div>
+											</div>
+										</div>
+									</li>
+		
+							
+									<!--Block-->
+									<li class="accordion block" style="background-color:white;border-radius: 12px;">
+										<div class="acc-btn">Mes commandes validez<div class="icon flaticon-right-arrow-1"></div></div>
+										<div class="acc-content">
+									
+												{% if ordersValid is not empty %}
+										
+													<table class="table">
+														<thead>
+															<tr>
+																<th scope="col">Categorie</th>
+																<th scope="col">Quantité</th>
+																<th scope="col">Prix</th>
+																<th scope="col">Total</th>
+															
+													
+															</tr>
+														</thead>
+														<tbody>
+															{% set total = null %}
+															{% for product in ordersValid %}
+															<tr>
+																<td>{{product.myorder.categoryname}}</td>
+																<td>{{product.quantity}}</td>
+																<td>{{product.price | number_format(2,',','.')}}€ </td>
+																<td>{{(product.price * product.quantity) | number_format(2,',','.')}}€</td>
+																{% set total = total + (product.price * product.quantity)%}
+														
+															</tr>
+															{% endfor %}
+														</tbody>
+													</table>
+											
+												{% endif %}
+												{% if ordersValid is empty %}
+												<h1 class="text-muted text-center">Aucune commande pour le moment.</h1>
+												{% endif %}
+										
+										</div>
+									</li>
+									
+								</ul>
+								
+							</div>
+						</div>
 			
-					</tr>
-				</thead>
-				<tbody>
-					{% set total = null %}
-					{% for product in ordersValid %}
-					<tr>
-						<td>{{product.myorder.categoryname}}</td>
-						<td>{{product.quantity}}</td>
-						<td>{{product.price | number_format(2,',','.')}}€ </td>
-						<td>{{(product.price * product.quantity) | number_format(2,',','.')}}€</td>
-						{% set total = total + (product.price * product.quantity)%}
-						<td class="text-success">Validez</td>
-					</tr>
-					{% endfor %}
-				</tbody>
-			</table>
+					</div>
+				</div>
+			</section>
 		</div>
-		{% endif %}
-		{% if ordersValid is empty %}
-		<h1 class="text-muted text-center">Aucune commande pour le moment.</h1>
-		{% endif %}
+		</div>
+	
+	
 	</div>
+	
 </section>
 <!--End Register Section-->
 
