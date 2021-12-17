@@ -14,16 +14,15 @@
         <!--Form Column-->
         <hr>
         <section class="row">
-            <div class="col-md-8">
+            <div class="col-md-8" style="background-color: white;border-radius:5px;">
                 {% if cart is not empty %}
                 <div>
-                    <table class="table myTable">
+                    <table class="table ">
                         <thead>
                             <tr>
                                 <th scope="col">Categorie</th>
                                 <th scope="col">Quantité</th>
                                 <th scope="col">Prix</th>
-                                <th scope="col">Total</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -33,18 +32,16 @@
                             <tr>
                                 <td>{{product.product.category.name}}</td>
                                 <td>
-                                    <a href="{{path('add_to_cart',{'id': product.product.id})}}"><img width="15"
-                                            src="{{asset('assets/img/add.png')}}" alt="Ajouter"></a>
-
-                                    <span class="text-white">( X{{product.quantity}} )</span>
-
-                                    <a href="{{path('decrease_to_cart',{'id': product.product.id})}}"><img width="15"
+                                    <a href="{{path('decrease_to_cart',{'id': product.product.id})}}"><img width="12"
                                             src="{{asset('assets/img/minus.png')}}" alt="Diminuer"></a>
+                                    <span>( X{{product.quantity}} )</span>
+                                    <a href="{{path('add_to_cart',{'id': product.product.id})}}"><img width="12"
+                                            src="{{asset('assets/img/add.png')}}" alt="Ajouter"></a>
                                 </td>
-                                <td>{{product.product.price | number_format(2,',','.')}}€ </td>
                                 <td>{{(product.product.price * product.quantity) | number_format(2,',','.')}}€</td>
                                 <td><a href="{{path('delete_to_cart',{'id': product.product.id})}}"><img width="18"
                                             src="{{asset('assets/img/trash.png')}}" alt="Supprimer ma formule"></a></td>
+
                                 {% set total = total + (product.product.price * product.quantity)%}
                             </tr>
                             {% endfor %}
@@ -54,7 +51,7 @@
                 </div>
                 {% endif %}
                 {% if cart is empty %}
-                <h1 class="text-muted text-center">Aucune formule pour le moment.</h1>
+                <h4 class="text-muted text-center mt-5">Aucune formule pour le moment.</h4>
                 {% endif %}
             </div>
 
@@ -64,31 +61,36 @@
                 <div class="text-right">
                     <b class="text-white">Formule total: {{cart | length}}</b><br>
                     <hr style="color:white;">
-                    <b class="text-white">Total de mon panier: <h1>{{(total) | number_format(2,',','.')}}€</h1></b><br>
+                    <b class="text-white">Total TTC: <h1>{{(total) | number_format(2,',','.')}}€</h1></b><br>
                     <div>
-                        {{form_start(form,{'attr': {'action':'/checkout','method':'POST'}}) }}
-                        {{form_row(form.submit,{'attr': {'id':'checkout-button'}}) }}
-                        {{form_end(form) }}
-
-                        <i class="fab fa-cc-stripe text-white" style="font-size:50px;"></i>
+                        <form action="/checkout" method="POST">
+                            <button class="btn btn-success btn-block" type="submit" id="checkout-button">Validez ma
+                                commande</button>
+                        </form>
+                        <hr>
+                        <i class="fab fa-cc-stripe text-white" style="font-size:30px;"></i>
+                        <i class="fab fa-cc-visa text-white" style="font-size:30px;"></i>
                     </div>
                 </div>
                 {% else %}
                 <div class="text-right">
                     <b class="text-white">Formule total: {{cart | length}}</b><br>
                     <hr style="color:white;">
-                    <b class="text-white">Total de mon panier: <h1>0€</h1></b><br>
+                    <b class="text-white">Total TTC: <h1>0€</h1></b><br>
 
                     <div>
-                        {{form_start(form) }}
-                        {{form_row(form.submit, { 'attr':{'disabled':'disabled'} }) }}
-                        {{form_end(form) }}
-                        <i class="fab fa-cc-stripe text-white" style="font-size:50px;"></i>
+                        <form action="/checkout" method="POST">
+                            <button class="btn btn-success btn-block" type="submit" id="checkout-button">Validez ma
+                                commande</button>
+                        </form>
+                        <hr>
+                        <i class="fab fa-cc-stripe text-white" style="font-size:30px;"></i>
+                        <i class="fab fa-cc-visa text-white" style="font-size:30px;"></i>
                     </div>
                 </div>
                 {% endif %}
 
-                <a id="checkout-button" class="text-white" href="">Ajouter une formule</a>
+                <a class="text-white" href="">Ajouter une formule</a>
 
             </div>
         </section>

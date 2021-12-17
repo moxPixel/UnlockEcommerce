@@ -24,45 +24,9 @@ class CartController extends AbstractController
      */
     public function myCart(Cart $cart, Request $request): Response
     {
-        $form = $this->createForm(CartValidType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-
-            if ($cart->getFullCart()) {
-
-                $order = new Order();
-                $order->setUser($this->getUser());
-                $order->setCreatedAt(new \DateTime());
-                $order->setIsPaid(0);
-
-                foreach ($cart->getFullCart() as $item) {
-                    // dd($item);
-                    $order->setCategoryName($item['product']->getCategory()->getName());
-                    $orderDetails = new OrderDetails();
-                    $orderDetails->setMyOrder($order);
-                    $orderDetails->setProduct($item['product']->getName());
-                    $orderDetails->setQuantity($item['quantity']);
-                    $orderDetails->setPrice($item['product']->getPrice());
-                    $orderDetails->setTotal($item['product']->getPrice() * $item['quantity']);
-                    $this->entityManager->persist($order);
-                    $this->entityManager->persist($orderDetails);
-                    $this->entityManager->flush();
-                }
-
-                return $this->render('cart/myCart.html.twig', [
-                    'cart' => $cart->getFullCart(),
-                    'form' => $form->createView(),
-                ]);
-            } else {
-                return $this->redirectToRoute('cart');
-            }
-        }
+        
         return $this->render('cart/myCart.html.twig', [
             'cart' => $cart->getFullCart(),
-            'form' => $form->createView(),
-
         ]);
     }
 
