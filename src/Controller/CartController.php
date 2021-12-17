@@ -51,8 +51,9 @@ class CartController extends AbstractController
                     $this->entityManager->flush();
                 }
 
-                return $this->render('order/order.html.twig', [
+                return $this->render('cart/myCart.html.twig', [
                     'cart' => $cart->getFullCart(),
+                    'form' => $form->createView(),
                 ]);
             } else {
                 return $this->redirectToRoute('cart');
@@ -61,6 +62,7 @@ class CartController extends AbstractController
         return $this->render('cart/myCart.html.twig', [
             'cart' => $cart->getFullCart(),
             'form' => $form->createView(),
+
         ]);
     }
 

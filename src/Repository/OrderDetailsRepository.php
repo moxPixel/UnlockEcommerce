@@ -54,7 +54,7 @@ class OrderDetailsRepository extends ServiceEntityRepository
     }
 
     
-        /**
+    /**
      * Calcule chiffre d'affaire pour l anné en cours
      * @return int|mixed
      * @throws Exception

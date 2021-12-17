@@ -22,9 +22,11 @@ class AccountController extends AbstractController
     public function account(OrderDetailsRepository $orderRepository): Response
     {
         $ordersValid = $orderRepository->findByOrderIsPaidForUser(1,$this->getUser());
+        $ordersNotValid = $orderRepository->findByOrderIsPaidForUser(0,$this->getUser());
 
         return $this->render('account/account.html.twig', [
             'ordersValid' => $ordersValid,
+            'ordersNotValid' => $ordersNotValid,
         ]);
     }
 }

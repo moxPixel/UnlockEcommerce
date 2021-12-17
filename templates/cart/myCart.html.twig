@@ -4,9 +4,7 @@
 {% block final_stylesheets %}
 
 {% endblock %}
-{% block final_javascripts %}
-<script src="https://js.stripe.com/v3/"></script>
-{% endblock %}
+
 {% block body %}
 <!-- Page Title Section -->
 <section class="page-title"
@@ -14,7 +12,6 @@
     <div class="container" style="position:relative;z-index: 55;">
         <h2 class="text-center">Panier <i class="fas fa-shopping-cart text-white"></i></h2>
         <!--Form Column-->
-
         <hr>
         <section class="row">
             <div class="col-md-8">
@@ -68,11 +65,11 @@
                     <b class="text-white">Formule total: {{cart | length}}</b><br>
                     <hr style="color:white;">
                     <b class="text-white">Total de mon panier: <h1>{{(total) | number_format(2,',','.')}}€</h1></b><br>
-   
                     <div>
-                        {{form_start(form) }}
-                        {{form_row(form.submit) }}
+                        {{form_start(form,{'attr': {'action':'/checkout','method':'POST'}}) }}
+                        {{form_row(form.submit,{'attr': {'id':'checkout-button'}}) }}
                         {{form_end(form) }}
+
                         <i class="fab fa-cc-stripe text-white" style="font-size:50px;"></i>
                     </div>
                 </div>
@@ -90,23 +87,26 @@
                     </div>
                 </div>
                 {% endif %}
-                <a class="text-white" href="">Ajouter une formule</a>
-            </div>
-            
 
+                <a id="checkout-button" class="text-white" href="">Ajouter une formule</a>
+
+            </div>
         </section>
         <hr>
-<p class="text-white text-center">PAIEMENT 100% SÉCURISÉ<br>
-    Paiement par carte bancaire et par Paypal. <br>
-    <br>
-    - Vous pouvez utiliser votre Carte Bleue, Visa, ou Mastercard en toute sécurité, le paiement est sécurisé grâce au système de protection et de cryptage SSL fourni par Stripe. <br>
-    - Vous pouvez aussi utiliser le service Paypal qui est 100 % sécurisé.
-    </p>
+        <p class="text-white text-center">PAIEMENT 100% SÉCURISÉ<br>
+            Paiement par carte bancaire et par Paypal. <br>
+            <br>
+            - Vous pouvez utiliser votre Carte Bleue, Visa, ou Mastercard en toute sécurité, le paiement est sécurisé
+            grâce au système de protection et de cryptage SSL fourni par Stripe. <br>
+            - Vous pouvez aussi utiliser le service Paypal qui est 100 % sécurisé.
+        </p>
     </div>
 </section>
-
-
-
 <!--End Register Section-->
+{% endblock %}
+
+
+{% block script %}
+
 
 {% endblock %}
