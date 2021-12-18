@@ -5,636 +5,676 @@
 
 {% endblock %}
 
-{% block final_javascripts_chart  %}
+{% block final_javascripts_chart %}
 <script>
-$(function(e){
- 
-	
-	
- /*-- Jvector Map -- */
- $('#world-map-markers').vectorMap({
-	 map : 'world_mill_en',
-	 scaleColors : ['#1a2e6b', '#f0f0ff'],
-	 normalizeFunction : 'polynomial',
-	 hoverOpacity : 0.7,
-	 hoverColor : false,
-	 regionStyle : {
-		 initial : {
-			 fill : 'rgba(183, 179, 220,0.3)'
-		 }
-	 },
-	 markerStyle: {
-		 initial: {
-			 r: 6,
-			 'fill': '#1a2e6b',
-			 'fill-opacity': 0.9,
-			 'stroke': '#fff',
-			 'stroke-width' : 2.5,
-		 },
+	$(function (e) {
+		// Area Chart Example
+		var ctx = document.getElementById("myAreaChart");
+		var myLineChart = new Chart(ctx, {
+			type: 'line',
+			data: {
+				labels: [{% for data in stats.orderByMonthIsPaid %}"{{ data.0.createdat |date('M') }}", {% endfor %}],
+		datasets: [{
+			label: "Commandes",
+			lineTension: 0.3,
+			backgroundColor: "rgba(78, 115, 223, 0.05)",
+			borderColor: "rgba(78, 115, 223, 1)",
+			pointRadius: 3,
+			pointBackgroundColor: "rgba(78, 115, 223, 1)",
+			pointBorderColor: "rgba(78, 115, 223, 1)",
+			pointHoverRadius: 3,
+			pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+			pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+			pointHitRadius: 10,
+			pointBorderWidth: 2,
+			data: [{% for data in stats.orderByMonthIsPaid %}{{ data.total }}, {% endfor %}],
+    }],
+  },
+		options: {
+		maintainAspectRatio: false,
+		layout: {
+			padding: {
+				left: 10,
+				right: 25,
+				top: 25,
+				bottom: 0
+			}
+		},
+		scales: {
+			xAxes: [{
+				time: {
+					unit: 'date'
+				},
+				gridLines: {
+					display: false,
+					drawBorder: false
+				},
+				ticks: {
+					maxTicksLimit: 7
+				}
+			}],
+			yAxes: [{
+				ticks: {
+					maxTicksLimit: 5,
+					padding: 10,
+					// Include a dollar sign in the ticks
+					callback: function (value, index, values) {
+						return + number_format(value);
+					}
+				},
+				gridLines: {
+					color: "rgb(234, 236, 244)",
+					zeroLineColor: "rgb(234, 236, 244)",
+					drawBorder: false,
+					borderDash: [2],
+					zeroLineBorderDash: [2]
+				}
+			}],
+		},
+		legend: {
+			display: false
+		},
+		tooltips: {
+			backgroundColor: "rgb(255,255,255)",
+			bodyFontColor: "#858796",
+			titleMarginBottom: 10,
+			titleFontColor: '#6e707e',
+			titleFontSize: 14,
+			borderColor: '#dddfeb',
+			borderWidth: 1,
+			xPadding: 15,
+			yPadding: 15,
+			displayColors: false,
+			intersect: false,
+			mode: 'index',
+			caretPadding: 10,
 
-		 hover: {
-			 'stroke': '#fff',
-			 'fill-opacity': 1,
-			 'stroke-width': 1.5
-		 }
-	 },
-	 backgroundColor : 'transparent',
-	 markers : [{
-		 latLng : [-23.533773, -46.625290],
-		 name : 'Brazil'
-	 }, {
-		 latLng : [55.751244, 37.618423],
-		 name : 'Russia'
-	 }, {
-		 latLng : [52.237049, 21.017532],
-		 name : 'Poland'
-	 },  {
-		 latLng : [51.213890, -110.005470],
-		 name : 'Canada'
-	 },{
-		 latLng : [20.5937, 78.9629],
-		 name : 'India'
-	 }]
- });
- /*-- End Jvector Map -- */
- 
- 
- /* Peity charts */
+		}
+	}
+});
 
- $('.peity-donut').peity('donut');
- 
- 
- /*LIne-Chart */
- var ctx = document.getElementById("revenuechart").getContext('2d');
- var myChart = new Chart(ctx, {
-	 type: 'line',
-
-	 data: {
-		 labels: [{% for data in stats.orderByMonthIsPaid %}"{{ data.0.createdat |date('M') }}", {% endfor %}],
-		 datasets: [
-		 {
-		
-			 label: 'Commande payé',
-			 data: [{% for data in stats.orderByMonthIsPaid %}{{ data.total }}, {% endfor %}],
-			 borderWidth: 3,
-			 backgroundColor: '#1a2e6b8f',
-			 borderColor: '#1a2e6b',
-			 pointBackgroundColor: '#ffffff',
-			 pointRadius: 0,
-		 }]
-	 },
-	 options: {
-		 responsive: true,
-		 maintainAspectRatio: false,
-		 tooltips: {
-			 enabled: true,
-		 },
-		 tooltips: {
-			 mode: 'index',
-			 intersect: false,
-		 },
-		 hover: {
-			 mode: 'nearest',
-			 intersect: true
-		 },
-		 scales: {
-			 xAxes: [{
-				 ticks: {
-					 fontColor: "#c8ccdb",
-				 },
-				 barPercentage: 0.7,
-				 display: true,
-				 gridLines: {
-					 color:'rgba(119, 119, 142, 0.2)',
-					 zeroLineColor: 'rgba(119, 119, 142, 0.2)',
-				 }
-			 }],
-			 yAxes: [{
-				 ticks: {
-					 fontColor: "#77778e",
-				 },
-				 display: true,
-				 gridLines: {
-					 color:'rgba(119, 119, 142, 0.2)',
-					 zeroLineColor: 'rgba(119, 119, 142, 0.2)',
-				 },
-				
-				 scaleLabel: {
-					 display: true,
-					 labelString: 'Thousands',
-					 fontColor: 'transparent'
-				 }
-			 }]
-		 },
-		 legend: {
-			 display: true,
-			 width:30,
-			 height:30,
-			 borderRadius:50,
-			 labels: {
-				 fontColor: "#77778e"
-			 },
-		 },
-	 }
- });
- 
- /*--- Apex (#chart) ---*/
- var options = {
-	 chart: {
-	 height: 265,
-	 type: 'radialBar',
-	 offsetX: 0,
-	 offsetY: 0,
- },
- plotOptions: {
-	 radialBar: {
-	 startAngle: -135,
-	 endAngle: 135,
-	 size: 120,
-	 imageWidth: 50,
-	 imageHeight: 50,
-	 track: {	
-		 strokeWidth: "80%",	
-		 background: 'transparent',	
-	 },
-	 dropShadow: {
-		 enabled: false,
-		 top: 0,
-		 left: 0,
-		 bottom: 0,
-		 blur: 3,
-		 opacity: 0.5
-	 },
-	 dataLabels: {
-	   name: {
-		 fontSize: '16px',
-		 color: undefined,
-		 offsetY: 30,
-	   },
-	   hollow: {	
-		  size: "60%"	
-		 },
-	   value: {
-		 offsetY: -10,
-		 fontSize: '22px',
-		 color: undefined,
-		 formatter: function (val) {
-		   return val + "%";
-		 }
-	   }
-	 }
-   }
- },
- colors: ['#1a2e6b'],
- fill: {
-	 type: "gradient",
-	 gradient: {
-		 shade: "dark",
-		 type: "horizontal",
-		 shadeIntensity: .5,
-		 gradientToColors: ['#1a2e6b'],
-		 inverseColors: !0,
-		 opacityFrom: 1,
-		 opacityTo: 1,
-		 stops: [0, 100]
-	 }
- },
- stroke: {
-	 dashArray: 4
- },
- series: [{{stats.ordersValid | length * stats.ordersValid | length / 100}}],	
-	 labels: [""]
- };
-
- var chart = new ApexCharts(document.querySelector("#recentorders"), options);
- chart.render();
+	chart.render();
  /*--- Apex (#chart)closed ---*/
-
- 
- 
- 
- 
- 
- 
 });
 </script>
 {% endblock %}
 {% block body %}
 
-		<!-- Page -->
-		<div class="page">
+<!-- Page Wrapper -->
+<div id="wrapper">
 
-			<!-- Sidemenu -->
-			{% include 'components_admin/sidebar.html.twig' %}
-			<!-- End Sidemenu -->
+	<!-- Sidemenu -->
+	{% include 'components_admin/sidebar.html.twig' %}
+	<!-- End Sidemenu -->
 
-			<!-- Main Header-->
-			<div class="main-header side-header sticky">
-				<div class="container-fluid">
-					<div class="main-header-left">
-						<a class="main-header-menu-icon" href="#" id="mainSidebarToggle"><span></span></a>
+	<!-- Content Wrapper -->
+	<div id="content-wrapper" class="d-flex flex-column">
+
+		<!-- Main Content -->
+		<div id="content">
+
+			<!-- Topbar -->
+			<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+				<!-- Sidebar Toggle (Topbar) -->
+				<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+					<i class="fa fa-bars"></i>
+				</button>
+
+				<!-- Topbar Search -->
+				<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+					<div class="input-group">
+						<input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+							aria-label="Search" aria-describedby="basic-addon2">
+						<div class="input-group-append">
+							<button class="btn btn-primary" type="button">
+								<i class="fas fa-search fa-sm"></i>
+							</button>
+						</div>
 					</div>
-					<div class="main-header-center">
-						<div class="responsive-logo">
-							<a href="index.html"><img style="width:90px;" src="{{asset('assets/img/unlock.png')}}" class="mobile-logo" alt="logo"></a>
-							<a href="index.html"><img style="width:90px;" src="{{asset('assets/img/unlock.png')}}" class="mobile-logo-dark" alt="logo"></a>
-						</div>
-						<div class="input-group">
-						
-							<input type="search" class="form-control" placeholder="Recherche...">
-							<button class="btn search-btn"><i class="fe fe-search"></i></button>
-						</div>
-					</div>
-					<div class="main-header-right">
-					
-						
-						<div class="dropdown d-md-flex">
-							<a class="nav-link icon full-screen-link" href="">
-								<i class="fe fe-maximize fullscreen-button fullscreen header-icons"></i>
-								<i class="fe fe-minimize fullscreen-button exit-fullscreen header-icons"></i>
-							</a>
-						</div>
-						<div class="dropdown main-header-notification">
-							<a class="nav-link icon" href="">
-								<i class="fe fe-bell header-icons"></i>
-								<span class="badge badge-danger nav-link-badge">4</span>
-							</a>
-							<div class="dropdown-menu">
-								<div class="header-navheading">
-									<p class="main-notification-text">You have 1 unread notification<span class="badge badge-pill badge-primary ml-3">View all</span></p>
-								</div>
-								<div class="main-notification-list">
-									<div class="media new">
-										<div class="main-img-user online"><img alt="avatar" src="../assets/img/users/5.jpg"></div>
-										<div class="media-body">
-											<p>Congratulate <strong>Olivia James</strong> for New template start</p><span>Oct 15 12:32pm</span>
-										</div>
-									</div>
-									<div class="media">
-										<div class="main-img-user"><img alt="avatar" src="../assets/img/users/2.jpg"></div>
-										<div class="media-body">
-											<p><strong>Joshua Gray</strong> New Message Received</p><span>Oct 13 02:56am</span>
-										</div>
-									</div>
-									<div class="media">
-										<div class="main-img-user online"><img alt="avatar" src="../assets/img/users/3.jpg"></div>
-										<div class="media-body">
-											<p><strong>Elizabeth Lewis</strong> added new schedule realease</p><span>Oct 12 10:40pm</span>
-										</div>
+				</form>
+
+				<!-- Topbar Navbar -->
+				<ul class="navbar-nav ml-auto">
+
+					<!-- Nav Item - Search Dropdown (Visible Only XS) -->
+					<li class="nav-item dropdown no-arrow d-sm-none">
+						<a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-search fa-fw"></i>
+						</a>
+						<!-- Dropdown - Messages -->
+						<div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
+							aria-labelledby="searchDropdown">
+							<form class="form-inline mr-auto w-100 navbar-search">
+								<div class="input-group">
+									<input type="text" class="form-control bg-light border-0 small"
+										placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+									<div class="input-group-append">
+										<button class="btn btn-primary" type="button">
+											<i class="fas fa-search fa-sm"></i>
+										</button>
 									</div>
 								</div>
-								<div class="dropdown-footer">
-									<a href="#">View All Notifications</a>
-								</div>
-							</div>
+							</form>
 						</div>
-						<div class="main-header-notification">
-							<a class="nav-link icon" href="chat.html">
-								<i class="fe fe-message-square header-icons"></i>
-								<span class="badge badge-success nav-link-badge">6</span>
+					</li>
+
+					<!-- Nav Item - Alerts -->
+					<li class="nav-item dropdown no-arrow mx-1">
+						<a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-bell fa-fw"></i>
+							<!-- Counter - Alerts -->
+							<span class="badge badge-danger badge-counter">3+</span>
+						</a>
+						<!-- Dropdown - Alerts -->
+						<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							aria-labelledby="alertsDropdown">
+							<h6 class="dropdown-header">
+								Alerts Center
+							</h6>
+							<a class="dropdown-item d-flex align-items-center" href="#">
+								<div class="mr-3">
+									<div class="icon-circle bg-primary">
+										<i class="fas fa-file-alt text-white"></i>
+									</div>
+								</div>
+								<div>
+									<div class="small text-gray-500">December 12, 2019</div>
+									<span class="font-weight-bold">A new monthly report is ready to download!</span>
+								</div>
+							</a>
+							<a class="dropdown-item d-flex align-items-center" href="#">
+								<div class="mr-3">
+									<div class="icon-circle bg-success">
+										<i class="fas fa-donate text-white"></i>
+									</div>
+								</div>
+								<div>
+									<div class="small text-gray-500">December 7, 2019</div>
+									$290.29 has been deposited into your account!
+								</div>
+							</a>
+							<a class="dropdown-item d-flex align-items-center" href="#">
+								<div class="mr-3">
+									<div class="icon-circle bg-warning">
+										<i class="fas fa-exclamation-triangle text-white"></i>
+									</div>
+								</div>
+								<div>
+									<div class="small text-gray-500">December 2, 2019</div>
+									Spending Alert: We've noticed unusually high spending for your account.
+								</div>
+							</a>
+							<a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+						</div>
+					</li>
+
+					<!-- Nav Item - Messages -->
+					<li class="nav-item dropdown no-arrow mx-1">
+						<a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fas fa-envelope fa-fw"></i>
+							<!-- Counter - Messages -->
+							<span class="badge badge-danger badge-counter">7</span>
+						</a>
+						<!-- Dropdown - Messages -->
+						<div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							aria-labelledby="messagesDropdown">
+							<h6 class="dropdown-header">
+								Message Center
+							</h6>
+							<a class="dropdown-item d-flex align-items-center" href="#">
+								<div class="dropdown-list-image mr-3">
+									<img class="rounded-circle" src="img/undraw_profile_1.svg" alt="...">
+									<div class="status-indicator bg-success"></div>
+								</div>
+								<div class="font-weight-bold">
+									<div class="text-truncate">Hi there! I am wondering if you can help me with a
+										problem I've been having.</div>
+									<div class="small text-gray-500">Emily Fowler · 58m</div>
+								</div>
+							</a>
+							<a class="dropdown-item d-flex align-items-center" href="#">
+								<div class="dropdown-list-image mr-3">
+									<img class="rounded-circle" src="img/undraw_profile_2.svg" alt="...">
+									<div class="status-indicator"></div>
+								</div>
+								<div>
+									<div class="text-truncate">I have the photos that you ordered last month, how
+										would you like them sent to you?</div>
+									<div class="small text-gray-500">Jae Chun · 1d</div>
+								</div>
+							</a>
+							<a class="dropdown-item d-flex align-items-center" href="#">
+								<div class="dropdown-list-image mr-3">
+									<img class="rounded-circle" src="img/undraw_profile_3.svg" alt="...">
+									<div class="status-indicator bg-warning"></div>
+								</div>
+								<div>
+									<div class="text-truncate">Last month's report looks great, I am very happy with
+										the progress so far, keep up the good work!</div>
+									<div class="small text-gray-500">Morgan Alvarez · 2d</div>
+								</div>
+							</a>
+							<a class="dropdown-item d-flex align-items-center" href="#">
+								<div class="dropdown-list-image mr-3">
+									<img class="rounded-circle" src="https://source.unsplash.com/Mv9hjnEUHR4/60x60"
+										alt="...">
+									<div class="status-indicator bg-success"></div>
+								</div>
+								<div>
+									<div class="text-truncate">Am I a good boy? The reason I ask is because someone
+										told me that people say this to all dogs, even if they aren't good...</div>
+									<div class="small text-gray-500">Chicken the Dog · 2w</div>
+								</div>
+							</a>
+							<a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
+						</div>
+					</li>
+
+					<div class="topbar-divider d-none d-sm-block"></div>
+
+					<!-- Nav Item - User Information -->
+					<li class="nav-item dropdown no-arrow">
+						<a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+							<img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+						</a>
+						<!-- Dropdown - User Information -->
+						<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+							aria-labelledby="userDropdown">
+							<a class="dropdown-item" href="#">
+								<i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+								Profile
+							</a>
+							<a class="dropdown-item" href="#">
+								<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+								Settings
+							</a>
+							<a class="dropdown-item" href="#">
+								<i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+								Activity Log
+							</a>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+								<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+								Logout
 							</a>
 						</div>
-						<div class="dropdown main-profile-menu">
-							<a class="d-flex" href="">
-								<span class="main-img-user" >{% if app.user.picture is not null %}
-									<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('uploads/avatar/' ~  app.user.picture )}}" alt="avatar">
-									{% else %}
-									<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('assets/images/resource/user.png' )}}" alt="avatar">
-									{% endif %}</span>
-							</a>
-							<div class="dropdown-menu">
-								<div class="header-navheading">
-									<h6 class="main-notification-title">{{app.user.lastname}} {{app.user.firstname}}</h6>
-									<p class="main-notification-text">{{app.user.role}}</p>
-								</div>
-								<a class="dropdown-item border-top" href="profile.html">
-									<i class="fe fe-user"></i> Mon compte
-								</a>
-								<a class="dropdown-item" href="profile.html">
-									<i class="fe fe-edit"></i> Edité mes informations
-								</a>
-								<a class="dropdown-item" href="profile.html">
-									<i class="fe fe-edit"></i> Edité mon avatar
-								</a>
-								<a class="dropdown-item" href="profile.html">
-									<i class="fe fe-settings"></i> Edité mot de passe
-								</a>
-							
-								<a class="dropdown-item" href="signin.html">
-									<i class="fe fe-power"></i> Deconnexion
-								</a>
-							</div>
-						</div>
-						
-						<button class="navbar-toggler navresponsive-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4"
-							aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
-							<i class="fe fe-more-vertical header-icons navbar-toggler-icon"></i>
-						</button><!-- Navresponsive closed -->
-					</div>
+					</li>
+
+				</ul>
+
+			</nav>
+			<!-- End of Topbar -->
+
+			<!-- Begin Page Content -->
+			<div class="container-fluid">
+
+				<!-- Page Heading -->
+				<div class="d-sm-flex align-items-center justify-content-between mb-4">
+					<h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+					<a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+							class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
 				</div>
-			</div>
-			<!-- End Main Header-->
 
-			<!-- Mobile-header -->
-			<div class="mobile-main-header">
-				<div class="mb-1 navbar navbar-expand-lg  nav nav-item  navbar-nav-right responsive-navbar navbar-dark  ">
-					<div class="collapse navbar-collapse" id="navbarSupportedContent-4">
-						<div class="d-flex order-lg-2 ml-auto">
-							<div class="dropdown header-search">
-								<a class="nav-link icon header-search">
-									<i class="fe fe-search header-icons"></i>
-								</a>
-								<div class="dropdown-menu">
-									<div class="main-form-search p-2">
-										<div class="input-group">
-										
-											<input type="search" class="form-control" placeholder="Recherche">
-											<button class="btn search-btn"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
-										</div>
+				<!-- Content Row -->
+				<div class="row">
+
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card border-left-primary shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+											Earnings (Monthly)</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-calendar fa-2x text-gray-300"></i>
 									</div>
 								</div>
 							</div>
-							<div class="dropdown main-header-notification flag-dropdown">
-							<a class="nav-link icon country-Flag">
-								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><circle cx="256" cy="256" r="256" fill="#f0f0f0"/><g fill="#0052b4"><path d="M52.92 100.142c-20.109 26.163-35.272 56.318-44.101 89.077h133.178L52.92 100.142zM503.181 189.219c-8.829-32.758-23.993-62.913-44.101-89.076l-89.075 89.076h133.176zM8.819 322.784c8.83 32.758 23.993 62.913 44.101 89.075l89.074-89.075H8.819zM411.858 52.921c-26.163-20.109-56.317-35.272-89.076-44.102v133.177l89.076-89.075zM100.142 459.079c26.163 20.109 56.318 35.272 89.076 44.102V370.005l-89.076 89.074zM189.217 8.819c-32.758 8.83-62.913 23.993-89.075 44.101l89.075 89.075V8.819zM322.783 503.181c32.758-8.83 62.913-23.993 89.075-44.101l-89.075-89.075v133.176zM370.005 322.784l89.075 89.076c20.108-26.162 35.272-56.318 44.101-89.076H370.005z"/></g><g fill="#d80027"><path d="M509.833 222.609H289.392V2.167A258.556 258.556 0 00256 0c-11.319 0-22.461.744-33.391 2.167v220.441H2.167A258.556 258.556 0 000 256c0 11.319.744 22.461 2.167 33.391h220.441v220.442a258.35 258.35 0 0066.783 0V289.392h220.442A258.533 258.533 0 00512 256c0-11.317-.744-22.461-2.167-33.391z"/><path d="M322.783 322.784L437.019 437.02a256.636 256.636 0 0015.048-16.435l-97.802-97.802h-31.482v.001zM189.217 322.784h-.002L74.98 437.019a256.636 256.636 0 0016.435 15.048l97.802-97.804v-31.479zM189.217 189.219v-.002L74.981 74.98a256.636 256.636 0 00-15.048 16.435l97.803 97.803h31.481zM322.783 189.219L437.02 74.981a256.328 256.328 0 00-16.435-15.047l-97.802 97.803v31.482z"/></g></svg>
-							</a>
-							
-						</div>
-						<div class="dropdown ">
-							<a class="nav-link icon full-screen-link">
-								<i class="fe fe-maximize fullscreen-button fullscreen header-icons"></i>
-								<i class="fe fe-minimize fullscreen-button exit-fullscreen header-icons"></i>
-							</a>
-						</div>
-						<div class="dropdown main-header-notification">
-							<a class="nav-link icon" href="">
-								<i class="fe fe-bell header-icons"></i>
-								<span class="badge badge-danger nav-link-badge">4</span>
-							</a>
-							<div class="dropdown-menu">
-								<div class="header-navheading">
-									<p class="main-notification-text">You have 1 unread notification<span class="badge badge-pill badge-primary ml-3">View all</span></p>
-								</div>
-								<div class="main-notification-list">
-									<div class="media new">
-										<div class="main-img-user online"><img alt="avatar" src="../assets/img/users/5.jpg"></div>
-										<div class="media-body">
-											<p>Congratulate <strong>Olivia James</strong> for New template start</p><span>Oct 15 12:32pm</span>
-										</div>
-									</div>
-									<div class="media">
-										<div class="main-img-user"><img alt="avatar" src="../assets/img/users/2.jpg"></div>
-										<div class="media-body">
-											<p><strong>Joshua Gray</strong> New Message Received</p><span>Oct 13 02:56am</span>
-										</div>
-									</div>
-									<div class="media">
-										<div class="main-img-user online"><img alt="avatar" src="../assets/img/users/3.jpg"></div>
-										<div class="media-body">
-											<p><strong>Elizabeth Lewis</strong> added new schedule realease</p><span>Oct 12 10:40pm</span>
-										</div>
-									</div>
-								</div>
-								<div class="dropdown-footer">
-									<a href="#">View All Notifications</a>
-								</div>
-							</div>
-						</div>
-						<div class="main-header-notification mt-2">
-							<a class="nav-link icon" href="chat.html">
-								<i class="fe fe-message-square header-icons"></i>
-								<span class="badge badge-success nav-link-badge">6</span>
-							</a>
-						</div>
-						<div class="dropdown main-profile-menu">
-							<a class="d-flex" href="#">
-								<span class="main-img-user" >{% if app.user.picture is not null %}
-									<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('uploads/avatar/' ~  app.user.picture )}}" alt="avatar">
-									{% else %}
-									<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('assets/images/resource/user.png' )}}" alt="avatar">
-									{% endif %}</span>
-							</a>
-							<div class="dropdown-menu">
-								<div class="header-navheading">
-									<h6 class="main-notification-title">{{app.user.lastname}} {{app.user.firstname}}</h6>
-									<p class="main-notification-text">{{app.user.role}}</p>
-								</div>
-								<a class="dropdown-item border-top" href="profile.html">
-									<i class="fe fe-user"></i> Mon compte
-								</a>
-								<a class="dropdown-item" href="profile.html">
-									<i class="fe fe-edit"></i> Edité mes informations
-								</a>
-								<a class="dropdown-item" href="profile.html">
-									<i class="fe fe-edit"></i> Edité mon avatar
-								</a>
-								<a class="dropdown-item" href="profile.html">
-									<i class="fe fe-settings"></i> Edité mot de passe
-								</a>
-							
-								<a class="dropdown-item" href="signin.html">
-									<i class="fe fe-power"></i> Deconnexion
-								</a>
-							</div>
-						</div>
-					
 						</div>
 					</div>
-				</div>
-			</div>
-			<!-- Mobile-header closed -->
 
-			<!-- Main Content-->
-			<div class="main-content side-content pt-0">
-
-				<div class="container-fluid">
-					<div class="inner-body">
-
-						<!-- Page Header -->
-						<div class="page-header">
-							<div>
-								<h2 class="main-content-title tx-24 mg-b-5">Bienvenue {{app.user.firstname}}</h2>
-								<ol class="breadcrumb">
-									<li class="breadcrumb-item"><a href="{{path('home')}}">Accueil</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-								</ol>
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card border-left-success shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+											Earnings (Annual)</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+									</div>
+								</div>
 							</div>
-						
 						</div>
-						<!-- End Page Header -->
+					</div>
 
-						<!-- Row -->
-						<div class="row row-sm">
-							<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-								<div class="card custom-card">
-									<div class="card-body">
-										<div class="card-order ">
-											<label class="main-content-label mb-3 pt-1">Utilisateurs</label>
-											<h2 class="text-right card-item-icon card-icon">
-											<i class="mdi mdi-account-multiple icon-size float-left text-primary"></i><span class="font-weight-bold">{{stats.users | length}}</span></h2>
-											<p class="mb-0 mt-4 text-muted"><span class="float-right"></span></p>
+					<!-- Earnings (Monthly) Card Example -->
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card border-left-info shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks
 										</div>
-									</div>
-								</div>
-							</div>
-							<!-- COL END -->
-							<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-								<div class="card custom-card">
-									<div class="card-body">
-										<div class="card-order">
-											<label class="main-content-label mb-3 pt-1">Total des ventes</label>
-											<h2 class="text-right"><i class="mdi mdi-cube icon-size float-left text-primary"></i><span class="font-weight-bold">{{stats.orders | length }}</span></h2>
-											<p class="mb-0 mt-4 text-muted"><span class="float-right"></span></p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- COL END -->
-							<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-								<div class="card custom-card">
-									<div class="card-body">
-										<div class="card-order">
-											<label class="main-content-label mb-3 pt-1">Chiffre d'affaire non confirmé</label>
-											<h2 class="text-right"><i class="icon-size mdi mdi-poll-box   float-left text-primary"></i><span class="font-weight-bold text-danger">{{stats.orderBySalsNotConfirm.0.total | number_format(2,',','.')}}€</span></h2>
-											<p class="mb-0 mt-4 text-muted"><span class="float-right"></span></p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- COL END -->
-							<div class="col-sm-12 col-md-6 col-lg-6 col-xl-3">
-								<div class="card custom-card">
-									<div class="card-body">
-										<div class="card-order">
-											<label class="main-content-label mb-3 pt-1">Chiffre d'affaire confirmé</label>
-											<h2 class="text-right"><i class="mdi mdi-cart icon-size float-left text-primary"></i><span class="font-weight-bold text-success">{{stats.orderBySalsIsConfirm.0.total | number_format(2,',','.')}}€</span></h2>
-											<p class="mb-0 mt-4 text-muted"><span class="float-right"></span></p>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- COL END -->
-						</div>
-						<!-- End Row -->
-
-						<!-- row opened -->
-						<div class="row row-sm">
-							<div class="col-xxl-8 col-xl-12 col-lg-12 col-md-12">
-								<div class="card custom-card">
-									<div class="card-header border-bottom-0">
-										<label class="main-content-label my-auto pt-2">Commandes validez</label>
-										<span class="d-block tx-12 mb-0 mt-1 text-muted">Represente les commandes payé par mois</span>
-									</div>
-									<div class="card-body">
-										<div class="chart-wrapper">
-										   <canvas id="revenuechart" class=""></canvas>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-xxl-4 col-xl-6 col-md-12 col-sm-12">
-								<div class="card custom-card">
-									<div class="card-header pb-0 border-bottom-0">
-										<label class="main-content-label mb-2 pt-1">Utilisateurs</label>
-										<p class="tx-12 mb-0 text-muted">Derniers utilisateurs inscrit</p>
-									</div>
-									<div class="card-body">
-										<ul class="visitor mb-0 d-block users-images list-unstyled list-unstyled-border">
-											{% for user in stats.users %}
-											<li class="media d-flex mb-3 mt-0 pt-0">
-												{% if app.user.picture is not null %}
-												<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('uploads/avatar/' ~  app.user.picture )}}" alt="avatar">
-												{% else %}
-												<img class="mr-3 rounded-circle avatar avatar-md" src="{{ asset('assets/images/resource/user.png' )}}" alt="avatar">
-												{% endif %}
-												<div class="media-body mb-1">
-													<div class="float-right"><small>10-9-2018</small></div>
-													<h5 class="media-title tx-15 mb-0">{{app.user.firstname}}</h5>
-													<span class="text-muted">{{app.user.email}}</span>
+										<div class="row no-gutters align-items-center">
+											<div class="col-auto">
+												<div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+											</div>
+											<div class="col">
+												<div class="progress progress-sm mr-2">
+													<div class="progress-bar bg-info" role="progressbar"
+														style="width: 50%" aria-valuenow="50" aria-valuemin="0"
+														aria-valuemax="100"></div>
 												</div>
-											</li>
-									        {% endfor %}
-										</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-auto">
+										<i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
 									</div>
 								</div>
 							</div>
 						</div>
-						<!-- row closed -->
+					</div>
 
-						<!-- row opened -->
-						<div class="row row-sm">
-							<div class="col-xxl-3 col-xl-6 col-md-12 col-lg-6">
-								<div class="card custom-card">
-									<div class="card-header border-bottom-0 pb-1">
-										<label class="main-content-label mb-2 pt-1">Activité de vente</label>
-										<p class="tx-12 mb-0 text-muted">Trafic des activites de ventes</p>
+					<!-- Pending Requests Card Example -->
+					<div class="col-xl-3 col-md-6 mb-4">
+						<div class="card border-left-warning shadow h-100 py-2">
+							<div class="card-body">
+								<div class="row no-gutters align-items-center">
+									<div class="col mr-2">
+										<div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+											Pending Requests</div>
+										<div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
 									</div>
-									<div class="product-timeline card-body pt-3 mt-1">
-										<ul class="timeline-1 mb-0">
-											{% for lastorder in stats.ordersValid | reverse  %}
-											<li class="mt-0"> <i class="ti-pie-chart product-icon"></i> <span class="font-weight-semibold mb-4 tx-14 ">{{lastorder.categoryname}}</span> <a href="#" class="float-right tx-11 text-muted">{{lastorder.createdat | date('d/M/y')}}</a>
-												<p class="mb-0 text-muted tx-12">{{lastorder.user.lastname}} {{lastorder.user.firstname}}</p>
-											</li>
-									         {% endfor %}
-										</ul>
+									<div class="col-auto">
+										<i class="fas fa-comments fa-2x text-gray-300"></i>
 									</div>
 								</div>
 							</div>
-						
-							
-							<div class="col-md-12 col-xl-9">
-								<div class="card custom-card overflow-hidden">
-									<div class="card-header border-bottom-0 d-flex">
-										<div>
-											<label class="main-content-label mb-2 pt-1">Formules</label>
-											<p class="tx-12 mb-3 text-muted">Formule proposé à la ventes</p>
-										</div>
-									
-									</div>
-									<div class="card-body pt-0">
-										<div class="table-responsive">
-											<table class="table table-vcenter border mb-0 text-nowrap">
-												<thead>
-													<tr>
-														<th>Formule id</th>
-														<th>Formule</th>
-														<th>Date</th>
-														<th>Quantité</th>
-													</tr>
-												</thead>
-												<tbody>
-											       {% for formule in stats.categories %}
-												
-													<tr>
-														<td>{{formule.id}}</td>
-														<td class="d-flex my-auto"><div class="product-img">
-															
-														</div><span class="my-auto">{{formule.name}}</span></td>
-														<td><b>{{formule.Createdat | date('d/M/y')}}</b></td>
-														<td><span class="badge badge-success">Illimité</span></td>
-													</tr>
-													{% endfor %}
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-							
 						</div>
 					</div>
 				</div>
+
+				<!-- Content Row -->
+
+				<div class="row">
+
+					<!-- Area Chart -->
+					<div class="col-xl-8 col-lg-7">
+						<div class="card shadow mb-4">
+							<!-- Card Header - Dropdown -->
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+								<div class="dropdown no-arrow">
+									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+										aria-labelledby="dropdownMenuLink">
+										<div class="dropdown-header">Dropdown Header:</div>
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<!-- Card Body -->
+							<div class="card-body">
+								<div class="chart-area">
+									<canvas id="myAreaChart"></canvas>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Pie Chart -->
+					<div class="col-xl-4 col-lg-5">
+						<div class="card shadow mb-4">
+							<!-- Card Header - Dropdown -->
+							<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+								<h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+								<div class="dropdown no-arrow">
+									<a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+										data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+									</a>
+									<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+										aria-labelledby="dropdownMenuLink">
+										<div class="dropdown-header">Dropdown Header:</div>
+										<a class="dropdown-item" href="#">Action</a>
+										<a class="dropdown-item" href="#">Another action</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Something else here</a>
+									</div>
+								</div>
+							</div>
+							<!-- Card Body -->
+							<div class="card-body">
+								<div class="chart-pie pt-4 pb-2">
+									<canvas id="myPieChart"></canvas>
+								</div>
+								<div class="mt-4 text-center small">
+									<span class="mr-2">
+										<i class="fas fa-circle text-primary"></i> Direct
+									</span>
+									<span class="mr-2">
+										<i class="fas fa-circle text-success"></i> Social
+									</span>
+									<span class="mr-2">
+										<i class="fas fa-circle text-info"></i> Referral
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Content Row -->
+				<div class="row">
+
+					<!-- Content Column -->
+					<div class="col-lg-6 mb-4">
+
+						<!-- Project Card Example -->
+						<div class="card shadow mb-4">
+							<div class="card-header py-3">
+								<h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+							</div>
+							<div class="card-body">
+								<h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span>
+								</h4>
+								<div class="progress mb-4">
+									<div class="progress-bar bg-danger" role="progressbar" style="width: 20%"
+										aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span>
+								</h4>
+								<div class="progress mb-4">
+									<div class="progress-bar bg-warning" role="progressbar" style="width: 40%"
+										aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<h4 class="small font-weight-bold">Customer Database <span
+										class="float-right">60%</span></h4>
+								<div class="progress mb-4">
+									<div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60"
+										aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span>
+								</h4>
+								<div class="progress mb-4">
+									<div class="progress-bar bg-info" role="progressbar" style="width: 80%"
+										aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+								<h4 class="small font-weight-bold">Account Setup <span
+										class="float-right">Complete!</span></h4>
+								<div class="progress">
+									<div class="progress-bar bg-success" role="progressbar" style="width: 100%"
+										aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Color System -->
+						<div class="row">
+							<div class="col-lg-6 mb-4">
+								<div class="card bg-primary text-white shadow">
+									<div class="card-body">
+										Primary
+										<div class="text-white-50 small">#4e73df</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-4">
+								<div class="card bg-success text-white shadow">
+									<div class="card-body">
+										Success
+										<div class="text-white-50 small">#1cc88a</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-4">
+								<div class="card bg-info text-white shadow">
+									<div class="card-body">
+										Info
+										<div class="text-white-50 small">#36b9cc</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-4">
+								<div class="card bg-warning text-white shadow">
+									<div class="card-body">
+										Warning
+										<div class="text-white-50 small">#f6c23e</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-4">
+								<div class="card bg-danger text-white shadow">
+									<div class="card-body">
+										Danger
+										<div class="text-white-50 small">#e74a3b</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-4">
+								<div class="card bg-secondary text-white shadow">
+									<div class="card-body">
+										Secondary
+										<div class="text-white-50 small">#858796</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-4">
+								<div class="card bg-light text-black shadow">
+									<div class="card-body">
+										Light
+										<div class="text-black-50 small">#f8f9fc</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-4">
+								<div class="card bg-dark text-white shadow">
+									<div class="card-body">
+										Dark
+										<div class="text-white-50 small">#5a5c69</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="col-lg-6 mb-4">
+
+						<!-- Illustrations -->
+						<div class="card shadow mb-4">
+							<div class="card-header py-3">
+								<h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+							</div>
+							<div class="card-body">
+								<div class="text-center">
+									<img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
+										src="img/undraw_posting_photo.svg" alt="...">
+								</div>
+								<p>Add some quality, svg illustrations to your project courtesy of <a target="_blank"
+										rel="nofollow" href="https://undraw.co/">unDraw</a>, a
+									constantly updated collection of beautiful svg images that you can use
+									completely free and without attribution!</p>
+								<a target="_blank" rel="nofollow" href="https://undraw.co/">Browse Illustrations on
+									unDraw &rarr;</a>
+							</div>
+						</div>
+
+						<!-- Approach -->
+						<div class="card shadow mb-4">
+							<div class="card-header py-3">
+								<h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+							</div>
+							<div class="card-body">
+								<p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce
+									CSS bloat and poor page performance. Custom CSS classes are used to create
+									custom components and custom utility classes.</p>
+								<p class="mb-0">Before working with this theme, you should become familiar with the
+									Bootstrap framework, especially the utility classes.</p>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
 			</div>
-			<!-- End Main Content-->
+			<!-- /.container-fluid -->
 
-			
 		</div>
-		<!-- End Page -->
+		<!-- End of Main Content -->
 
-		<!-- Back-to-top -->
-		<a href="#top" id="back-to-top"><i class="fe fe-arrow-up"></i></a>
 
-	
+
+	</div>
+	<!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+	<i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+				<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+			<div class="modal-footer">
+				<button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+				<a class="btn btn-primary" href="login.html">Logout</a>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 {% endblock %}
