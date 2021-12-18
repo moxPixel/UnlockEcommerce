@@ -1797,6 +1797,9 @@ pre code {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+  .logoAdmin{
+    width: 70px!important;
+}
   .table-responsive-lg > .table-bordered {
     border: 0;
   }
